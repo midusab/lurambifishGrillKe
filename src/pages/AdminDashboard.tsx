@@ -289,21 +289,6 @@ export default function AdminDashboard() {
                 View Feedback Logs <ChevronRight size={12} />
               </button>
             </div>
-
-            {/* Storage Monitor */}
-            <div className="bg-charcoal p-6 rounded-2xl space-y-4">
-              <div className="flex justify-between items-center text-white">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Cloud Storage</p>
-                <p className="text-[10px] font-bold text-gold uppercase tracking-widest">1.2 GB / 5 GB</p>
-              </div>
-              <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: '24%' }}
-                  className="h-full bg-gold"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </main>
