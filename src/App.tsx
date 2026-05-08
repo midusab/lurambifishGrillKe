@@ -17,11 +17,13 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminMenu from './pages/AdminMenu';
 import AdminReviews from './pages/AdminReviews';
+import NotFound from './pages/NotFound';
 import WhatsAppButton from './components/WhatsAppButton';
 import FloatingCallButton from './components/FloatingCallButton';
 import BackToTop from './components/BackToTop';
 import { useEffect, ReactNode } from 'react';
 import { AuthProvider, useAuth } from './lib/AuthContext';
+import { ToastProvider } from './lib/ToastContext';
 import { ADMIN_EMAIL } from './constants';
 
 function ScrollToTop() {
@@ -48,7 +50,9 @@ function ProtectedRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
   
   if (loading) return null;
-  if (!user || user.email !== ADMIN_EMAIL) return <Navigate to="/admin/login" replace />;
+  // Hide the existence of admin pages by returning NotFound for unauthorized access
+  // Case-insensitive email comparison to prevent unauthorized 404s
+  if (!user || user.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) return <NotFound />;
   
   return <>{children}</>;
 }
@@ -56,7 +60,8 @@ function ProtectedRoute({ children }: { children: ReactNode }) {
 
 function AppContent() {
   const location = useLocation();
-  const isAdminPage = location.pathname.startsWith('/admin');
+  // Secret entrance check
+  const isAdminPage = location.pathname.startsWith('/admin') || location.pathname === '/lurambi-staff-gate';
 
   return (
     <div className="relative bg-white min-h-screen overflow-x-hidden selection:bg-gold/30">
@@ -71,8 +76,9 @@ function AppContent() {
             <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
             <Route path="/reviews" element={<PageWrapper><Reviews /></PageWrapper>} />
             
-            {/* Admin Routes */}
-            <Route path="/admin/login" element={<AdminLogin />} />
+            {/* Secret Admin Entry Point */}
+            <Route path="/lurambi-staff-gate" element={<AdminLogin />} />
+
             <Route 
               path="/admin/dashboard" 
               element={
@@ -97,6 +103,9 @@ function AppContent() {
                 </ProtectedRoute>
               } 
             />
+
+            {/* Catch-all route returns NotFound */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </AnimatePresence>
@@ -112,11 +121,13 @@ function AppContent() {
 export default function App() {
   return (
     <HelmetProvider>
-      <AuthProvider>
-        <Router>
-          <AppContent />
-        </Router>
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <Router>
+            <AppContent />
+          </Router>
+        </AuthProvider>
+      </ToastProvider>
     </HelmetProvider>
   );
 }

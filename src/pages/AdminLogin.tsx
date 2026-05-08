@@ -18,7 +18,7 @@ export default function AdminLogin() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email !== ADMIN_EMAIL) {
+    if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
       setError('Access denied. This email is not authorized.');
       return;
     }

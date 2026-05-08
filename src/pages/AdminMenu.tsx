@@ -10,7 +10,8 @@ import {
   query, 
   orderBy 
 } from 'firebase/firestore';
-import { db, handleFirestoreError, OperationType } from '../lib/firebase';
+import { db, auth, handleFirestoreError, OperationType } from '../lib/firebase';
+import { supabase } from '../lib/supabase';
 import { MenuItem } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -24,14 +25,56 @@ import {
   Filter,
   Image as ImageIcon,
   Check,
-  AlertCircle
+  AlertCircle,
+  Upload,
+  Loader2
 } from 'lucide-react';
+import { useToast } from '../lib/ToastContext';
 import SEO from '../components/SEO';
 
 export default function AdminMenu() {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > MAX_FILE_SIZE) {
+      setUploadError('File size must be less than 2MB');
+      return;
+    }
+
+    setUploadError(null);
+    setIsUploading(true);
+
+    try {
+      const fileName = `${Date.now()}-${file.name}`;
+      const { data, error } = await supabase.storage
+        .from('menu-images')
+        .upload(fileName, file);
+
+      if (error) throw error;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('menu-images')
+        .getPublicUrl(fileName);
+
+      setFormData(prev => ({ ...prev, image: publicUrl }));
+    } catch (err: any) {
+      console.error('Upload error:', err);
+      setUploadError(err.message || 'Failed to upload image. Please try again.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const [formData, setFormData] = useState<Partial<MenuItem>>({
@@ -44,7 +87,8 @@ export default function AdminMenu() {
     isChefSpecial: false,
     rating: 5.0
   });
-  
+
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,9 +103,10 @@ export default function AdminMenu() {
     }, (err) => {
       handleFirestoreError(err, OperationType.LIST, 'menu');
       setLoading(false);
+      showToast('Failed to load menu data', 'error');
     });
     return () => unsubscribe();
-  }, []);
+  }, [showToast]);
 
   const handleOpenModal = (item: MenuItem | null = null) => {
     if (item) {
@@ -85,19 +130,38 @@ export default function AdminMenu() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setIsSaving(true);
     try {
+      // Create a copy of data without the 'id' field for Firestore
+      const { id, ...dataToSave } = formData as any;
+      
       if (editingItem) {
         const docRef = doc(db, 'menu', editingItem.id);
-        await updateDoc(docRef, formData);
+        await updateDoc(docRef, dataToSave);
       } else {
-        await addDoc(collection(db, 'menu'), formData);
+        await addDoc(collection(db, 'menu'), dataToSave);
       }
+      
       setIsModalOpen(false);
-    } catch (err) {
-      handleFirestoreError(err, editingItem ? OperationType.UPDATE : OperationType.CREATE, 'menu');
+      showToast(editingItem ? 'Dish updated successfully!' : 'Dish added successfully!', 'success');
+    } catch (err: any) {
+      console.error('Save error:', err);
+      let errorMessage = 'Failed to save dish';
+      
+      try {
+        // Try to parse the JSON error from handleFirestoreError
+        const parsed = JSON.parse(err.message);
+        errorMessage = parsed.error || errorMessage;
+        if (errorMessage.includes('permission-denied')) {
+          errorMessage = 'Permission Denied: Please check Firestore Rules.';
+        }
+      } catch {
+        errorMessage = err.message || errorMessage;
+      }
+      
+      showToast(errorMessage, 'error');
     } finally {
-      setLoading(false);
+      setIsSaving(false);
     }
   };
 
@@ -105,8 +169,9 @@ export default function AdminMenu() {
     if (window.confirm('Are you sure you want to delete this item?')) {
       try {
         await deleteDoc(doc(db, 'menu', id));
-      } catch (err) {
-        handleFirestoreError(err, OperationType.DELETE, 'menu');
+        showToast('Item deleted successfully', 'success');
+      } catch (err: any) {
+        showToast(err.message || 'Failed to delete item', 'error');
       }
     }
   };
@@ -234,11 +299,11 @@ export default function AdminMenu() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl relative z-10 overflow-hidden"
+              className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh]"
             >
-              <div className="p-8 border-b border-charcoal/5 flex justify-between items-center">
+              <div className="p-6 md:p-8 border-b border-charcoal/5 flex justify-between items-center shrink-0">
                 <div>
-                  <h2 className="text-2xl font-display font-black text-charcoal uppercase tracking-tight">
+                  <h2 className="text-xl md:text-2xl font-display font-black text-charcoal uppercase tracking-tight">
                     {editingItem ? 'Edit Dish' : 'Add New Dish'}
                   </h2>
                   <p className="text-[10px] text-charcoal/40 font-bold uppercase tracking-widest">Enter dish details below</p>
@@ -251,7 +316,7 @@ export default function AdminMenu() {
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="p-8 space-y-6">
+              <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-6 overflow-y-auto custom-scrollbar">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1">Dish Name</label>
@@ -288,18 +353,59 @@ export default function AdminMenu() {
                       placeholder="250"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1">Image URL</label>
-                    <div className="relative">
-                      <ImageIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/20" size={16} />
-                      <input 
-                        type="url"
-                        required
-                        value={formData.image}
-                        onChange={(e) => setFormData({...formData, image: e.target.value})}
-                        className="w-full pl-12 pr-4 py-3 bg-charcoal/5 border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 text-sm font-medium"
-                        placeholder="https://images.unsplash.com/..."
-                      />
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1 flex justify-between">
+                      Dish Image
+                      <span className="text-[8px] text-charcoal/20">Max 2MB</span>
+                    </label>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      {/* Image Preview */}
+                      <div className="w-24 h-24 rounded-2xl bg-charcoal/5 border border-charcoal/5 flex items-center justify-center overflow-hidden shrink-0">
+                        {formData.image ? (
+                          <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
+                        ) : (
+                          <ImageIcon className="text-charcoal/10" size={32} />
+                        )}
+                      </div>
+
+                      <div className="flex-1 space-y-3">
+                        <div className="flex gap-3">
+                          <label className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-dashed border-charcoal/10 hover:border-gold/40 hover:bg-gold/5 transition-all cursor-pointer group ${isUploading ? 'opacity-50 pointer-events-none' : ''}`}>
+                            <input 
+                              type="file" 
+                              className="hidden" 
+                              accept="image/*"
+                              onChange={handleImageUpload}
+                            />
+                            {isUploading ? (
+                              <Loader2 className="animate-spin text-gold" size={18} />
+                            ) : (
+                              <Upload className="text-charcoal/20 group-hover:text-gold transition-colors" size={18} />
+                            )}
+                            <span className="text-xs font-bold text-charcoal/60 uppercase tracking-widest">
+                              {isUploading ? 'Uploading...' : 'Upload Image'}
+                            </span>
+                          </label>
+                        </div>
+                        
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                            <span className="text-[10px] font-bold text-charcoal/20 uppercase tracking-widest">URL</span>
+                          </div>
+                          <input 
+                            type="url"
+                            value={formData.image}
+                            onChange={(e) => setFormData({...formData, image: e.target.value})}
+                            className="w-full pl-12 pr-4 py-3 bg-charcoal/5 border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 text-xs font-medium"
+                            placeholder="Or paste an image URL..."
+                          />
+                        </div>
+                        {uploadError && (
+                          <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest flex items-center gap-1">
+                            <AlertCircle size={10} /> {uploadError}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -343,20 +449,20 @@ export default function AdminMenu() {
                   </label>
                 </div>
 
-                <div className="flex justify-end gap-4 pt-4">
+                <div className="flex justify-end gap-4 pt-6 border-t border-charcoal/5 bg-white sticky bottom-0 z-10 shrink-0">
                   <button 
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-8 py-4 bg-charcoal/5 text-charcoal font-black uppercase text-xs tracking-widest rounded-xl hover:bg-charcoal/10 transition-all"
+                    className="px-6 md:px-8 py-3 md:py-4 bg-charcoal/5 text-charcoal font-black uppercase text-[10px] md:text-xs tracking-widest rounded-xl hover:bg-charcoal/10 transition-all"
                   >
                     Cancel
                   </button>
                   <button 
                     type="submit"
-                    disabled={loading}
-                    className="px-10 py-4 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg shadow-gold/20 disabled:opacity-50"
+                    disabled={isSaving}
+                    className="px-8 md:px-10 py-3 md:py-4 bg-gold text-charcoal font-black uppercase text-[10px] md:text-xs tracking-widest rounded-xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg shadow-gold/20 disabled:opacity-50"
                   >
-                    <Save size={18} /> {loading ? 'Saving...' : 'Save Dish'}
+                    <Save size={18} /> {isSaving ? 'Saving...' : 'Save Dish'}
                   </button>
                 </div>
               </form>
