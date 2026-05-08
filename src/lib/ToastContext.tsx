@@ -71,7 +71,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
                 <button 
                   onClick={() => removeToast(toast.id)}
-                  className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-white/10 hover:text-white transition-all"
+                  className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-white/10 hover:text-white transition-all cursor-pointer"
                 >
                   <X size={16} />
                 </button>

@@ -8,7 +8,8 @@ import {
   deleteDoc, 
   doc, 
   query, 
-  orderBy 
+  orderBy,
+  serverTimestamp
 } from 'firebase/firestore';
 import { db, auth, handleFirestoreError, OperationType } from '../lib/firebase';
 import { supabase } from '../lib/supabase';
@@ -134,6 +135,7 @@ export default function AdminMenu() {
     try {
       // Create a copy of data without the 'id' field for Firestore
       const { id, ...dataToSave } = formData as any;
+      dataToSave.updatedAt = serverTimestamp();
       
       if (editingItem) {
         const docRef = doc(db, 'menu', editingItem.id);
@@ -189,7 +191,7 @@ export default function AdminMenu() {
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate('/admin/dashboard')}
-            className="w-10 h-10 bg-white rounded-xl flex items-center justify-center border border-charcoal/5 hover:border-gold/30 transition-colors shadow-sm"
+            className="w-10 h-10 bg-white rounded-xl flex items-center justify-center border border-charcoal/5 hover:border-gold/30 transition-colors shadow-sm cursor-pointer"
           >
             <ChevronLeft size={20} className="text-charcoal" />
           </button>
@@ -263,13 +265,13 @@ export default function AdminMenu() {
                       <div className="flex gap-2">
                         <button 
                           onClick={() => handleOpenModal(item)}
-                          className="w-8 h-8 rounded-lg bg-charcoal/5 flex items-center justify-center text-charcoal hover:bg-gold/20 hover:text-gold transition-colors"
+                          className="w-8 h-8 rounded-lg bg-charcoal/5 flex items-center justify-center text-charcoal hover:bg-gold/20 hover:text-gold transition-colors cursor-pointer"
                         >
                           <Edit2 size={14} />
                         </button>
                         <button 
                           onClick={() => handleDelete(item.id)}
-                          className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors"
+                          className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors cursor-pointer"
                         >
                           <Trash2 size={14} />
                         </button>
@@ -310,7 +312,7 @@ export default function AdminMenu() {
                 </div>
                 <button 
                   onClick={() => setIsModalOpen(false)}
-                  className="w-10 h-10 rounded-xl bg-charcoal/5 flex items-center justify-center text-charcoal/40 hover:bg-charcoal/10 transition-colors"
+                  className="w-10 h-10 rounded-xl bg-charcoal/5 flex items-center justify-center text-charcoal/40 hover:bg-charcoal/10 transition-colors cursor-pointer"
                 >
                   <X size={20} />
                 </button>
@@ -453,14 +455,14 @@ export default function AdminMenu() {
                   <button 
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-6 md:px-8 py-3 md:py-4 bg-charcoal/5 text-charcoal font-black uppercase text-[10px] md:text-xs tracking-widest rounded-xl hover:bg-charcoal/10 transition-all"
+                    className="px-6 md:px-8 py-3 md:py-4 bg-charcoal/5 text-charcoal font-black uppercase text-[10px] md:text-xs tracking-widest rounded-xl hover:bg-charcoal/10 transition-all cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button 
                     type="submit"
                     disabled={isSaving}
-                    className="px-8 md:px-10 py-3 md:py-4 bg-gold text-charcoal font-black uppercase text-[10px] md:text-xs tracking-widest rounded-xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg shadow-gold/20 disabled:opacity-50"
+                    className="px-8 md:px-10 py-3 md:py-4 bg-gold text-charcoal font-black uppercase text-[10px] md:text-xs tracking-widest rounded-xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg shadow-gold/20 disabled:opacity-50 cursor-pointer"
                   >
                     <Save size={18} /> {isSaving ? 'Saving...' : 'Save Dish'}
                   </button>

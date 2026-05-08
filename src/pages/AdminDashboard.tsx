@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
 import { db, auth } from '../lib/firebase';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   LayoutDashboard, 
   UtensilsCrossed, 
@@ -32,18 +32,19 @@ export default function AdminDashboard() {
     reviewCount: 0,
     avgRating: 0
   });
+  const [activities, setActivities] = useState<any[]>([]);
 
   const { showToast } = useToast();
 
   useEffect(() => {
+    // 1. Real-time Stats & Initial Data
     const fetchStats = async () => {
       try {
         const menuSnap = await getDocs(collection(db, 'menu'));
         const reviewSnap = await getDocs(collection(db, 'reviews'));
-        
-        const reviews = reviewSnap.docs.map(doc => doc.data());
-        const totalRating = reviews.reduce((acc, curr) => acc + (curr.rating || 0), 0);
-        const avg = reviews.length > 0 ? (totalRating / reviews.length).toFixed(1) : 0;
+        const reviewsData = reviewSnap.docs.map(doc => doc.data());
+        const totalRating = reviewsData.reduce((acc, curr) => acc + (curr.rating || 0), 0);
+        const avg = reviewsData.length > 0 ? (totalRating / reviewsData.length).toFixed(1) : 0;
 
         setStatsData({
           menuCount: menuSnap.size,
@@ -51,10 +52,51 @@ export default function AdminDashboard() {
           avgRating: Number(avg)
         });
       } catch (err) {
-        console.error('Error fetching stats:', err);
+        console.error('Stats fetch error:', err);
       }
     };
     fetchStats();
+
+    // 2. Real-time Activity Stream
+    const qMenu = query(collection(db, 'menu'), orderBy('updatedAt', 'desc'), limit(5));
+    const qReviews = query(collection(db, 'reviews'), orderBy('timestamp', 'desc'), limit(5));
+
+    const unsubMenu = onSnapshot(qMenu, (snapshot) => {
+      const menuActs = snapshot.docs.map(doc => ({
+        id: doc.id,
+        user: 'Staff',
+        action: `Updated ${doc.data().name}`,
+        time: doc.data().updatedAt?.toDate() || new Date(),
+        icon: UtensilsCrossed,
+        type: 'menu'
+      }));
+      updateActivities(menuActs, 'menu');
+    });
+
+    const unsubReviews = onSnapshot(qReviews, (snapshot) => {
+      const reviewActs = snapshot.docs.map(doc => ({
+        id: doc.id,
+        user: doc.data().userName || 'Guest',
+        action: `Left a ${doc.data().rating}★ review`,
+        time: doc.data().timestamp?.toDate() || new Date(),
+        icon: MessageSquare,
+        type: 'review'
+      }));
+      updateActivities(reviewActs, 'review');
+    });
+
+    const updateActivities = (newActs: any[], type: string) => {
+      setActivities(prev => {
+        const otherType = prev.filter(a => a.type !== type);
+        const combined = [...otherType, ...newActs].sort((a, b) => b.time - a.time).slice(0, 5);
+        return combined;
+      });
+    };
+
+    return () => {
+      unsubMenu();
+      unsubReviews();
+    };
   }, []);
 
   const handleSync = async () => {
@@ -114,148 +156,179 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-[#f8f9fa] flex flex-col md:flex-row">
       <SEO title="Dashboard | Lurambi Admin" description="Lurambi Fish Grill Administrative Dashboard" />
       
-      {/* Sidebar (Desktop) */}
-      <aside className="w-full md:w-72 bg-charcoal text-white p-8 flex flex-col justify-between">
-        <div className="space-y-12">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gold rounded-xl flex items-center justify-center">
-              <Star className="text-charcoal w-6 h-6 fill-charcoal" />
+      {/* Navigation (Sticky on Mobile, Fixed Sidebar on Desktop) */}
+      <aside className="w-full md:w-72 md:h-screen bg-charcoal text-white p-6 md:p-8 flex flex-row md:flex-col justify-between items-center md:items-stretch sticky top-0 z-[100] md:fixed left-0 shadow-2xl md:shadow-none">
+        <div className="flex flex-row md:flex-col items-center md:items-stretch gap-6 md:gap-12 w-full">
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-gold rounded-lg md:rounded-xl flex items-center justify-center">
+              <Star className="text-charcoal w-5 h-5 md:w-6 md:h-6 fill-charcoal" />
             </div>
-            <div>
-              <h1 className="font-display font-black text-xl tracking-tighter uppercase leading-none">LURAMBI</h1>
-              <p className="text-[10px] text-gold font-bold uppercase tracking-widest">Admin Suite</p>
+            <div className="hidden sm:block">
+              <h1 className="font-display font-black text-lg md:text-xl tracking-tighter uppercase leading-none">LURAMBI</h1>
+              <p className="text-[8px] md:text-[10px] text-gold font-bold uppercase tracking-widest">Admin Suite</p>
             </div>
           </div>
 
-          <nav className="space-y-2">
-            <button className="w-full flex items-center gap-4 px-4 py-4 bg-white/10 rounded-xl text-white font-bold text-xs uppercase tracking-widest transition-all">
-              <LayoutDashboard size={18} className="text-gold" />
-              Overview
+          <nav className="flex flex-row md:flex-col gap-2 flex-1 md:flex-none justify-end md:justify-start overflow-x-auto no-scrollbar">
+            <button className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 bg-white/10 rounded-lg md:rounded-xl text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap">
+              <LayoutDashboard size={16} className="text-gold" />
+              <span className="hidden md:inline">Overview</span>
             </button>
             <button 
               onClick={() => navigate('/admin/menu')}
-              className="w-full flex items-center gap-4 px-4 py-4 hover:bg-white/5 rounded-xl text-white/50 hover:text-white font-bold text-xs uppercase tracking-widest transition-all"
+              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-lg md:rounded-xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
             >
-              <UtensilsCrossed size={18} />
-              Menu
+              <UtensilsCrossed size={16} />
+              <span className="hidden md:inline">Menu</span>
             </button>
-            <button className="w-full flex items-center gap-4 px-4 py-4 hover:bg-white/5 rounded-xl text-white/50 hover:text-white font-bold text-xs uppercase tracking-widest transition-all">
-              <MessageSquare size={18} />
-              Reviews
+            <button 
+              onClick={() => navigate('/admin/reviews')}
+              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-lg md:rounded-xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
+            >
+              <MessageSquare size={16} />
+              <span className="hidden md:inline">Reviews</span>
             </button>
           </nav>
         </div>
 
-        <div className="space-y-6">
+        <div className="hidden md:flex flex-col gap-6 w-full">
           <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
             <p className="text-[10px] text-white/30 uppercase font-bold tracking-widest mb-1">Logged in as</p>
             <p className="text-xs font-medium truncate">{user?.email}</p>
           </div>
           <button 
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-3 py-4 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-xl font-bold text-xs uppercase tracking-widest transition-all border border-red-500/20"
+            className="w-full flex items-center justify-center gap-3 py-4 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-xl font-bold text-xs uppercase tracking-widest transition-all border border-red-500/20 cursor-pointer"
           >
             <LogOut size={16} />
             Logout
           </button>
         </div>
+
+        {/* Mobile Logout (Icon only) */}
+        <button 
+          onClick={handleLogout}
+          className="md:hidden w-10 h-10 flex items-center justify-center bg-red-500/10 text-red-500 rounded-lg cursor-pointer shrink-0 ml-2"
+        >
+          <LogOut size={18} />
+        </button>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 p-6 md:p-12 overflow-y-auto">
-        <header className="flex flex-col md:row justify-between items-start md:items-center gap-6 mb-12">
-          <div className="space-y-1">
-            <h2 className="text-4xl font-display font-black tracking-tighter text-charcoal uppercase">DASHBOARD OVERVIEW</h2>
-            <p className="text-charcoal/40 text-xs font-bold uppercase tracking-widest">Welcome back to the command center.</p>
+      {/* Main Content Spacer for Fixed Sidebar on Desktop */}
+      <div className="hidden md:block w-72 shrink-0" />
+
+      {/* Main Content Area */}
+      <main className="flex-1 p-6 md:p-12 overflow-y-auto min-h-[calc(100vh-80px)] md:min-h-screen">
+        <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-16">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <p className="text-[10px] text-charcoal/40 font-black uppercase tracking-[0.2em]">System Online • Live</p>
+            </div>
+            <h2 className="text-5xl font-display font-black tracking-tighter text-charcoal uppercase leading-none">COMMAND CENTER</h2>
+            <p className="text-charcoal/40 text-sm font-bold uppercase tracking-widest">Management suite for Lurambi Fish Grill</p>
           </div>
-          <div className="flex gap-4">
+          
+          <div className="flex flex-wrap gap-4">
             <button 
-              onClick={handleSync}
-              disabled={isSyncing}
-              className="flex items-center gap-2 px-6 py-3 bg-charcoal text-white rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all hover:bg-charcoal/90 disabled:opacity-50"
+              onClick={() => navigate('/admin/menu')}
+              className="flex items-center gap-3 px-8 py-4 bg-gold text-charcoal rounded-2xl text-xs font-black uppercase tracking-widest transition-all hover:scale-105 shadow-xl shadow-gold/20 cursor-pointer"
             >
-              <RefreshCw size={14} className={isSyncing ? 'animate-spin' : ''} />
-              {isSyncing ? 'Syncing...' : 'Sync Menu Data'}
+              <UtensilsCrossed size={18} />
+              Quick Add Dish
             </button>
             <a 
               href="/" 
               target="_blank"
-              className="flex items-center gap-2 px-6 py-3 glass hover:bg-charcoal/5 rounded-xl text-charcoal text-[10px] font-bold uppercase tracking-widest transition-all border border-charcoal/10"
+              className="flex items-center gap-3 px-8 py-4 bg-white text-charcoal border border-charcoal/10 rounded-2xl text-xs font-black uppercase tracking-widest transition-all hover:bg-charcoal/5 cursor-pointer"
             >
-              View Live Site <ExternalLink size={14} />
+              View Site <ExternalLink size={18} />
             </a>
           </div>
         </header>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-white p-8 rounded-2xl border border-charcoal/5 shadow-sm space-y-4"
-            >
-              <div className={`w-12 h-12 rounded-xl bg-charcoal/5 flex items-center justify-center ${stat.color}`}>
-                <stat.icon size={24} />
+        {/* Primary Management Hub */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <button
+            onClick={() => navigate('/admin/menu')}
+            className="group relative bg-charcoal p-10 rounded-[2.5rem] text-left overflow-hidden transition-all hover:scale-[1.02] shadow-2xl cursor-pointer"
+          >
+            <div className="relative z-10 space-y-6">
+              <div className="w-16 h-16 bg-gold rounded-2xl flex items-center justify-center text-charcoal shadow-lg">
+                <UtensilsCrossed size={32} />
               </div>
               <div>
-                <p className="text-[10px] text-charcoal/30 uppercase font-bold tracking-widest mb-1">{stat.label}</p>
-                <h3 className="text-3xl font-display font-black text-charcoal tracking-tight">{stat.value}</h3>
+                <h3 className="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">Menu Management</h3>
+                <p className="text-white/40 text-sm font-medium leading-relaxed max-w-[280px]">Update dishes, adjust prices, and manage daily specials in real-time.</p>
               </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Quick Actions & Monitoring */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
-            <div className="flex justify-between items-center">
-              <h3 className="text-lg font-display font-black text-charcoal uppercase tracking-tight">Quick Management</h3>
-              <div className="flex gap-2">
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-[8px] font-bold text-charcoal/40 uppercase tracking-widest">Live System Status</span>
+              <div className="flex items-center gap-2 text-gold text-[10px] font-black uppercase tracking-[0.2em]">
+                Enter Portal <ChevronRight size={14} />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {quickActions.map((action) => (
-                <button
-                  key={action.title}
-                  onClick={() => action.link !== '#' && navigate(action.link)}
-                  className="group bg-white p-6 rounded-2xl border border-charcoal/5 shadow-sm hover:shadow-md transition-all text-left flex items-start gap-5"
-                >
-                  <div className={`w-14 h-14 shrink-0 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 ${action.color}`}>
-                    <action.icon size={28} />
+            {/* Abstract Background Element */}
+            <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/10 transition-colors" />
+          </button>
+
+          <button
+            onClick={() => navigate('/admin/reviews')}
+            className="group relative bg-white p-10 rounded-[2.5rem] border border-charcoal/5 text-left overflow-hidden transition-all hover:scale-[1.02] shadow-xl cursor-pointer"
+          >
+            <div className="relative z-10 space-y-6">
+              <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                <MessageSquare size={32} />
+              </div>
+              <div>
+                <h3 className="text-3xl font-display font-black text-charcoal uppercase tracking-tight mb-2">Guest Feedback</h3>
+                <p className="text-charcoal/40 text-sm font-medium leading-relaxed max-w-[280px]">Monitor guest reviews, moderate testimonials, and track satisfaction.</p>
+              </div>
+              <div className="flex items-center gap-2 text-blue-500 text-[10px] font-black uppercase tracking-[0.2em]">
+                Manage Reviews <ChevronRight size={14} />
+              </div>
+            </div>
+            <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/10 transition-colors" />
+          </button>
+        </div>
+
+        {/* Unified Stats & Activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2 space-y-12">
+            <div className="flex justify-between items-center px-2">
+              <h3 className="text-xs font-black text-charcoal/30 uppercase tracking-[0.3em]">Business Insights</h3>
+              <button 
+                onClick={handleSync}
+                disabled={isSyncing}
+                className="text-[10px] font-black text-gold uppercase tracking-widest flex items-center gap-2 hover:text-charcoal transition-colors cursor-pointer"
+              >
+                <RefreshCw size={12} className={isSyncing ? 'animate-spin' : ''} />
+                Cloud Sync
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {stats.map((stat) => (
+                <div key={stat.label} className="bg-white p-6 rounded-3xl border border-charcoal/5 shadow-sm">
+                  <div className={`w-10 h-10 rounded-xl bg-charcoal/5 flex items-center justify-center mb-4 ${stat.color}`}>
+                    <stat.icon size={20} />
                   </div>
-                  <div className="space-y-1">
-                    <h4 className="font-display font-bold text-charcoal uppercase tracking-wide group-hover:text-gold transition-colors">{action.title}</h4>
-                    <p className="text-xs text-charcoal/40 font-medium leading-relaxed">{action.desc}</p>
-                  </div>
-                </button>
+                  <p className="text-[9px] text-charcoal/30 uppercase font-black tracking-widest mb-1">{stat.label}</p>
+                  <h4 className="text-xl font-display font-black text-charcoal">{stat.value}</h4>
+                </div>
               ))}
             </div>
 
-            {/* Performance Monitoring */}
-            <div className="bg-white p-8 rounded-2xl border border-charcoal/5 shadow-sm space-y-6">
-              <div className="flex justify-between items-end">
-                <div>
-                  <h4 className="text-sm font-bold text-charcoal uppercase tracking-widest mb-1">Traffic Pulse</h4>
-                  <p className="text-[10px] text-charcoal/30 font-medium uppercase tracking-[0.2em]">Real-time engagement metrics</p>
-                </div>
-                <div className="text-right">
-                  <span className="text-2xl font-display font-black text-gold">98.2%</span>
-                  <p className="text-[8px] text-green-500 font-bold uppercase tracking-widest">Uptime Optimization</p>
-                </div>
+            {/* Compact Traffic Pulse */}
+            <div className="bg-white p-8 rounded-[2rem] border border-charcoal/5 shadow-sm flex items-center gap-12">
+              <div className="shrink-0">
+                <p className="text-[10px] text-charcoal/30 font-black uppercase tracking-[0.2em] mb-2">Pulse</p>
+                <div className="text-3xl font-display font-black text-charcoal">98.2%</div>
+                <div className="text-[8px] text-green-500 font-bold uppercase tracking-widest">Active Uptime</div>
               </div>
-              <div className="flex items-end gap-1 h-24">
-                {[40, 70, 45, 90, 65, 80, 50, 95, 75, 85, 60, 100, 70, 80].map((h, i) => (
-                  <motion.div
+              <div className="flex-1 flex items-end gap-1 h-12">
+                {[40, 70, 45, 90, 65, 80, 50, 95, 75, 85, 60, 100, 70, 80, 50, 90].map((h, i) => (
+                  <div
                     key={i}
-                    initial={{ height: 0 }}
-                    animate={{ height: `${h}%` }}
-                    transition={{ delay: i * 0.05, duration: 1 }}
-                    className="flex-1 bg-gold/10 hover:bg-gold rounded-t-sm transition-colors cursor-pointer"
+                    style={{ height: `${h}%` }}
+                    className="flex-1 bg-gold/10 hover:bg-gold rounded-full transition-colors cursor-pointer"
                   />
                 ))}
               </div>
@@ -263,31 +336,39 @@ export default function AdminDashboard() {
           </div>
 
           <div className="space-y-8">
-            <h3 className="text-lg font-display font-black text-charcoal uppercase tracking-tight">Recent Activity</h3>
-            <div className="bg-white rounded-2xl border border-charcoal/5 shadow-sm overflow-hidden">
-              <div className="p-6 space-y-6">
-                {[
-                  { user: 'System', action: 'Database synched with cloud', time: 'Just now', icon: Database },
-                  { user: 'Admin', action: 'Authorized login successful', time: '12 mins ago', icon: Users },
-                  { user: 'Analytics', action: 'Menu reach increased by 12%', time: '2 hours ago', icon: TrendingUp },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4 items-start pb-6 border-b border-charcoal/5 last:border-0 last:pb-0">
-                    <div className="w-8 h-8 rounded-full bg-charcoal/5 flex items-center justify-center shrink-0">
-                      <item.icon size={14} className="text-charcoal/40" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-charcoal">{item.user} <span className="font-medium text-charcoal/40">{item.action}</span></p>
-                      <p className="text-[10px] text-charcoal/30 uppercase font-bold mt-1">{item.time}</p>
-                    </div>
-                  </div>
-                ))}
+            <h3 className="text-xs font-black text-charcoal/30 uppercase tracking-[0.3em] px-2">Activity Stream</h3>
+            <div className="bg-white rounded-[2rem] border border-charcoal/5 shadow-sm overflow-hidden">
+              <div className="p-8 space-y-8">
+                <AnimatePresence mode="popLayout">
+                  {activities.map((item) => (
+                    <motion.div 
+                      key={item.id} 
+                      layout
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="flex gap-4 items-start"
+                    >
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${item.type === 'review' ? 'bg-blue-50 text-blue-500' : 'bg-gold/10 text-gold'}`}>
+                        <item.icon size={16} />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-charcoal leading-tight">
+                          {item.user} <span className="font-medium text-charcoal/40">{item.action}</span>
+                        </p>
+                        <p className="text-[9px] text-charcoal/30 uppercase font-black mt-1.5">
+                          {new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(
+                            Math.ceil((item.time.getTime() - Date.now()) / 60000), 
+                            'minute'
+                          )}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+                {activities.length === 0 && (
+                  <p className="text-center text-[10px] text-charcoal/30 font-bold uppercase tracking-widest py-4">No recent activity</p>
+                )}
               </div>
-              <button 
-                onClick={() => navigate('/admin/reviews')}
-                className="w-full py-4 bg-charcoal/5 hover:bg-charcoal/10 text-charcoal text-[10px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
-              >
-                View Feedback Logs <ChevronRight size={12} />
-              </button>
             </div>
           </div>
         </div>
