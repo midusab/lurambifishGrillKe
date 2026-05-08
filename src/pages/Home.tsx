@@ -222,9 +222,26 @@ export default function Home() {
                       KES {dish.price}
                     </span>
                   </div>
-                  <h3 className="text-2xl font-display font-black text-charcoal leading-tight">
-                    {dish.name}
-                  </h3>
+                  <div className="space-y-1">
+                    <h3 className="text-2xl font-display font-black text-charcoal leading-tight">
+                      {dish.name}
+                    </h3>
+                    {dish.rating && (
+                      <div className="flex items-center gap-1">
+                        {[...Array(5)].map((_, idx) => (
+                          <Star 
+                            key={idx} 
+                            size={10} 
+                            className={cn(
+                              idx < Math.floor(dish.rating) ? "text-gold fill-gold" : "text-charcoal/10",
+                              idx === Math.floor(dish.rating) && dish.rating % 1 !== 0 ? "text-gold fill-gold opacity-50" : ""
+                            )} 
+                          />
+                        ))}
+                        <span className="text-[10px] text-charcoal/40 font-bold ml-1">{dish.rating}</span>
+                      </div>
+                    )}
+                  </div>
                   <p className="text-charcoal/60 text-xs font-light line-clamp-2 italic">
                     {dish.description}
                   </p>

@@ -137,9 +137,26 @@ export default function Menu() {
                 {/* Content */}
                 <div className="px-4 pb-4 space-y-4">
                   <div className="flex justify-between items-start gap-4">
-                    <h3 className="font-display text-xl font-bold text-charcoal uppercase tracking-tight group-hover:text-gold transition-colors">
-                      {item.name}
-                    </h3>
+                    <div className="space-y-1">
+                      <h3 className="font-display text-xl font-bold text-charcoal uppercase tracking-tight group-hover:text-gold transition-colors">
+                        {item.name}
+                      </h3>
+                      {item.rating && (
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              size={10} 
+                              className={cn(
+                                i < Math.floor(item.rating) ? "text-gold fill-gold" : "text-charcoal/10",
+                                i === Math.floor(item.rating) && item.rating % 1 !== 0 ? "text-gold fill-gold opacity-50" : ""
+                              )} 
+                            />
+                          ))}
+                          <span className="text-[10px] text-charcoal/40 font-bold ml-1">{item.rating}</span>
+                        </div>
+                      )}
+                    </div>
                     <p className="text-xl font-display font-black text-charcoal shrink-0 transition-colors group-hover:text-gold">
                       <span className="text-gold text-xs mr-1 transition-colors group-hover:text-gold">KES</span>
                       {item.price}

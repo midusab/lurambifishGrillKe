@@ -7,6 +7,7 @@ export interface MenuItem {
   image: string;
   isSpicy?: boolean;
   isChefSpecial?: boolean;
+  rating?: number;
 }
 
 export interface Testimonial {

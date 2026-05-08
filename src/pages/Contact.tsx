@@ -108,9 +108,8 @@ export default function Contact() {
               <label className="text-[10px] uppercase font-bold tracking-[0.3em] text-gold ml-2">Subject</label>
               <select className="w-full bg-charcoal/5 border border-charcoal/10 rounded-lg px-6 py-4 text-charcoal focus:outline-none focus:border-gold/50 transition-colors appearance-none font-bold">
                 <option className="bg-white">Table Reservation</option>
-                <option className="bg-white">Corporate Catering</option>
-                <option className="bg-white">Private Event</option>
-                <option className="bg-white">General Inquiry</option>
+                <option className="bg-white">Couple Special</option>
+                <option className="bg-white">Solo Special</option>
               </select>
             </div>
             <div className="space-y-3 md:col-span-2 font-bold">

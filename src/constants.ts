@@ -10,6 +10,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'Main Dish',
     isSpicy: true,
     image: 'https://images.unsplash.com/photo-1545243191-240179d67713?auto=format&fit=crop&q=80',
+    rating: 4.8,
   },
   {
     id: 'm2',
@@ -18,6 +19,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 200,
     category: 'Main Dish',
     image: 'https://images.unsplash.com/photo-1604329760662-4299b8296317?auto=format&fit=crop&q=80',
+    rating: 4.5,
   },
   {
     id: 'm3',
@@ -43,6 +45,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'Main Dish',
     image: 'https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?auto=format&fit=crop&q=80',
     isChefSpecial: true,
+    rating: 4.9,
   },
   {
     id: 'm5_1',
@@ -61,6 +64,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'Main Dish',
     image: 'https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?auto=format&fit=crop&q=80',
     isChefSpecial: true,
+    rating: 5.0,
   },
   {
     id: 'm6_1',
@@ -79,6 +83,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'Main Dish',
     image: 'https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?auto=format&fit=crop&q=80',
     isChefSpecial: true,
+    rating: 4.8,
   },
   {
     id: 'm7_1',
@@ -155,6 +160,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 250,
     category: 'Drink',
     image: 'https://images.unsplash.com/photo-1572490122747-3cd68fbe5da1?auto=format&fit=crop&q=80',
+    rating: 4.7,
   },
   {
     id: 'd7',
