@@ -12,7 +12,10 @@ service cloud.firestore {
     }
 
     function isAdmin() {
-      return isSignedIn() && request.auth.token.email == 'lurambifishgrillKE@gmail.com';
+      return isSignedIn() && (
+        request.auth.token.email.toLowerCase() == 'lurambifishgrillke@gmail.com' ||
+        request.auth.uid == 'JyJspf6nxoNCQCnXQD5CfcMyg653'
+      );
     }
 
     // Menu: Public read, Admin write
@@ -24,7 +27,7 @@ service cloud.firestore {
     // Reviews: Public read/create, Admin moderate
     match /reviews/{review} {
       allow read: if true;
-      allow create: if true; // Simplified for now to ensure connectivity
+      allow create: if true;
       allow update, delete: if isAdmin();
     }
 
