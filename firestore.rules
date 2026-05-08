@@ -31,9 +31,13 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
-    // Reservations: Public create, Admin read/write
-    match /reservations/{res} {
-      allow read, write: if true;
+    // 3. Reservations Access (This is what the website uses)
+    match /reservations/{document=**} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if request.auth != null && 
+                              (request.auth.uid == 'JyJspf6nxoNCQCnXQD5CfcMyg653' || 
+                               request.auth.token.email.toLowerCase() == 'lurambifishgrillke@gmail.com');
     }
   }
 }
