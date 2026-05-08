@@ -301,3 +301,5 @@ export const STATS: Stat[] = [
   { label: 'Fish Served', value: '18k+', icon: 'Fish' },
   { label: 'Chef Awards', value: '12', icon: 'Star' }
 ];
+
+export const ADMIN_EMAIL = 'lurambifishgrillKE@gmail.com';

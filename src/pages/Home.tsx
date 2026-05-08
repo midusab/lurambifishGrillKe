@@ -4,7 +4,7 @@ import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flam
 import { Link } from 'react-router-dom';
 import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
-import { MENU_ITEMS, STATS } from '../constants';
+import { STATS } from '../constants';
 import { cn } from '../lib/utils';
 import SEO from '../components/SEO';
 
@@ -17,11 +17,22 @@ interface Review {
 
 export default function Home() {
   const [latestReviews, setLatestReviews] = useState<Review[]>([]);
-  const featuredDishes = MENU_ITEMS.filter(item => item.isChefSpecial).slice(0, 3);
+  const [featuredDishes, setFeaturedDishes] = useState<any[]>([]);
 
   useEffect(() => {
+    // Fetch featured dishes
+    const menuQ = query(collection(db, 'menu'), limit(6));
+    const unsubscribeMenu = onSnapshot(menuQ, (snapshot) => {
+      const data = snapshot.docs
+        .map(doc => ({ id: doc.id, ...doc.data() }))
+        .filter((item: any) => item.isChefSpecial)
+        .slice(0, 3);
+      setFeaturedDishes(data);
+    });
+
+    // Fetch reviews
     const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'), limit(4));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
+    const unsubscribeReviews = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
@@ -30,8 +41,13 @@ export default function Home() {
     }, (err) => {
       handleFirestoreError(err, OperationType.LIST, 'reviews');
     });
-    return () => unsubscribe();
+
+    return () => {
+      unsubscribeMenu();
+      unsubscribeReviews();
+    };
   }, []);
+
 
   const iconMap: Record<string, React.ElementType> = {
     Users: Users,

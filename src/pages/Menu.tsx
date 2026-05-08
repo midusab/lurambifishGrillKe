@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MENU_ITEMS } from '../constants';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { db, handleFirestoreError, OperationType } from '../lib/firebase';
+import { MenuItem } from '../types';
 import { cn } from '../lib/utils';
 import { Flame, Star, ShoppingBag, Plus } from 'lucide-react';
 import SEO from '../components/SEO';
@@ -8,11 +10,30 @@ import SEO from '../components/SEO';
 const categories = ['All', 'Main Dish', 'Drink', 'Breakfast', 'Snacks'];
 
 export default function Menu() {
+  const [items, setItems] = useState<MenuItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const filteredItems = MENU_ITEMS.filter(item => 
+  useEffect(() => {
+    const q = query(collection(db, 'menu'), orderBy('category'), orderBy('name'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as MenuItem[];
+      setItems(data);
+      setLoading(false);
+    }, (err) => {
+      handleFirestoreError(err, OperationType.LIST, 'menu');
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const filteredItems = items.filter(item => 
     activeCategory === 'All' ? true : item.category === activeCategory
   );
+
 
   return (
     <div className="pt-32 pb-24">
