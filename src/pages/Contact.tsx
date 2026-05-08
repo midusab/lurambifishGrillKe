@@ -44,13 +44,16 @@ export default function Contact() {
 
       {/* Contact Content Grid */}
       <section className="relative z-20 -mt-24 pb-32">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Contact Info Sidebar */}
-          <div className="lg:col-span-4 space-y-8">
-            <div className="bg-charcoal p-10 rounded-[4rem] text-white shadow-2xl space-y-10 relative overflow-hidden group">
+          <div className="lg:col-span-5 space-y-8">
+            <div className="bg-charcoal p-10 rounded-3xl text-white shadow-2xl space-y-10 relative overflow-hidden group">
               <div className="relative z-10 space-y-8">
-                <h3 className="text-xs font-black text-white/30 uppercase tracking-[0.4em]">Connect</h3>
+                <div className="space-y-4">
+                  <span className="text-gold text-[10px] font-black uppercase tracking-[0.4em]">Connect</span>
+                  <h3 className="text-4xl font-display font-black uppercase tracking-tight leading-none">VISIT <br /> THE <span className="text-gold">GRILL</span></h3>
+                </div>
                 
                 <div className="space-y-6">
                   {[
@@ -58,13 +61,13 @@ export default function Contact() {
                     { icon: Mail, label: 'General Inquiry', value: 'hello@lurambi.ke' },
                     { icon: MapPin, label: 'Find Us', value: 'Webuye Rd, Lurambi' }
                   ].map((item) => (
-                    <div key={item.label} className="flex items-center gap-5">
-                      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gold">
+                    <div key={item.label} className="flex items-center gap-5 group/item">
+                      <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-gold group-hover/item:bg-gold group-hover/item:text-charcoal transition-colors">
                         <item.icon size={20} />
                       </div>
                       <div>
                         <p className="text-[9px] font-black uppercase tracking-widest text-white/20 mb-1">{item.label}</p>
-                        <p className="text-sm font-bold">{item.value}</p>
+                        <p className="text-sm font-bold tracking-tight">{item.value}</p>
                       </div>
                     </div>
                   ))}
@@ -81,72 +84,83 @@ export default function Contact() {
               <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/10 transition-colors" />
             </div>
 
-            <div className="bg-white p-10 rounded-[4rem] border border-charcoal/5 shadow-xl space-y-6">
-              <div className="w-12 h-12 bg-charcoal/5 rounded-2xl flex items-center justify-center text-gold">
-                <Clock size={24} />
-              </div>
-              <h4 className="text-xl font-display font-black uppercase tracking-tight text-charcoal">Opening Hours</h4>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
-                  <span className="text-charcoal/30">Weekdays</span>
-                  <span className="text-charcoal">10:00 - 22:00</span>
+            <div className="bg-white p-10 rounded-3xl border border-charcoal/5 shadow-xl space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-charcoal/5 rounded-xl flex items-center justify-center text-gold">
+                  <Clock size={24} />
                 </div>
-                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
-                  <span className="text-charcoal/30">Weekends</span>
-                  <span className="text-gold">09:00 - 23:00</span>
+                <h4 className="text-xl font-display font-black uppercase tracking-tight text-charcoal">Opening Hours</h4>
+              </div>
+              <div className="space-y-3 pt-2">
+                <div className="flex justify-between items-center py-2 border-b border-charcoal/5">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-charcoal/30">Weekdays</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-charcoal">10:00 AM - 10:00 PM</span>
+                </div>
+                <div className="flex justify-between items-center py-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-charcoal/30">Weekends</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-gold">09:00 AM - 11:00 PM</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Premium Form */}
+          {/* Clean Reservation Form (Matches Reviews style) */}
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="lg:col-span-8 bg-white p-8 md:p-16 rounded-[3rem] shadow-2xl border border-charcoal/5"
+            className="lg:col-span-7 bg-white p-10 md:p-12 rounded-3xl shadow-2xl border border-charcoal/5"
           >
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-12" onSubmit={(e) => e.preventDefault()}>
-              <div className="space-y-4">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/20 ml-2">Guest Name</label>
-                <input 
-                  type="text" 
-                  placeholder="Michael Otieno"
-                  className="w-full bg-charcoal/5 border-b-2 border-transparent focus:border-gold py-4 text-charcoal font-bold focus:outline-none transition-all placeholder:text-charcoal/10"
-                />
-              </div>
-              <div className="space-y-4">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/20 ml-2">Email Address</label>
-                <input 
-                  type="email" 
-                  placeholder="michael@luxury.com"
-                  className="w-full bg-charcoal/5 border-b-2 border-transparent focus:border-gold py-4 text-charcoal font-bold focus:outline-none transition-all placeholder:text-charcoal/10"
-                />
-              </div>
-              <div className="space-y-4 md:col-span-2">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/20 ml-2">Experience Selection</label>
-                <div className="flex flex-wrap gap-4">
-                  {['Standard Table', 'Couple Special', 'Private Event'].map((type) => (
-                    <label key={type} className="relative cursor-pointer group">
-                      <input type="radio" name="res_type" className="hidden peer" defaultChecked={type === 'Standard Table'} />
-                      <div className="px-8 py-3 rounded-full border-2 border-charcoal/5 peer-checked:border-gold peer-checked:bg-gold/5 transition-all">
-                        <span className="text-[9px] font-black uppercase tracking-widest text-charcoal/40 peer-checked:text-gold group-hover:text-charcoal transition-colors">{type}</span>
-                      </div>
-                    </label>
-                  ))}
+            <div className="mb-10 space-y-2">
+              <h3 className="text-2xl font-display font-black uppercase tracking-tighter text-charcoal">Quick Reservation</h3>
+              <p className="text-charcoal/40 text-xs font-medium">Please fill in the details below to book your lake-side experience.</p>
+            </div>
+
+            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Your Full Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="Enter your name"
+                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
+                  />
                 </div>
-              </div>
-              <div className="space-y-4 md:col-span-2">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/20 ml-2">Special Requests</label>
-                <textarea 
-                  rows={4}
-                  placeholder="Tell us about your celebration..."
-                  className="w-full bg-charcoal/5 border-b-2 border-transparent focus:border-gold py-4 text-charcoal font-bold focus:outline-none transition-all resize-none placeholder:text-charcoal/10 italic"
-                />
-              </div>
-              <div className="md:col-span-2 pt-6">
-                <button className="w-full md:w-auto px-12 py-6 bg-charcoal text-white rounded-full font-black uppercase text-xs tracking-[0.3em] hover:bg-gold hover:text-charcoal transition-all shadow-xl flex items-center justify-center gap-4 group">
-                  Send Reservation <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Email Address</label>
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email"
+                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Experience Type</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {['Table Booking', 'Couple Special', 'Private Event'].map((type) => (
+                      <label key={type} className="relative cursor-pointer group">
+                        <input type="radio" name="res_type" className="hidden peer" defaultChecked={type === 'Table Booking'} />
+                        <div className="px-4 py-3 rounded-xl border border-charcoal/10 bg-charcoal/5 peer-checked:border-gold peer-checked:bg-gold/5 text-center transition-all group-hover:border-gold/30">
+                          <span className="text-[9px] font-black uppercase tracking-widest text-charcoal/40 peer-checked:text-gold">{type}</span>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Message (Optional)</label>
+                  <textarea 
+                    rows={4}
+                    placeholder="Special requests or occasion details..."
+                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 resize-none font-bold"
+                  />
+                </div>
+
+                <button className="w-full py-5 bg-charcoal text-white font-black uppercase text-xs tracking-[0.3em] rounded-xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all shadow-xl group">
+                  Confirm Reservation <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </button>
               </div>
             </form>
@@ -157,7 +171,7 @@ export default function Contact() {
       {/* Map Section */}
       <section className="pb-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="relative rounded-[4rem] overflow-hidden shadow-2xl h-[500px] border-8 border-white">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[500px] border-8 border-white">
             <iframe 
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15959.04351336423!2d34.7578278!3d0.282711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x178101a07205166b%3A0xe549a997235a901d!2sLurambi%2C%20Kakamega!5e0!3m2!1sen!2ske!4v1715073600000!5m2!1sen!2ske" 
               width="100%" 
