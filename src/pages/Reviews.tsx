@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Star, Send, User, Calendar, Quote, CheckCircle2, MessageSquare } from 'lucide-react';
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, where } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
+import { useToast } from '../lib/ToastContext';
 import SEO from '../components/SEO';
 
 interface Review {
@@ -59,12 +60,14 @@ export default function Reviews() {
       });
       
       setSubmitted(true);
+      showToast('Review submitted for moderation!', 'success');
       setName('');
       setRating(5);
       setComment('');
       
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
+      showToast('Failed to submit review. Please try again.', 'error');
       setError('Could not submit your review. Please try again.');
       console.error(err);
     } finally {

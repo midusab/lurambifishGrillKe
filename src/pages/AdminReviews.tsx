@@ -35,6 +35,7 @@ interface Review {
 }
 
 export default function AdminReviews() {
+  const { showToast } = useToast();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -60,8 +61,10 @@ export default function AdminReviews() {
     if (window.confirm('Delete this review permanently?')) {
       try {
         await deleteDoc(doc(db, 'reviews', id));
+        showToast('Review deleted permanently.', 'info');
       } catch (err) {
         handleFirestoreError(err, OperationType.DELETE, 'reviews');
+        showToast('Failed to delete review.', 'error');
       }
     }
   };
@@ -72,8 +75,10 @@ export default function AdminReviews() {
         status,
         approved: status === 'approved' 
       });
+      showToast(`Review ${status} successfully!`, 'success');
     } catch (err) {
       handleFirestoreError(err, OperationType.UPDATE, 'reviews');
+      showToast(`Failed to update review status.`, 'error');
     }
   };
 

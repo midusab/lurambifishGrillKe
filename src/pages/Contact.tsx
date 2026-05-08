@@ -7,7 +7,7 @@ import { useToast } from '../lib/ToastContext';
 import SEO from '../components/SEO';
 
 export default function Contact() {
-  const { addToast } = useToast();
+  const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -20,7 +20,7 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email) {
-      addToast('Please provide your name and email.', 'error');
+      showToast('Please provide your name and email.', 'error');
       return;
     }
 
@@ -33,7 +33,7 @@ export default function Contact() {
       });
       
       setSubmitted(true);
-      addToast('Reservation sent successfully!', 'success');
+      showToast('Reservation sent successfully!', 'success');
       
       // Reset form after 5 seconds
       setTimeout(() => {
@@ -42,7 +42,7 @@ export default function Contact() {
       }, 5000);
     } catch (err) {
       console.error(err);
-      addToast('Failed to send reservation. Please try again.', 'error');
+      showToast('Failed to send reservation. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
