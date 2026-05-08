@@ -236,7 +236,7 @@ export default function AdminMenu() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  className="bg-white rounded-[2.5rem] border border-charcoal/5 shadow-sm overflow-hidden group"
+                  className="bg-white rounded-3xl border border-charcoal/5 shadow-sm overflow-hidden group"
                 >
                   <div className="h-48 relative overflow-hidden">
                     <img 
@@ -362,7 +362,7 @@ export default function AdminMenu() {
                     </label>
                     <div className="flex flex-col md:flex-row gap-4">
                       {/* Image Preview */}
-                      <div className="w-24 h-24 rounded-[2.5rem] bg-charcoal/5 border border-charcoal/5 flex items-center justify-center overflow-hidden shrink-0">
+                      <div className="w-24 h-24 rounded-3xl bg-charcoal/5 border border-charcoal/5 flex items-center justify-center overflow-hidden shrink-0">
                         {formData.image ? (
                           <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
                         ) : (

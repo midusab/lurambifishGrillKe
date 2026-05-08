@@ -160,7 +160,7 @@ export default function AdminDashboard() {
       <aside className="w-full md:w-72 md:h-screen bg-charcoal text-white p-6 md:p-8 flex flex-row md:flex-col justify-between items-center md:items-stretch sticky top-0 z-[100] md:fixed left-0 shadow-2xl md:shadow-none">
         <div className="flex flex-row md:flex-col items-center md:items-stretch gap-6 md:gap-12 w-full">
           <div className="flex items-center gap-3 shrink-0">
-            <div className="w-8 h-8 md:w-10 md:h-10 bg-gold rounded-xl md:rounded-xl flex items-center justify-center">
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-gold rounded-2xl flex items-center justify-center">
               <Star className="text-charcoal w-5 h-5 md:w-6 md:h-6 fill-charcoal" />
             </div>
             <div className="hidden sm:block">
@@ -170,20 +170,20 @@ export default function AdminDashboard() {
           </div>
 
           <nav className="flex flex-row md:flex-col gap-2 flex-1 md:flex-none justify-end md:justify-start overflow-x-auto no-scrollbar">
-            <button className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 bg-white/10 rounded-xl md:rounded-xl text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap">
+            <button className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 bg-white/10 rounded-2xl text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap">
               <LayoutDashboard size={16} className="text-gold" />
               <span className="hidden md:inline">Overview</span>
             </button>
             <button 
               onClick={() => navigate('/admin/menu')}
-              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-xl md:rounded-xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
             >
               <UtensilsCrossed size={16} />
               <span className="hidden md:inline">Menu</span>
             </button>
             <button 
               onClick={() => navigate('/admin/reviews')}
-              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-xl md:rounded-xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
             >
               <MessageSquare size={16} />
               <span className="hidden md:inline">Reviews</span>
@@ -251,7 +251,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <button
             onClick={() => navigate('/admin/menu')}
-            className="group relative bg-charcoal p-10 rounded-[4rem] text-left overflow-hidden transition-all hover:scale-[1.02] shadow-2xl cursor-pointer"
+            className="group relative bg-charcoal p-10 rounded-3xl text-left overflow-hidden transition-all hover:scale-[1.02] shadow-2xl cursor-pointer"
           >
             <div className="relative z-10 space-y-6">
               <div className="w-16 h-16 bg-gold rounded-2xl flex items-center justify-center text-charcoal shadow-lg">
@@ -271,7 +271,7 @@ export default function AdminDashboard() {
 
           <button
             onClick={() => navigate('/admin/reviews')}
-            className="group relative bg-white p-10 rounded-[4rem] border border-charcoal/5 text-left overflow-hidden transition-all hover:scale-[1.02] shadow-xl cursor-pointer"
+            className="group relative bg-white p-10 rounded-3xl border border-charcoal/5 text-left overflow-hidden transition-all hover:scale-[1.02] shadow-xl cursor-pointer"
           >
             <div className="relative z-10 space-y-6">
               <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
@@ -317,7 +317,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Compact Traffic Pulse */}
-            <div className="bg-white p-8 rounded-[4rem] border border-charcoal/5 shadow-sm flex items-center gap-12">
+            <div className="bg-white p-8 rounded-3xl border border-charcoal/5 shadow-sm flex items-center gap-12">
               <div className="shrink-0">
                 <p className="text-[10px] text-charcoal/30 font-black uppercase tracking-[0.2em] mb-2">Popularity</p>
                 <div className="text-3xl font-display font-black text-charcoal">98.2%</div>
@@ -337,7 +337,7 @@ export default function AdminDashboard() {
 
           <div className="space-y-8">
             <h3 className="text-xs font-black text-charcoal/30 uppercase tracking-[0.3em] px-2">Recent Updates</h3>
-            <div className="bg-white rounded-[4rem] border border-charcoal/5 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-3xl border border-charcoal/5 shadow-sm overflow-hidden">
               <div className="p-8 space-y-8">
                 <AnimatePresence mode="popLayout">
                   {activities.map((item) => (
