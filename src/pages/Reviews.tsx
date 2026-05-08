@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Star, Send, User, Calendar, Quote, CheckCircle2, MessageSquare } from 'lucide-react';
-import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, where } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import SEO from '../components/SEO';
 
@@ -23,7 +23,11 @@ export default function Reviews() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'));
+    const q = query(
+      collection(db, 'reviews'), 
+      where('status', '==', 'approved'),
+      orderBy('createdAt', 'desc')
+    );
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const reviewsData = snapshot.docs.map(doc => ({
@@ -50,7 +54,8 @@ export default function Reviews() {
         rating,
         comment,
         createdAt: serverTimestamp(),
-        approved: true // For now we auto-approve for the demo
+        status: 'pending',
+        approved: false
       });
       
       setSubmitted(true);
@@ -60,7 +65,7 @@ export default function Reviews() {
       
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
-      setError('Could not submit your review. Please satisfy the minimum requirements (name > 2 chars, comment > 10 chars).');
+      setError('Could not submit your review. Please try again.');
       console.error(err);
     } finally {
       setIsSubmitting(false);

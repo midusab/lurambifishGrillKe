@@ -68,7 +68,10 @@ export default function AdminReviews() {
 
   const handleStatusChange = async (id: string, status: 'approved' | 'rejected') => {
     try {
-      await updateDoc(doc(db, 'reviews', id), { status });
+      await updateDoc(doc(db, 'reviews', id), { 
+        status,
+        approved: status === 'approved' 
+      });
     } catch (err) {
       handleFirestoreError(err, OperationType.UPDATE, 'reviews');
     }

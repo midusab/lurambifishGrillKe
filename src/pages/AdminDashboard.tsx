@@ -16,7 +16,8 @@ import {
   Settings,
   ChevronRight,
   RefreshCw,
-  Database
+  Database,
+  Calendar
 } from 'lucide-react';
 import { useAuth } from '../lib/AuthContext';
 import { useToast } from '../lib/ToastContext';
@@ -33,6 +34,7 @@ export default function AdminDashboard() {
     avgRating: 0
   });
   const [activities, setActivities] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>([]);
 
   const { showToast } = useToast();
 
@@ -73,22 +75,36 @@ export default function AdminDashboard() {
       updateActivities(menuActs, 'menu');
     });
 
-    const unsubReviews = onSnapshot(qReviews, (snapshot) => {
+    const unsubReviews = onSnapshot(query(collection(db, 'reviews'), orderBy('createdAt', 'desc'), limit(10)), (snapshot) => {
       const reviewActs = snapshot.docs.map(doc => ({
         id: doc.id,
         user: doc.data().userName || 'Guest',
         action: `Left a ${doc.data().rating}★ review`,
-        time: doc.data().timestamp?.toDate() || new Date(),
+        time: doc.data().createdAt?.toDate() || new Date(),
         icon: MessageSquare,
-        type: 'review'
+        type: 'review',
+        status: doc.data().status
       }));
+      setReviews(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
       updateActivities(reviewActs, 'review');
+    });
+
+    const unsubRes = onSnapshot(query(collection(db, 'reservations'), orderBy('createdAt', 'desc'), limit(5)), (snapshot) => {
+      const resActs = snapshot.docs.map(doc => ({
+        id: doc.id,
+        user: doc.data().name,
+        action: `Reserved: ${doc.data().type}`,
+        time: doc.data().createdAt?.toDate() || new Date(),
+        icon: Calendar,
+        type: 'reservation'
+      }));
+      updateActivities(resActs, 'reservation');
     });
 
     const updateActivities = (newActs: any[], type: string) => {
       setActivities(prev => {
-        const otherType = prev.filter(a => a.type !== type);
-        const combined = [...otherType, ...newActs].sort((a, b) => b.time - a.time).slice(0, 5);
+        const otherTypes = prev.filter(a => a.type !== type);
+        const combined = [...otherTypes, ...newActs].sort((a, b) => b.time - a.time).slice(0, 10);
         return combined;
       });
     };
@@ -96,6 +112,7 @@ export default function AdminDashboard() {
     return () => {
       unsubMenu();
       unsubReviews();
+      unsubRes();
     };
   }, []);
 
@@ -124,8 +141,8 @@ export default function AdminDashboard() {
   const stats = [
     { label: 'Revenue (Est.)', value: `KES ${statsData.menuCount * 450}`, icon: TrendingUp, color: 'text-green-500' },
     { label: 'Total Guests', value: statsData.reviewCount * 12, icon: Users, color: 'text-blue-500' },
-    { label: 'Menu Items', value: statsData.menuCount, icon: UtensilsCrossed, color: 'text-gold' },
-    { label: 'Avg Rating', value: statsData.avgRating, icon: Star, color: 'text-orange-500' },
+    { label: 'Pending Reviews', value: reviews.filter(r => r.status === 'pending' || !r.status).length, icon: MessageSquare, color: 'text-orange-500' },
+    { label: 'Avg Rating', value: statsData.avgRating, icon: Star, color: 'text-gold' },
   ];
 
   const quickActions = [

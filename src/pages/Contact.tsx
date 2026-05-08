@@ -1,8 +1,53 @@
-import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, Clock, Send, Instagram, Facebook, Twitter, ArrowRight, Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Mail, Phone, MapPin, Clock, Send, Instagram, Facebook, Twitter, ArrowRight, Star, CheckCircle2 } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../lib/firebase';
+import { useToast } from '../lib/ToastContext';
 import SEO from '../components/SEO';
 
 export default function Contact() {
+  const { addToast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    type: 'Table Booking',
+    message: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email) {
+      addToast('Please provide your name and email.', 'error');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await addDoc(collection(db, 'reservations'), {
+        ...formData,
+        status: 'pending',
+        createdAt: serverTimestamp()
+      });
+      
+      setSubmitted(true);
+      addToast('Reservation sent successfully!', 'success');
+      
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', email: '', type: 'Table Booking', message: '' });
+      }, 5000);
+    } catch (err) {
+      console.error(err);
+      addToast('Failed to send reservation. Please try again.', 'error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <SEO 
@@ -104,24 +149,58 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Clean Reservation Form (Matches Reviews style) */}
+          {/* Clean Reservation Form */}
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="lg:col-span-7 bg-white p-10 md:p-12 rounded-3xl shadow-2xl border border-charcoal/5"
+            className="lg:col-span-7 bg-white p-10 md:p-12 rounded-3xl shadow-2xl border border-charcoal/5 relative overflow-hidden"
           >
+            <AnimatePresence>
+              {submitted && (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="absolute inset-0 z-[100] bg-white/90 backdrop-blur-xl flex flex-col items-center justify-center text-center p-8 space-y-6"
+                >
+                  <motion.div 
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="w-24 h-24 bg-green-500 rounded-3xl flex items-center justify-center shadow-2xl shadow-green-500/20"
+                  >
+                    <CheckCircle2 className="text-white w-12 h-12" />
+                  </motion.div>
+                  <div className="space-y-3">
+                    <h3 className="text-4xl font-display font-black uppercase tracking-tighter text-charcoal">Request <br /> <span className="text-green-500">Received</span></h3>
+                    <p className="text-charcoal/40 text-sm max-w-xs mx-auto font-medium">Our team has been notified. We will contact you shortly to confirm your lakeside experience.</p>
+                  </div>
+                  <button 
+                    type="button"
+                    onClick={() => setSubmitted(false)}
+                    className="px-12 py-4 bg-charcoal text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-xl hover:bg-gold hover:text-charcoal transition-all shadow-xl"
+                  >
+                    Close Message
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <div className="mb-10 space-y-2">
               <h3 className="text-2xl font-display font-black uppercase tracking-tighter text-charcoal">Quick Reservation</h3>
               <p className="text-charcoal/40 text-xs font-medium">Please fill in the details below to book your lake-side experience.</p>
             </div>
 
-            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-8" onSubmit={handleSubmit}>
               <div className="space-y-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Your Full Name</label>
                   <input 
                     type="text" 
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="Enter your name"
                     className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
                   />
@@ -131,6 +210,9 @@ export default function Contact() {
                   <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Email Address</label>
                   <input 
                     type="email" 
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="Enter your email"
                     className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
                   />
@@ -141,7 +223,13 @@ export default function Contact() {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {['Table Booking', 'Couple Special', 'Private Event'].map((type) => (
                       <label key={type} className="relative cursor-pointer group">
-                        <input type="radio" name="res_type" className="hidden peer" defaultChecked={type === 'Table Booking'} />
+                        <input 
+                          type="radio" 
+                          name="res_type" 
+                          className="hidden peer" 
+                          checked={formData.type === type}
+                          onChange={() => setFormData({...formData, type})}
+                        />
                         <div className="px-4 py-3 rounded-xl border border-charcoal/10 bg-charcoal/5 peer-checked:border-gold peer-checked:bg-gold/5 text-center transition-all group-hover:border-gold/30">
                           <span className="text-[9px] font-black uppercase tracking-widest text-charcoal/40 peer-checked:text-gold">{type}</span>
                         </div>
@@ -154,13 +242,21 @@ export default function Contact() {
                   <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Message (Optional)</label>
                   <textarea 
                     rows={4}
+                    value={formData.message}
+                    onChange={(e) => setFormData({...formData, message: e.target.value})}
                     placeholder="Special requests or occasion details..."
                     className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 resize-none font-bold"
                   />
                 </div>
 
-                <button className="w-full py-5 bg-charcoal text-white font-black uppercase text-xs tracking-[0.3em] rounded-xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all shadow-xl group">
-                  Confirm Reservation <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-5 bg-charcoal text-white font-black uppercase text-xs tracking-[0.3em] rounded-xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all shadow-xl group disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Sending...' : (
+                    <>Confirm Reservation <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>
+                  )}
                 </button>
               </div>
             </form>
