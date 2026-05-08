@@ -225,8 +225,8 @@ export default function AdminDashboard() {
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               <p className="text-[10px] text-charcoal/40 font-black uppercase tracking-[0.2em]">System Online • Live</p>
             </div>
-            <h2 className="text-5xl font-display font-black tracking-tighter text-charcoal uppercase leading-none">COMMAND CENTER</h2>
-            <p className="text-charcoal/40 text-sm font-bold uppercase tracking-widest">Management suite for Lurambi Fish Grill</p>
+            <h2 className="text-5xl font-display font-black tracking-tighter text-charcoal uppercase leading-none">ADMIN DASHBOARD</h2>
+            <p className="text-charcoal/40 text-sm font-bold uppercase tracking-widest">Manage your restaurant and menu</p>
           </div>
           
           <div className="flex flex-wrap gap-4">
@@ -258,11 +258,11 @@ export default function AdminDashboard() {
                 <UtensilsCrossed size={32} />
               </div>
               <div>
-                <h3 className="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">Menu Management</h3>
-                <p className="text-white/40 text-sm font-medium leading-relaxed max-w-[280px]">Update dishes, adjust prices, and manage daily specials in real-time.</p>
+                <h3 className="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">Manage Menu</h3>
+                <p className="text-white/40 text-sm font-medium leading-relaxed max-w-[280px]">Add new dishes, update prices, and change daily specials.</p>
               </div>
               <div className="flex items-center gap-2 text-gold text-[10px] font-black uppercase tracking-[0.2em]">
-                Enter Portal <ChevronRight size={14} />
+                Open Menu Manager <ChevronRight size={14} />
               </div>
             </div>
             {/* Abstract Background Element */}
@@ -278,11 +278,11 @@ export default function AdminDashboard() {
                 <MessageSquare size={32} />
               </div>
               <div>
-                <h3 className="text-3xl font-display font-black text-charcoal uppercase tracking-tight mb-2">Guest Feedback</h3>
-                <p className="text-charcoal/40 text-sm font-medium leading-relaxed max-w-[280px]">Monitor guest reviews, moderate testimonials, and track satisfaction.</p>
+                <h3 className="text-3xl font-display font-black text-charcoal uppercase tracking-tight mb-2">Customer Reviews</h3>
+                <p className="text-charcoal/40 text-sm font-medium leading-relaxed max-w-[280px]">See what guests are saying and manage your testimonials.</p>
               </div>
               <div className="flex items-center gap-2 text-blue-500 text-[10px] font-black uppercase tracking-[0.2em]">
-                Manage Reviews <ChevronRight size={14} />
+                View All Reviews <ChevronRight size={14} />
               </div>
             </div>
             <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/10 transition-colors" />
@@ -293,14 +293,14 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-12">
             <div className="flex justify-between items-center px-2">
-              <h3 className="text-xs font-black text-charcoal/30 uppercase tracking-[0.3em]">Business Insights</h3>
+              <h3 className="text-xs font-black text-charcoal/30 uppercase tracking-[0.3em]">Restaurant Stats</h3>
               <button 
                 onClick={handleSync}
                 disabled={isSyncing}
                 className="text-[10px] font-black text-gold uppercase tracking-widest flex items-center gap-2 hover:text-charcoal transition-colors cursor-pointer"
               >
                 <RefreshCw size={12} className={isSyncing ? 'animate-spin' : ''} />
-                Cloud Sync
+                Refresh Data
               </button>
             </div>
             
@@ -319,9 +319,9 @@ export default function AdminDashboard() {
             {/* Compact Traffic Pulse */}
             <div className="bg-white p-8 rounded-[2rem] border border-charcoal/5 shadow-sm flex items-center gap-12">
               <div className="shrink-0">
-                <p className="text-[10px] text-charcoal/30 font-black uppercase tracking-[0.2em] mb-2">Pulse</p>
+                <p className="text-[10px] text-charcoal/30 font-black uppercase tracking-[0.2em] mb-2">Popularity</p>
                 <div className="text-3xl font-display font-black text-charcoal">98.2%</div>
-                <div className="text-[8px] text-green-500 font-bold uppercase tracking-widest">Active Uptime</div>
+                <div className="text-[8px] text-green-500 font-bold uppercase tracking-widest">Active Status</div>
               </div>
               <div className="flex-1 flex items-end gap-1 h-12">
                 {[40, 70, 45, 90, 65, 80, 50, 95, 75, 85, 60, 100, 70, 80, 50, 90].map((h, i) => (
@@ -336,7 +336,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="space-y-8">
-            <h3 className="text-xs font-black text-charcoal/30 uppercase tracking-[0.3em] px-2">Activity Stream</h3>
+            <h3 className="text-xs font-black text-charcoal/30 uppercase tracking-[0.3em] px-2">Recent Updates</h3>
             <div className="bg-white rounded-[2rem] border border-charcoal/5 shadow-sm overflow-hidden">
               <div className="p-8 space-y-8">
                 <AnimatePresence mode="popLayout">
