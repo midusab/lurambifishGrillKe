@@ -3,16 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { motion } from 'motion/react';
-import { Lock, Mail, ArrowRight, Star } from 'lucide-react';
+import { Lock, Mail, ArrowRight, Star, Eye, EyeOff } from 'lucide-react';
 import SEO from '../components/SEO';
 import { ADMIN_EMAIL } from '../constants';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,13 +87,20 @@ export default function AdminLogin() {
             <div className="relative group">
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/20 group-focus-within:text-gold transition-colors" size={18} />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-charcoal/5 border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold/30 transition-all text-charcoal font-medium"
+                className="w-full pl-12 pr-12 py-4 bg-charcoal/5 border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold/30 transition-all text-charcoal font-medium"
                 placeholder="••••••••"
                 required
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-charcoal/20 hover:text-gold transition-colors p-1"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
           </div>
 
