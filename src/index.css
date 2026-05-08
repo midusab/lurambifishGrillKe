@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+
+  --color-gold: #FFB200;
+  --color-gold-muted: rgba(255, 178, 0, 0.4);
+  --color-charcoal: #0F0F0F;
+  --color-ocean: #002B49;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-charcoal font-sans antialiased selection:bg-gold/30;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight text-charcoal;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-charcoal/10;
+  }
+
+  .text-glow-gold {
+    text-shadow: 0 0 15px rgba(255, 178, 0, 0.3);
+  }
+
+  .smoke-overlay {
+    background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(255, 255, 255, 0.5) 100%);
+  }
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
