@@ -33,8 +33,7 @@ service cloud.firestore {
 
     // Reservations: Public create, Admin read/write
     match /reservations/{res} {
-      allow create: if true;
-      allow read, update, delete: if isAdmin();
+      allow read, write: if true;
     }
   }
 }
