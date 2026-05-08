@@ -92,7 +92,7 @@ export default function AdminMenu() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const q = query(collection(db, 'menu'), orderBy('category'), orderBy('name'));
+    const q = query(collection(db, 'menu'), orderBy('category'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map(doc => ({
         id: doc.id,
