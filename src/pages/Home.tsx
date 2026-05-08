@@ -127,7 +127,7 @@ export default function Home() {
           >
             <Link 
               to="/menu"
-              className="group relative px-10 py-5 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-lg overflow-hidden transition-all hover:scale-105"
+              className="group relative px-10 py-5 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-xl overflow-hidden transition-all hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Order Online <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -135,7 +135,7 @@ export default function Home() {
             </Link>
             <Link 
               to="/contact"
-              className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black uppercase text-xs tracking-widest rounded-lg transition-all"
+              className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black uppercase text-xs tracking-widest rounded-xl transition-all"
             >
               Book a Table
             </Link>
@@ -164,7 +164,7 @@ export default function Home() {
               <span>Webuye Rd, Lurambi</span>
             </div>
           </div>
-          <button className="w-full py-3 bg-charcoal/5 hover:bg-charcoal/10 border border-charcoal/10 rounded-lg text-[10px] uppercase font-bold tracking-[0.2em] transition-colors">
+          <button className="w-full py-3 bg-charcoal/5 hover:bg-charcoal/10 border border-charcoal/10 rounded-xl text-[10px] uppercase font-bold tracking-[0.2em] transition-colors">
             Check Availability
           </button>
         </motion.div>
@@ -231,7 +231,7 @@ export default function Home() {
                 
                 <div className="absolute bottom-0 left-0 right-0 p-10 z-20 space-y-4 transform transition-transform group-hover:-translate-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="px-3 py-1 bg-gold text-charcoal text-[9px] font-bold uppercase rounded-lg tracking-[0.3em]">
+                    <span className="px-3 py-1 bg-gold text-charcoal text-[9px] font-bold uppercase rounded-xl tracking-[0.3em]">
                       {dish.category}
                     </span>
                     <span className="text-lg font-display font-black text-charcoal">
@@ -295,7 +295,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="absolute -bottom-10 -right-10 w-64 h-64 glass rounded-2xl p-8 flex flex-col justify-center gap-4 border-gold/10 shadow-2xl"
             >
-              <div className="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-gold/20 rounded-xl flex items-center justify-center">
                 <Star className="text-gold animate-pulse" />
               </div>
               <p className="text-xl font-display font-bold text-charcoal tracking-tight">Pure Lakeside Tradition</p>
@@ -366,7 +366,7 @@ export default function Home() {
                     viewport={{ once: true }}
                     className="flex gap-6 group"
                   >
-                    <div className="w-14 h-14 shrink-0 rounded-lg bg-charcoal/5 flex items-center justify-center border border-charcoal/10 group-hover:border-gold/30 transition-colors">
+                    <div className="w-14 h-14 shrink-0 rounded-xl bg-charcoal/5 flex items-center justify-center border border-charcoal/10 group-hover:border-gold/30 transition-colors">
                       <Icon className="text-gold w-6 h-6" />
                     </div>
                     <div className="space-y-2">
@@ -405,7 +405,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: i * 0.2 }}
                   viewport={{ once: true }}
-                  className="p-12 glass rounded-2xl relative space-y-8"
+                  className="p-12 glass rounded-[2.5rem] relative space-y-8"
                 >
                   <Quote className="absolute top-10 right-10 text-gold/10 w-20 h-20" />
                   <div className="flex gap-1 text-gold">
@@ -429,7 +429,7 @@ export default function Home() {
               <div className="col-span-full p-20 text-center glass rounded-2xl border-dashed border-charcoal/10">
                 <Quote className="mx-auto text-gold/20 w-16 h-16 mb-6" />
                 <p className="text-charcoal/50 font-light italic text-xl mb-8">Be the first to share your experience with Lurambi Fish Grill.</p>
-                <Link to="/reviews" className="px-10 py-4 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-lg">Write a Review</Link>
+                <Link to="/reviews" className="px-10 py-4 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-xl">Write a Review</Link>
               </div>
             )}
           </div>
@@ -475,13 +475,13 @@ export default function Home() {
            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
              <Link 
                 to="/contact" 
-                className="px-12 py-6 bg-gold text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-gold/20"
+                className="px-12 py-6 bg-gold text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-xl hover:scale-105 transition-all shadow-lg shadow-gold/20"
               >
                 Secure Your Table
               </Link>
               <Link 
                 to="/menu" 
-                className="px-12 py-6 glass text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:bg-charcoal/10 transition-all font-bold"
+                className="px-12 py-6 glass text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-xl hover:bg-charcoal/10 transition-all font-bold"
               >
                 Explore Full Menu
               </Link>

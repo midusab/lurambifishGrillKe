@@ -115,7 +115,7 @@ export default function About() {
              whileHover={{ y: -10 }}
              className="p-16 glass rounded-2xl space-y-8 border-gold/10"
             >
-             <div className="w-16 h-16 bg-gold/20 rounded-lg flex items-center justify-center">
+             <div className="w-16 h-16 bg-gold/20 rounded-xl flex items-center justify-center">
                <Heart className="text-gold" size={32} />
              </div>
              <h3 className="text-4xl font-display font-black uppercase tracking-tight text-charcoal">Our Mission</h3>
@@ -132,7 +132,7 @@ export default function About() {
              whileHover={{ y: -10 }}
              className="p-16 glass rounded-2xl space-y-8 border-gold/10"
             >
-             <div className="w-16 h-16 bg-gold/20 rounded-lg flex items-center justify-center">
+             <div className="w-16 h-16 bg-gold/20 rounded-xl flex items-center justify-center">
                <ShieldCheck className="text-gold" size={32} />
              </div>
              <h3 className="text-4xl font-display font-black uppercase tracking-tight text-charcoal">Our Vision</h3>

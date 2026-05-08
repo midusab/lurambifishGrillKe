@@ -150,7 +150,7 @@ export default function Menu() {
                   </div>
 
                   {/* Add to Cart Concept */}
-                  <button className="absolute bottom-4 right-4 w-12 h-12 bg-white text-charcoal rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                  <button className="absolute bottom-4 right-4 w-12 h-12 bg-white text-charcoal rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                     <Plus size={20} />
                   </button>
                 </div>
@@ -232,7 +232,7 @@ export default function Menu() {
             <p className="text-charcoal/70 italic text-lg md:text-xl font-light">
               "Ask your server about our daily off-menu specialties sourced directly from the fishermen at first light."
             </p>
-            <button className="px-10 py-4 border border-gold/30 text-gold uppercase text-[10px] font-bold tracking-[0.3em] rounded-lg hover:bg-gold hover:text-charcoal hover:border-gold transition-all">
+            <button className="px-10 py-4 border border-gold/30 text-gold uppercase text-[10px] font-bold tracking-[0.3em] rounded-xl hover:bg-gold hover:text-charcoal hover:border-gold transition-all">
               Request Daily Special
             </button>
           </motion.div>

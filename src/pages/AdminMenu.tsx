@@ -245,11 +245,11 @@ export default function AdminMenu() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute top-4 left-4 flex gap-2">
-                      <span className="px-3 py-1 bg-charcoal/90 text-white text-[8px] font-bold uppercase rounded-lg tracking-widest">
+                      <span className="px-3 py-1 bg-charcoal/90 text-white text-[8px] font-bold uppercase rounded-xl tracking-widest">
                         {item.category}
                       </span>
                       {item.isChefSpecial && (
-                        <span className="px-3 py-1 bg-gold text-charcoal text-[8px] font-bold uppercase rounded-lg tracking-widest">
+                        <span className="px-3 py-1 bg-gold text-charcoal text-[8px] font-bold uppercase rounded-xl tracking-widest">
                           Chef's Special
                         </span>
                       )}
@@ -265,13 +265,13 @@ export default function AdminMenu() {
                       <div className="flex gap-2">
                         <button 
                           onClick={() => handleOpenModal(item)}
-                          className="w-8 h-8 rounded-lg bg-charcoal/5 flex items-center justify-center text-charcoal hover:bg-gold/20 hover:text-gold transition-colors cursor-pointer"
+                          className="w-8 h-8 rounded-xl bg-charcoal/5 flex items-center justify-center text-charcoal hover:bg-gold/20 hover:text-gold transition-colors cursor-pointer"
                         >
                           <Edit2 size={14} />
                         </button>
                         <button 
                           onClick={() => handleDelete(item.id)}
-                          className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors cursor-pointer"
+                          className="w-8 h-8 rounded-xl bg-red-50 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors cursor-pointer"
                         >
                           <Trash2 size={14} />
                         </button>
@@ -432,7 +432,7 @@ export default function AdminMenu() {
                       onChange={(e) => setFormData({...formData, isChefSpecial: e.target.checked})}
                       className="hidden"
                     />
-                    <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${formData.isChefSpecial ? 'bg-gold border-gold' : 'border-charcoal/10 group-hover:border-gold/40'}`}>
+                    <div className={`w-6 h-6 rounded-xl border-2 flex items-center justify-center transition-all ${formData.isChefSpecial ? 'bg-gold border-gold' : 'border-charcoal/10 group-hover:border-gold/40'}`}>
                       {formData.isChefSpecial && <Check size={14} className="text-charcoal" />}
                     </div>
                     <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/60">Chef's Special</span>
@@ -444,7 +444,7 @@ export default function AdminMenu() {
                       onChange={(e) => setFormData({...formData, isSpicy: e.target.checked})}
                       className="hidden"
                     />
-                    <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${formData.isSpicy ? 'bg-red-500 border-red-500' : 'border-charcoal/10 group-hover:border-red-400'}`}>
+                    <div className={`w-6 h-6 rounded-xl border-2 flex items-center justify-center transition-all ${formData.isSpicy ? 'bg-red-500 border-red-500' : 'border-charcoal/10 group-hover:border-red-400'}`}>
                       {formData.isSpicy && <Check size={14} className="text-white" />}
                     </div>
                     <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/60">Spicy</span>

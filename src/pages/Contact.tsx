@@ -1,175 +1,183 @@
 import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, Clock, Send, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, Instagram, Facebook, Twitter, ArrowRight, Star } from 'lucide-react';
 import SEO from '../components/SEO';
 
 export default function Contact() {
   return (
-    <div className="pt-32 pb-24">
+    <div className="min-h-screen bg-white">
       <SEO 
-        title="Contact & Reservations | Visit Us in Kakamega"
-        description="Book your table at Lurambi Fish Grill. Find our location on Webuye Rd, Lurambi, and get in touch for private events, corporate catering, or premium seafood dining inquiries."
+        title="Reservations & Contact | Lurambi Fish Grill"
+        description="Book your table at Lurambi Fish Grill. Experience premium lakeside dining in the heart of Kakamega."
       />
-      {/* Contact Header */}
-      <div className="max-w-7xl mx-auto px-6 mb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-end">
-          <div className="space-y-8">
-            <motion.span 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-gold text-[10px] font-bold uppercase tracking-[0.3em]"
-            >
-              Get In Touch
-            </motion.span>
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-6xl md:text-8xl font-display font-black tracking-tighter uppercase leading-[0.85]"
-            >
-              LET’S START A <br /> <span className="text-gold">CONVERSATION</span>
-            </motion.h1>
-          </div>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-charcoal/50 text-lg font-light leading-relaxed max-w-md italic pb-4"
-          >
-            Whether you're planning an intimate dinner, a corporate event, or just want to say hello, we’re here to assist you.
-          </motion.div>
-        </div>
-      </div>
 
-      {/* Main Contact Grid */}
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Contact Info Cards */}
-        <div className="space-y-6">
-          {[
-            { icon: Phone, title: 'Phone Support', value: '+254 700 000 000', sub: 'Reservations & Orders' },
-            { icon: Mail, title: 'Email Us', value: 'hello@lurambifishgrill.com', sub: 'Inquiries & Feedback' },
-            { icon: MapPin, title: 'Find Us', value: 'Webuye Rd, Lurambi', sub: 'Kakamega, Kenya' },
-            { icon: Clock, title: 'Active Hours', value: '10:00 AM - 10:00 PM', sub: 'Daily Open' }
-          ].map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="group p-8 glass rounded-2xl border-charcoal/5 hover:border-gold/20 transition-all flex items-start gap-6"
-            >
-              <div className="w-12 h-12 rounded-xl bg-charcoal/5 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-colors">
-                <item.icon className="text-gold" size={24} />
-              </div>
-              <div className="space-y-1">
-                <p className="text-[10px] uppercase font-bold tracking-[0.3em] text-charcoal/30">{item.title}</p>
-                <p className="text-lg font-display font-bold text-charcoal tracking-tight">{item.value}</p>
-                <p className="text-xs text-charcoal/40 italic">{item.sub}</p>
-              </div>
-            </motion.div>
-          ))}
-          
-          {/* Social Social Links */}
-          <div className="flex gap-4 pt-6">
-            <a href="#" className="w-14 h-14 rounded-lg glass flex items-center justify-center hover:bg-gold hover:text-charcoal transition-all">
-              <Instagram size={24} />
-            </a>
-            <a href="#" className="w-14 h-14 rounded-lg glass flex items-center justify-center hover:bg-gold hover:text-charcoal transition-all">
-              <Facebook size={24} />
-            </a>
-            <a href="#" className="w-14 h-14 rounded-lg glass flex items-center justify-center hover:bg-gold hover:text-charcoal transition-all">
-              <Twitter size={24} />
-            </a>
-          </div>
-        </div>
-
-        {/* Inquiry Form */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="lg:col-span-2 p-12 glass rounded-2xl border-gold/10"
-        >
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-8" onSubmit={(e) => e.preventDefault()}>
-            <div className="space-y-3 font-bold">
-              <label className="text-[10px] uppercase font-bold tracking-[0.3em] text-gold ml-2">Your Name</label>
-              <input 
-                type="text" 
-                placeholder="John Doe" 
-                className="w-full bg-charcoal/5 border border-charcoal/10 rounded-lg px-6 py-4 text-charcoal focus:outline-none focus:border-gold/50 transition-colors"
-              />
-            </div>
-            <div className="space-y-3 font-bold">
-              <label className="text-[10px] uppercase font-bold tracking-[0.3em] text-gold ml-2">Email Address</label>
-              <input 
-                type="email" 
-                placeholder="john@example.com" 
-                className="w-full bg-charcoal/5 border border-charcoal/10 rounded-lg px-6 py-4 text-charcoal focus:outline-none focus:border-gold/50 transition-colors"
-              />
-            </div>
-            <div className="space-y-3 md:col-span-2 font-bold">
-              <label className="text-[10px] uppercase font-bold tracking-[0.3em] text-gold ml-2">Subject</label>
-              <select className="w-full bg-charcoal/5 border border-charcoal/10 rounded-lg px-6 py-4 text-charcoal focus:outline-none focus:border-gold/50 transition-colors appearance-none font-bold">
-                <option className="bg-white">Table Reservation</option>
-                <option className="bg-white">Couple Special</option>
-                <option className="bg-white">Solo Special</option>
-              </select>
-            </div>
-            <div className="space-y-3 md:col-span-2 font-bold">
-              <label className="text-[10px] uppercase font-bold tracking-[0.3em] text-gold ml-2">Your Message</label>
-              <textarea 
-                rows={5}
-                placeholder="Tell us about your plans..." 
-                className="w-full bg-charcoal/5 border border-charcoal/10 rounded-lg px-6 py-4 text-charcoal focus:outline-none focus:border-gold/50 transition-colors resize-none font-bold"
-              />
-            </div>
-            <div className="md:col-span-2 pt-4 flex flex-col sm:flex-row gap-4">
-              <button className="group flex-1 py-5 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-lg hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-lg shadow-gold/20">
-                Send Application <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </button>
-              <a 
-                href="tel:+254700000000"
-                className="group flex-1 py-5 glass text-charcoal font-black uppercase text-xs tracking-widest rounded-lg hover:bg-charcoal/10 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3"
-              >
-                Call Directly <Phone size={16} className="text-gold group-hover:scale-110 transition-transform" />
-              </a>
-            </div>
-          </form>
-        </motion.div>
-      </div>
-
-      {/* Map Placeholder */}
-      <div className="max-w-7xl mx-auto px-6 mt-32">
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="relative h-[500px] rounded-2xl overflow-hidden grayscale border border-white/5 group"
-        >
-          <div className="absolute inset-0 bg-white/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none" />
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15959.04351336423!2d34.7578278!3d0.282711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x178101a07205166b%3A0xe549a997235a901d!2sLurambi%2C%20Kakamega!5e0!3m2!1sen!2ske!4v1715073600000!5m2!1sen!2ske" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen 
-            loading="lazy" 
+      {/* Cinematic Header Section */}
+      <section className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80" 
+            alt="Lakeside Grill" 
+            className="w-full h-full object-cover brightness-50"
           />
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="absolute top-10 left-10 z-20 glass p-8 rounded-xl space-y-4 max-w-xs"
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-charcoal/80 to-white" />
+          <div className="absolute inset-0 smoke-overlay opacity-30" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-gold/20"
           >
-            <h4 className="font-display font-bold uppercase tracking-[0.3em] text-gold text-xs">Our Location</h4>
-            <p className="text-charcoal text-sm leading-relaxed font-light italic">
-              Located on the outskirts of Kakamega town, Lurambi Fish Grill offers a serene escape with easy access from the main highway.
-            </p>
-            <div className="flex items-center gap-2 text-gold text-[10px] font-bold uppercase tracking-widest">
-              <MapPin size={14} /> Get Directions
-            </div>
+            <Star className="w-3 h-3 fill-gold" />
+            Direct Reservations
           </motion.div>
-        </motion.div>
-      </div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl md:text-8xl font-display font-black tracking-tighter uppercase leading-[0.9] text-white"
+          >
+            SECURE YOUR <br /> <span className="text-gold text-glow-gold">LAKESIDE TABLE</span>
+          </motion.h1>
+        </div>
+      </section>
+
+      {/* Contact Content Grid */}
+      <section className="relative z-20 -mt-24 pb-32">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          {/* Contact Info Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-charcoal p-10 rounded-[4rem] text-white shadow-2xl space-y-10 relative overflow-hidden group">
+              <div className="relative z-10 space-y-8">
+                <h3 className="text-xs font-black text-white/30 uppercase tracking-[0.4em]">Connect</h3>
+                
+                <div className="space-y-6">
+                  {[
+                    { icon: Phone, label: 'Reservations', value: '+254 700 000 000' },
+                    { icon: Mail, label: 'General Inquiry', value: 'hello@lurambi.ke' },
+                    { icon: MapPin, label: 'Find Us', value: 'Webuye Rd, Lurambi' }
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-5">
+                      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gold">
+                        <item.icon size={20} />
+                      </div>
+                      <div>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-white/20 mb-1">{item.label}</p>
+                        <p className="text-sm font-bold">{item.value}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-8 border-t border-white/5 flex gap-4">
+                  {[Instagram, Facebook, Twitter].map((Icon, i) => (
+                    <a key={i} href="#" className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-gold hover:text-charcoal transition-all">
+                      <Icon size={18} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/10 transition-colors" />
+            </div>
+
+            <div className="bg-white p-10 rounded-[4rem] border border-charcoal/5 shadow-xl space-y-6">
+              <div className="w-12 h-12 bg-charcoal/5 rounded-2xl flex items-center justify-center text-gold">
+                <Clock size={24} />
+              </div>
+              <h4 className="text-xl font-display font-black uppercase tracking-tight text-charcoal">Opening Hours</h4>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+                  <span className="text-charcoal/30">Weekdays</span>
+                  <span className="text-charcoal">10:00 - 22:00</span>
+                </div>
+                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+                  <span className="text-charcoal/30">Weekends</span>
+                  <span className="text-gold">09:00 - 23:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Premium Form */}
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="lg:col-span-8 bg-white p-8 md:p-16 rounded-[3rem] shadow-2xl border border-charcoal/5"
+          >
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-12" onSubmit={(e) => e.preventDefault()}>
+              <div className="space-y-4">
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/20 ml-2">Guest Name</label>
+                <input 
+                  type="text" 
+                  placeholder="Michael Otieno"
+                  className="w-full bg-charcoal/5 border-b-2 border-transparent focus:border-gold py-4 text-charcoal font-bold focus:outline-none transition-all placeholder:text-charcoal/10"
+                />
+              </div>
+              <div className="space-y-4">
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/20 ml-2">Email Address</label>
+                <input 
+                  type="email" 
+                  placeholder="michael@luxury.com"
+                  className="w-full bg-charcoal/5 border-b-2 border-transparent focus:border-gold py-4 text-charcoal font-bold focus:outline-none transition-all placeholder:text-charcoal/10"
+                />
+              </div>
+              <div className="space-y-4 md:col-span-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/20 ml-2">Experience Selection</label>
+                <div className="flex flex-wrap gap-4">
+                  {['Standard Table', 'Couple Special', 'Private Event'].map((type) => (
+                    <label key={type} className="relative cursor-pointer group">
+                      <input type="radio" name="res_type" className="hidden peer" defaultChecked={type === 'Standard Table'} />
+                      <div className="px-8 py-3 rounded-full border-2 border-charcoal/5 peer-checked:border-gold peer-checked:bg-gold/5 transition-all">
+                        <span className="text-[9px] font-black uppercase tracking-widest text-charcoal/40 peer-checked:text-gold group-hover:text-charcoal transition-colors">{type}</span>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-4 md:col-span-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/20 ml-2">Special Requests</label>
+                <textarea 
+                  rows={4}
+                  placeholder="Tell us about your celebration..."
+                  className="w-full bg-charcoal/5 border-b-2 border-transparent focus:border-gold py-4 text-charcoal font-bold focus:outline-none transition-all resize-none placeholder:text-charcoal/10 italic"
+                />
+              </div>
+              <div className="md:col-span-2 pt-6">
+                <button className="w-full md:w-auto px-12 py-6 bg-charcoal text-white rounded-full font-black uppercase text-xs tracking-[0.3em] hover:bg-gold hover:text-charcoal transition-all shadow-xl flex items-center justify-center gap-4 group">
+                  Send Reservation <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="pb-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative rounded-[4rem] overflow-hidden shadow-2xl h-[500px] border-8 border-white">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15959.04351336423!2d34.7578278!3d0.282711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x178101a07205166b%3A0xe549a997235a901d!2sLurambi%2C%20Kakamega!5e0!3m2!1sen!2ske!4v1715073600000!5m2!1sen!2ske" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0, filter: 'grayscale(100%) contrast(1.1)' }} 
+              allowFullScreen 
+              loading="lazy" 
+            />
+            <div className="absolute inset-0 bg-gold/5 pointer-events-none" />
+            
+            <div className="absolute bottom-10 left-10 glass p-8 rounded-[2.5rem] max-w-xs border border-white/20 hidden md:block">
+              <h4 className="text-xl font-display font-black text-charcoal uppercase mb-2">Visit Lurambi</h4>
+              <p className="text-[10px] text-charcoal/50 font-bold uppercase tracking-widest leading-loose">
+                Webuye Road, Lurambi<br />
+                Kakamega, Kenya
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
