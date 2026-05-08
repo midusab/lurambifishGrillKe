@@ -88,7 +88,7 @@ export default function About() {
             viewport={{ once: true }}
             className="relative order-1 lg:order-2"
           >
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-white/5">
+            <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/5">
               <img src="https://images.unsplash.com/photo-1544124499-58912cbddaad?auto=format&fit=crop&q=80" alt="Chef at work" className="w-full h-full object-cover" />
             </div>
             <motion.div 
@@ -96,7 +96,7 @@ export default function About() {
               whileInView={{ scale: 1, rotate: -12 }}
               transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
               viewport={{ once: true }}
-              className="absolute -left-10 top-20 w-48 h-48 bg-gold flex items-center justify-center rounded-2xl shadow-2xl"
+              className="absolute -left-10 top-20 w-48 h-48 bg-gold flex items-center justify-center rounded-[2.5rem] shadow-2xl"
             >
               <Fish className="text-charcoal w-24 h-24" />
             </motion.div>
@@ -113,7 +113,7 @@ export default function About() {
              transition={{ duration: 0.8 }}
              viewport={{ once: true }}
              whileHover={{ y: -10 }}
-             className="p-16 glass rounded-2xl space-y-8 border-gold/10"
+             className="p-16 glass rounded-[2.5rem] space-y-8 border-gold/10"
             >
              <div className="w-16 h-16 bg-gold/20 rounded-xl flex items-center justify-center">
                <Heart className="text-gold" size={32} />
@@ -130,7 +130,7 @@ export default function About() {
              transition={{ duration: 0.8, delay: 0.2 }}
              viewport={{ once: true }}
              whileHover={{ y: -10 }}
-             className="p-16 glass rounded-2xl space-y-8 border-gold/10"
+             className="p-16 glass rounded-[2.5rem] space-y-8 border-gold/10"
             >
              <div className="w-16 h-16 bg-gold/20 rounded-xl flex items-center justify-center">
                <ShieldCheck className="text-gold" size={32} />
@@ -156,7 +156,7 @@ export default function About() {
                initial={{ opacity: 0, scale: 0.9 }}
                whileInView={{ opacity: 1, scale: 1 }}
                viewport={{ once: true }}
-               className="md:col-span-2 rounded-2xl overflow-hidden relative group"
+               className="md:col-span-2 rounded-[2.5rem] overflow-hidden relative group"
              >
                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Lounge" />
                <div className="absolute inset-0 bg-white/20 group-hover:opacity-0 transition-opacity" />
@@ -166,7 +166,7 @@ export default function About() {
                whileInView={{ opacity: 1, scale: 1 }}
                viewport={{ once: true }}
                transition={{ delay: 0.1 }}
-               className="rounded-2xl overflow-hidden relative group"
+               className="rounded-[2.5rem] overflow-hidden relative group"
              >
                <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Bar" />
                <div className="absolute inset-0 bg-white/20 group-hover:opacity-0 transition-opacity" />
@@ -176,7 +176,7 @@ export default function About() {
                whileInView={{ opacity: 1, scale: 1 }}
                viewport={{ once: true }}
                transition={{ delay: 0.2 }}
-               className="rounded-2xl overflow-hidden relative group"
+               className="rounded-[2.5rem] overflow-hidden relative group"
              >
                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Dining area" />
                <div className="absolute inset-0 bg-white/20 group-hover:opacity-0 transition-opacity" />
@@ -186,7 +186,7 @@ export default function About() {
                whileInView={{ opacity: 1, scale: 1 }}
                viewport={{ once: true }}
                transition={{ delay: 0.3 }}
-               className="md:col-span-2 rounded-2xl overflow-hidden relative group"
+               className="md:col-span-2 rounded-[2.5rem] overflow-hidden relative group"
              >
                <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Lounge details" />
                <div className="absolute inset-0 bg-white/20 group-hover:opacity-0 transition-opacity" />

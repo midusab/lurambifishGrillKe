@@ -91,7 +91,7 @@ export default function Menu() {
 
       {/* Info Bar */}
       <div className="max-w-7xl mx-auto px-6 mb-12">
-        <div className="glass border-gold/20 px-8 py-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+        <div className="glass border-gold/20 px-8 py-4 rounded-[2.5rem] flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
             <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/70">
@@ -119,7 +119,7 @@ export default function Menu() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4 }}
-                className="group p-4 rounded-2xl glass border-charcoal/5 hover:border-gold/20 transition-all duration-500 overflow-hidden"
+                className="group p-4 rounded-[2.5rem] glass border-charcoal/5 hover:border-gold/20 transition-all duration-500 overflow-hidden"
               >
                 {/* Image Container */}
                 <div className="relative h-64 rounded-xl overflow-hidden mb-6">
@@ -210,7 +210,7 @@ export default function Menu() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="relative h-96 rounded-2xl overflow-hidden flex items-center justify-center text-center p-12"
+          className="relative h-96 rounded-[2.5rem] overflow-hidden flex items-center justify-center text-center p-12"
         >
           <img 
             src="https://images.unsplash.com/photo-1544124499-58912cbddaad?auto=format&fit=crop&q=80" 
