@@ -24,6 +24,7 @@ import {
   Filter
 } from 'lucide-react';
 import SEO from '../components/SEO';
+import { useToast } from '../lib/ToastContext';
 
 interface Review {
   id: string;
