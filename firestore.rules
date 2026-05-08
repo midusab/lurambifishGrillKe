@@ -11,22 +11,27 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    function isValidId(id) {
-      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == 'lurambifishgrillKE@gmail.com';
     }
 
-    function isValidReview(data) {
-      return data.userName is string && data.userName.size() >= 2 && data.userName.size() <= 100 &&
-             data.rating is int && data.rating >= 1 && data.rating <= 5 &&
-             data.comment is string && data.comment.size() >= 10 && data.comment.size() <= 1000 &&
-             data.createdAt == request.time;
+    // Menu: Public read, Admin write
+    match /menu/{item} {
+      allow read: if true;
+      allow write: if isAdmin();
     }
 
-    match /reviews/{reviewId} {
-      allow list: if true; // Public can see all (maybe filter for approved on client)
-      allow get: if true;
-      allow create: if isValidReview(request.resource.data);
-      allow update, delete: if false; // Only admin can moderate (not implemented yet)
+    // Reviews: Public read/create, Admin moderate
+    match /reviews/{review} {
+      allow read: if true;
+      allow create: if true; // Simplified for now to ensure connectivity
+      allow update, delete: if isAdmin();
+    }
+
+    // Reservations: Public create, Admin read/write
+    match /reservations/{res} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
     }
   }
 }

@@ -7,8 +7,6 @@ import { cn } from '../lib/utils';
 import { Flame, Star, ShoppingBag, Plus } from 'lucide-react';
 import SEO from '../components/SEO';
 
-import { MENU_ITEMS } from '../constants';
-
 export default function Menu() {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);

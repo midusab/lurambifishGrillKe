@@ -31,7 +31,9 @@ export default function AdminDashboard() {
   const [statsData, setStatsData] = useState({
     menuCount: 0,
     reviewCount: 0,
-    avgRating: 0
+    avgRating: 0,
+    pendingReviews: 0,
+    pendingReservations: 0
   });
   const [activities, setActivities] = useState<any[]>([]);
   const [reviews, setReviews] = useState<any[]>([]);
@@ -44,14 +46,21 @@ export default function AdminDashboard() {
       try {
         const menuSnap = await getDocs(collection(db, 'menu'));
         const reviewSnap = await getDocs(collection(db, 'reviews'));
+        const resSnap = await getDocs(collection(db, 'reservations'));
+        
         const reviewsData = reviewSnap.docs.map(doc => doc.data());
         const totalRating = reviewsData.reduce((acc, curr) => acc + (curr.rating || 0), 0);
         const avg = reviewsData.length > 0 ? (totalRating / reviewsData.length).toFixed(1) : 0;
 
+        const pendingReviews = reviewsData.filter(r => r.status === 'pending' || !r.status).length;
+        const pendingReservations = resSnap.docs.filter(d => d.data().status === 'pending').length;
+
         setStatsData({
           menuCount: menuSnap.size,
           reviewCount: reviewSnap.size,
-          avgRating: Number(avg)
+          avgRating: Number(avg),
+          pendingReviews,
+          pendingReservations
         });
       } catch (err) {
         console.error('Stats fetch error:', err);
@@ -200,17 +209,23 @@ export default function AdminDashboard() {
             </button>
             <button 
               onClick={() => navigate('/admin/reviews')}
-              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
+              className="relative flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
             >
               <MessageSquare size={16} />
               <span className="hidden md:inline">Reviews</span>
+              {statsData.pendingReviews > 0 && (
+                <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
+              )}
             </button>
             <button 
               onClick={() => navigate('/admin/reservations')}
-              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
+              className="relative flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
             >
               <Calendar size={16} />
               <span className="hidden md:inline">Bookings</span>
+              {statsData.pendingReservations > 0 && (
+                <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
+              )}
             </button>
           </nav>
         </div>

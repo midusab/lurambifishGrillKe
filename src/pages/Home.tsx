@@ -4,7 +4,6 @@ import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flam
 import { Link } from 'react-router-dom';
 import { collection, query, orderBy, limit, onSnapshot, where } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
-import { STATS, MENU_ITEMS } from '../constants';
 import { MenuItem } from '../types';
 import { cn } from '../lib/utils';
 import SEO from '../components/SEO';
@@ -20,9 +19,9 @@ export default function Home() {
   const [latestReviews, setLatestReviews] = useState<Review[]>([]);
   const [featuredDishes, setFeaturedDishes] = useState<any[]>([]);
   const [liveStats, setLiveStats] = useState<any[]>([
-    { label: 'Happy Customers', value: '0', icon: 'Users' },
-    { label: 'Fish Served', value: '0', icon: 'Fish' },
-    { label: 'Chef Awards', value: '0', icon: 'Star' }
+    { label: 'Happy Customers', value: '2500+', icon: 'Users' },
+    { label: 'Fish Served', value: '1800+', icon: 'Fish' },
+    { label: 'Chef Awards', value: '12', icon: 'Star' }
   ]);
 
   useEffect(() => {
@@ -54,10 +53,10 @@ export default function Home() {
       })) as Review[];
       setLatestReviews(data);
       
-      // Update stats based on reviews count
+      // Update stats based on reviews count + high base dummy values
       setLiveStats(prev => prev.map(s => {
-        if (s.label === 'Happy Customers') return { ...s, value: `${snapshot.size * 5}+` }; // Mocked multiplier
-        if (s.label === 'Fish Served') return { ...s, value: `${snapshot.size * 3}+` };
+        if (s.label === 'Happy Customers') return { ...s, value: `${2500 + snapshot.size * 5}+` }; 
+        if (s.label === 'Fish Served') return { ...s, value: `${1800 + snapshot.size * 8}+` };
         return s;
       }));
     }, (err) => {

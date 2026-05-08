@@ -102,7 +102,7 @@ export default function Contact() {
                 
                 <div className="space-y-6">
                   {[
-                    { icon: Phone, label: 'Reservations', value: '+254 700 000 000' },
+                    { icon: Phone, label: 'Reservations', value: '+254 794 532 900' },
                     { icon: Mail, label: 'General Inquiry', value: 'hello@lurambi.ke' },
                     { icon: MapPin, label: 'Find Us', value: 'Webuye Rd, Lurambi' }
                   ].map((item) => (

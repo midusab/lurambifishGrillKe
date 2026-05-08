@@ -11,7 +11,7 @@ export default function FloatingCallButton() {
       </div>
 
       <motion.a
-        href="tel:+254700000000"
+        href="tel:+254794532900"
         className="w-14 h-14 md:w-16 md:h-16 bg-gold rounded-lg flex items-center justify-center shadow-2xl relative border-2 border-charcoal/5"
         whileHover={{ scale: 1.1, backgroundColor: '#FFFFFF' }}
         whileTap={{ scale: 0.9 }}
