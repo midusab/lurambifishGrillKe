@@ -46,7 +46,7 @@ export default function AdminDashboard() {
       try {
         const menuSnap = await getDocs(collection(db, 'menu'));
         const reviewSnap = await getDocs(collection(db, 'reviews'));
-        const resSnap = await getDocs(collection(db, 'reservations'));
+        const resSnap = await getDocs(collection(db, 'contact'));
         
         const reviewsData = reviewSnap.docs.map(doc => doc.data());
         const totalRating = reviewsData.reduce((acc, curr) => acc + (curr.rating || 0), 0);
@@ -98,7 +98,7 @@ export default function AdminDashboard() {
       updateActivities(reviewActs, 'review');
     });
 
-    const unsubRes = onSnapshot(query(collection(db, 'reservations'), orderBy('createdAt', 'desc'), limit(5)), (snapshot) => {
+    const unsubRes = onSnapshot(query(collection(db, 'contact'), orderBy('createdAt', 'desc'), limit(5)), (snapshot) => {
       const resActs = snapshot.docs.map(doc => ({
         id: doc.id,
         user: doc.data().name,
@@ -108,6 +108,8 @@ export default function AdminDashboard() {
         type: 'reservation'
       }));
       updateActivities(resActs, 'reservation');
+    }, (err) => {
+      handleFirestoreError(err, OperationType.LIST, 'contact');
     });
 
     const updateActivities = (newActs: any[], type: string) => {

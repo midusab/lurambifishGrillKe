@@ -13,7 +13,11 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     type: 'Table Booking',
+    guests: '2',
+    date: '',
+    time: '',
     message: ''
   });
 
@@ -26,23 +30,33 @@ export default function Contact() {
 
     setIsSubmitting(true);
     try {
-      await addDoc(collection(db, 'reservations'), {
+      await addDoc(collection(db, 'contact'), {
         ...formData,
         status: 'pending',
+        source: 'Website Contact Form',
         createdAt: serverTimestamp()
       });
       
       setSubmitted(true);
-      showToast('Reservation sent successfully!', 'success');
+      showToast('We have received your request!', 'success');
       
       // Reset form after 5 seconds
       setTimeout(() => {
         setSubmitted(false);
-        setFormData({ name: '', email: '', type: 'Table Booking', message: '' });
+        setFormData({ 
+          name: '', 
+          email: '', 
+          phone: '',
+          type: 'Table Booking', 
+          guests: '2',
+          date: '',
+          time: '',
+          message: '' 
+        });
       }, 5000);
     } catch (err) {
       console.error(err);
-      showToast('Failed to send reservation. Please try again.', 'error');
+      showToast('Submission failed. Please check your connection.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -206,16 +220,62 @@ export default function Contact() {
                   />
                 </div>
                 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Email Address</label>
-                  <input 
-                    type="email" 
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    placeholder="Enter your email"
-                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Email Address</label>
+                    <input 
+                      type="email" 
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      placeholder="Enter your email"
+                      className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Phone Number</label>
+                    <input 
+                      type="tel" 
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      placeholder="e.g. +254..."
+                      className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Guests</label>
+                    <select 
+                      value={formData.guests}
+                      onChange={(e) => setFormData({...formData, guests: e.target.value})}
+                      className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all font-bold appearance-none cursor-pointer"
+                    >
+                      {[1,2,3,4,5,6, '7+'].map(n => <option key={n} value={n}>{n} Guests</option>)}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Date</label>
+                    <input 
+                      type="date" 
+                      required
+                      value={formData.date}
+                      onChange={(e) => setFormData({...formData, date: e.target.value})}
+                      className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all font-bold cursor-pointer"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Time</label>
+                    <input 
+                      type="time" 
+                      required
+                      value={formData.time}
+                      onChange={(e) => setFormData({...formData, time: e.target.value})}
+                      className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all font-bold cursor-pointer"
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-2">

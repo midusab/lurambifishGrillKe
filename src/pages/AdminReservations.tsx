@@ -37,7 +37,7 @@ export default function AdminReservations() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const q = query(collection(db, 'reservations'), orderBy('createdAt', 'desc'));
+    const q = query(collection(db, 'contact'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map(doc => ({
         id: doc.id,
@@ -46,31 +46,31 @@ export default function AdminReservations() {
       setReservations(data);
       setLoading(false);
     }, (err) => {
-      handleFirestoreError(err, OperationType.LIST, 'reservations');
+      handleFirestoreError(err, OperationType.LIST, 'contact');
       setLoading(false);
     });
     return () => unsubscribe();
   }, []);
 
   const handleDelete = async (id: string) => {
-    if (window.confirm('Delete this reservation permanently?')) {
+    if (window.confirm('Delete this message permanently?')) {
       try {
-        await deleteDoc(doc(db, 'reservations', id));
-        showToast('Reservation deleted successfully.', 'info');
+        await deleteDoc(doc(db, 'contact', id));
+        showToast('Item deleted successfully.', 'info');
       } catch (err) {
-        handleFirestoreError(err, OperationType.DELETE, 'reservations');
-        showToast('Failed to delete reservation.', 'error');
+        handleFirestoreError(err, OperationType.DELETE, 'contact');
+        showToast('Failed to delete item.', 'error');
       }
     }
   };
 
   const handleStatusChange = async (id: string, status: 'confirmed' | 'cancelled') => {
     try {
-      await updateDoc(doc(db, 'reservations', id), { status });
-      showToast(`Reservation ${status} successfully!`, 'success');
+      await updateDoc(doc(db, 'contact', id), { status });
+      showToast(`Status updated to ${status}!`, 'success');
     } catch (err) {
-      handleFirestoreError(err, OperationType.UPDATE, 'reservations');
-      showToast(`Failed to update reservation status.`, 'error');
+      handleFirestoreError(err, OperationType.UPDATE, 'contact');
+      showToast(`Failed to update status.`, 'error');
     }
   };
 
@@ -179,6 +179,16 @@ export default function AdminReservations() {
                       <span className="px-4 py-1.5 bg-charcoal/5 text-charcoal/60 text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-charcoal/5">
                         {res.type}
                       </span>
+                      {(res as any).guests && (
+                        <span className="px-4 py-1.5 bg-gold/5 text-gold text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-gold/10">
+                          {(res as any).guests} Guests
+                        </span>
+                      )}
+                      {(res as any).date && (
+                        <span className="px-4 py-1.5 bg-charcoal/5 text-charcoal/40 text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-charcoal/5">
+                          {(res as any).date} @ {(res as any).time}
+                        </span>
+                      )}
                       <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border ${
                         res.status === 'confirmed' ? 'bg-green-50 text-green-500 border-green-100' :
                         res.status === 'cancelled' ? 'bg-red-50 text-red-500 border-red-100' :
