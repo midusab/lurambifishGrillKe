@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { Fish, MapPin, Heart, ShieldCheck } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,6 +15,10 @@ export default function About() {
 
   return (
     <div ref={containerRef} className="relative">
+      <SEO 
+        title="Our Story | The Spirit of Lurambi"
+        description="Discover how we combine lakeside tradition with modern luxury. Lurambi Fish Grill's commitment to quality, sustainability, and authentic Kenyan seafood in Kakamega."
+      />
       {/* Cinematic Intro */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <motion.div style={{ y: heroY, opacity }} className="absolute inset-0">
@@ -47,7 +52,13 @@ export default function About() {
       {/* Narrative Section 1 */}
       <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <div className="space-y-10 order-2 lg:order-1">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-10 order-2 lg:order-1"
+          >
             <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase leading-tight">
               A Legacy <br /> Born From <span className="text-gold">Water</span>
             </h2>
@@ -69,15 +80,27 @@ export default function About() {
                 <p className="text-[10px] uppercase tracking-widest text-gold font-bold">Catch to Grill</p>
               </div>
             </div>
-          </div>
-          <div className="relative order-1 lg:order-2">
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative order-1 lg:order-2"
+          >
             <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-white/5">
               <img src="https://images.unsplash.com/photo-1544124499-58912cbddaad?auto=format&fit=crop&q=80" alt="Chef at work" className="w-full h-full object-cover" />
             </div>
-            <div className="absolute -left-10 top-20 w-48 h-48 bg-gold flex items-center justify-center rounded-2xl -rotate-12 shadow-2xl">
+            <motion.div 
+              initial={{ scale: 0, rotate: 0 }}
+              whileInView={{ scale: 1, rotate: -12 }}
+              transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
+              viewport={{ once: true }}
+              className="absolute -left-10 top-20 w-48 h-48 bg-gold flex items-center justify-center rounded-2xl shadow-2xl"
+            >
               <Fish className="text-charcoal w-24 h-24" />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -85,9 +108,13 @@ export default function About() {
       <section className="py-32 bg-gray-50/50">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div 
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.8 }}
+             viewport={{ once: true }}
              whileHover={{ y: -10 }}
              className="p-16 glass rounded-2xl space-y-8 border-gold/10"
-           >
+            >
              <div className="w-16 h-16 bg-gold/20 rounded-lg flex items-center justify-center">
                <Heart className="text-gold" size={32} />
              </div>
@@ -95,12 +122,16 @@ export default function About() {
              <p className="text-charcoal/50 font-light text-lg leading-relaxed">
                To preserve and polish Kenyan culinary traditions through relentless commitment to quality and innovative grilling techniques, serving every guest with the dignity they deserve.
              </p>
-           </motion.div>
+            </motion.div>
 
-           <motion.div 
+            <motion.div 
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.8, delay: 0.2 }}
+             viewport={{ once: true }}
              whileHover={{ y: -10 }}
              className="p-16 glass rounded-2xl space-y-8 border-gold/10"
-           >
+            >
              <div className="w-16 h-16 bg-gold/20 rounded-lg flex items-center justify-center">
                <ShieldCheck className="text-gold" size={32} />
              </div>
@@ -108,7 +139,7 @@ export default function About() {
              <p className="text-charcoal/50 font-light text-lg leading-relaxed">
                To become the definitive global reference for African seafood luxury, setting benchmarks in sustainability and culinary excellence that inspire a new generation of Kenyan chefs.
              </p>
-           </motion.div>
+            </motion.div>
         </div>
       </section>
 

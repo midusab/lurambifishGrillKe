@@ -4,6 +4,7 @@
  */
 
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { AnimatePresence, motion } from 'motion/react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -11,6 +12,7 @@ import Home from './pages/Home';
 import Menu from './pages/Menu';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Reviews from './pages/Reviews';
 import WhatsAppButton from './components/WhatsAppButton';
 import FloatingCallButton from './components/FloatingCallButton';
 import BackToTop from './components/BackToTop';
@@ -50,6 +52,7 @@ function AppContent() {
             <Route path="/menu" element={<PageWrapper><Menu /></PageWrapper>} />
             <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
             <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+            <Route path="/reviews" element={<PageWrapper><Reviews /></PageWrapper>} />
           </Routes>
         </div>
       </AnimatePresence>
@@ -63,9 +66,11 @@ function AppContent() {
 
 export default function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </HelmetProvider>
   );
 }
 

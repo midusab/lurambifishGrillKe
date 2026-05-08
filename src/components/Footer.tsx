@@ -1,3 +1,4 @@
+import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { Fish, Instagram, Facebook, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -5,7 +6,13 @@ export default function Footer() {
   return (
     <footer className="bg-gray-50 pt-20 pb-10 border-t border-charcoal/5">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-        <div className="space-y-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="space-y-6"
+        >
           <Link to="/" className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white rounded-xl overflow-hidden flex items-center justify-center border border-gold/30 shadow-sm">
               <img src="/input_file_0.png" alt="Lurambi Logo" className="w-full h-full object-cover" />
@@ -29,19 +36,30 @@ export default function Footer() {
               <Twitter size={18} />
             </a>
           </div>
-        </div>
+        </motion.div>
 
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true }}
+        >
           <h4 className="font-display text-charcoal uppercase text-sm font-bold mb-6 tracking-widest">Navigation</h4>
           <ul className="space-y-4">
             <li><Link to="/" className="text-charcoal/50 hover:text-gold transition-colors text-sm font-medium">Home</Link></li>
             <li><Link to="/menu" className="text-charcoal/50 hover:text-gold transition-colors text-sm font-medium">Our Menu</Link></li>
             <li><Link to="/about" className="text-charcoal/50 hover:text-gold transition-colors text-sm font-medium">Our Story</Link></li>
+            <li><Link to="/reviews" className="text-charcoal/50 hover:text-gold transition-colors text-sm font-medium">Guest Reviews</Link></li>
             <li><Link to="/contact" className="text-charcoal/50 hover:text-gold transition-colors text-sm font-medium">Contact Us</Link></li>
           </ul>
-        </div>
+        </motion.div>
 
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
            <h4 className="font-display text-charcoal uppercase text-sm font-bold mb-6 tracking-widest">Our Services</h4>
            <ul className="space-y-4">
             <li className="text-charcoal/50 text-sm font-medium flex items-center gap-2">
@@ -61,9 +79,14 @@ export default function Footer() {
               Private Events
             </li>
           </ul>
-        </div>
+        </motion.div>
 
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
           <h4 className="font-display text-charcoal uppercase text-sm font-bold mb-6 tracking-widest">Opening Hours</h4>
           <ul className="space-y-4">
             <li className="flex justify-between text-sm">
@@ -79,9 +102,14 @@ export default function Footer() {
               <span className="text-charcoal font-medium">11:00 - 21:00</span>
             </li>
           </ul>
-        </div>
+        </motion.div>
 
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
            <h4 className="font-display text-charcoal uppercase text-sm font-bold mb-6 tracking-widest">Contact Info</h4>
            <ul className="space-y-4">
             <li className="flex gap-3 text-sm">
@@ -97,7 +125,7 @@ export default function Footer() {
               <span className="text-charcoal/50 font-medium">hello@lurambifishgrill.com</span>
             </li>
           </ul>
-        </div>
+        </motion.div>
       </div>
       
       <div className="max-w-7xl mx-auto px-6 pt-10 border-t border-charcoal/5 flex flex-col md:row justify-between items-center gap-4">

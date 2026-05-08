@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flame, UtensilsCrossed, Utensils, ShoppingBag, Truck } from 'lucide-react';
+import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flame, UtensilsCrossed, Utensils, ShoppingBag, Truck, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { MENU_ITEMS, STATS, TESTIMONIALS } from '../constants';
+import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
+import { db, handleFirestoreError, OperationType } from '../lib/firebase';
+import { MENU_ITEMS, STATS } from '../constants';
 import { cn } from '../lib/utils';
+import SEO from '../components/SEO';
+
+interface Review {
+  id: string;
+  userName: string;
+  rating: number;
+  comment: string;
+}
 
 export default function Home() {
+  const [latestReviews, setLatestReviews] = useState<Review[]>([]);
   const featuredDishes = MENU_ITEMS.filter(item => item.isChefSpecial).slice(0, 3);
-  
+
+  useEffect(() => {
+    const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'), limit(4));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as Review[];
+      setLatestReviews(data);
+    }, (err) => {
+      handleFirestoreError(err, OperationType.LIST, 'reviews');
+    });
+    return () => unsubscribe();
+  }, []);
+
   const iconMap: Record<string, React.ElementType> = {
     Users: Users,
     Fish: Fish,
@@ -21,6 +46,10 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
+      <SEO 
+        title="Premium Lake Victoria Tilapia in Kakamega"
+        description="Experience the finest charcoal-grilled tilapia and luxury lakeside dining in Kakamega. Fresh Lake Victoria fish served with traditional Kenyan passion since 2025."
+      />
       {/* Hero Section */}
       <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
         {/* Background Overlay */}
@@ -212,7 +241,13 @@ export default function Home() {
       {/* Why Choose Us */}
       <section className="py-32 bg-gray-50/50">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="relative">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
             <div className="aspect-square rounded-2xl overflow-hidden border border-charcoal/5">
               <img 
                 src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=80" 
@@ -220,25 +255,44 @@ export default function Home() {
                 className="w-full h-full object-cover grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
               />
             </div>
-            <div className="absolute -bottom-10 -right-10 w-64 h-64 glass rounded-2xl p-8 flex flex-col justify-center gap-4 border-gold/10">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="absolute -bottom-10 -right-10 w-64 h-64 glass rounded-2xl p-8 flex flex-col justify-center gap-4 border-gold/10 shadow-2xl"
+            >
               <div className="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center">
                 <Star className="text-gold animate-pulse" />
               </div>
               <p className="text-xl font-display font-bold text-charcoal tracking-tight">Pure Lakeside Tradition</p>
               <p className="text-[10px] uppercase tracking-widest text-charcoal/50">Quality is our only ingredient.</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           <div className="space-y-16">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-16 border-b border-charcoal/5">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-16 border-b border-charcoal/5"
+            >
               {[
                 { title: 'Dine In', desc: 'Enjoy our luxury lakeside ambiance and premium hospitality.', icon: 'DineIn' },
                 { title: 'Take-Out', desc: 'Quick and easy pick-up for those on the move.', icon: 'TakeOut' },
                 { title: 'Delivery', desc: 'Bringing the lake taste directly to your doorstep.', icon: 'Delivery' }
-              ].map((service) => {
+              ].map((service, i) => {
                 const Icon = iconMap[service.icon];
                 return (
-                  <div key={service.title} className="flex flex-col items-center text-center gap-4 group">
+                  <motion.div 
+                    key={service.title} 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 + (i * 0.1) }}
+                    viewport={{ once: true }}
+                    className="flex flex-col items-center text-center gap-4 group"
+                  >
                     <div className="w-16 h-16 rounded-full bg-gold/10 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
                       <Icon className="text-gold w-8 h-8" />
                     </div>
@@ -246,16 +300,22 @@ export default function Home() {
                       <h4 className="font-display font-bold text-charcoal uppercase tracking-widest text-sm">{service.title}</h4>
                       <p className="text-[10px] text-charcoal/50 leading-relaxed max-w-[150px] mx-auto italic">{service.desc}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
 
             <div className="space-y-12">
-              <div className="space-y-4">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="space-y-4"
+              >
                 <span className="text-gold text-[10px] font-bold uppercase tracking-[0.3em]">Our Excellence</span>
                 <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase leading-tight">Beyond Just <br />A Meal</h2>
-              </div>
+              </motion.div>
             
             <div className="space-y-8">
               {[
@@ -265,7 +325,14 @@ export default function Home() {
               ].map((item, i) => {
                 const Icon = iconMap[item.icon];
                 return (
-                  <div key={item.title} className="flex gap-6 group">
+                  <motion.div 
+                    key={item.title} 
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 + (i * 0.1) }}
+                    viewport={{ once: true }}
+                    className="flex gap-6 group"
+                  >
                     <div className="w-14 h-14 shrink-0 rounded-lg bg-charcoal/5 flex items-center justify-center border border-charcoal/10 group-hover:border-gold/30 transition-colors">
                       <Icon className="text-gold w-6 h-6" />
                     </div>
@@ -273,7 +340,7 @@ export default function Home() {
                       <h4 className="font-display font-bold text-charcoal uppercase tracking-wider">{item.title}</h4>
                       <p className="text-charcoal/40 text-sm font-light leading-relaxed">{item.desc}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 );
             })}
           </div>
@@ -285,37 +352,65 @@ export default function Home() {
       {/* Testimonials */}
       <section className="py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center space-y-4 mb-20">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-4 mb-20"
+          >
              <span className="text-gold text-[10px] font-bold uppercase tracking-[0.3em]">Guest Feedback</span>
              <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase leading-tight text-charcoal">What Our Guests <br />Say</h2>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {TESTIMONIALS.map((t, i) => (
-              <motion.div
-                key={t.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                className="p-12 glass rounded-2xl relative space-y-8"
-              >
-                <Quote className="absolute top-10 right-10 text-gold/10 w-20 h-20" />
-                <div className="flex gap-1 text-gold">
-                  {[...Array(5)].map((_, j) => <Star key={j} size={14} fill="currentColor" />)}
-                </div>
-                <p className="text-base md:text-lg font-light italic text-charcoal/90 leading-relaxed relative z-10">
-                  “{t.content}”
-                </p>
-                <div className="flex items-center gap-4">
-                  <img src={t.avatar} alt={t.name} className="w-14 h-14 rounded-full object-cover border-2 border-gold/20" />
-                  <div>
-                    <h5 className="font-display font-bold text-charcoal uppercase tracking-widest text-sm">{t.name}</h5>
-                    <p className="text-xs text-charcoal/40">{t.role}</p>
+            {latestReviews.length > 0 ? (
+              latestReviews.map((t, i) => (
+                <motion.div
+                  key={t.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: i * 0.2 }}
+                  viewport={{ once: true }}
+                  className="p-12 glass rounded-2xl relative space-y-8"
+                >
+                  <Quote className="absolute top-10 right-10 text-gold/10 w-20 h-20" />
+                  <div className="flex gap-1 text-gold">
+                    {[...Array(t.rating)].map((_, j) => <Star key={j} size={14} fill="currentColor" />)}
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                  <p className="text-base md:text-lg font-light italic text-charcoal/90 leading-relaxed relative z-10">
+                    “{t.comment}”
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-full bg-charcoal/5 border-2 border-gold/20 flex items-center justify-center">
+                      <User className="text-gold" size={24} />
+                    </div>
+                    <div>
+                      <h5 className="font-display font-bold text-charcoal uppercase tracking-widest text-sm">{t.userName}</h5>
+                      <p className="text-xs text-charcoal/40">Verified Guest</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <div className="col-span-full p-20 text-center glass rounded-2xl border-dashed border-charcoal/10">
+                <Quote className="mx-auto text-gold/20 w-16 h-16 mb-6" />
+                <p className="text-charcoal/50 font-light italic text-xl mb-8">Be the first to share your experience with Lurambi Fish Grill.</p>
+                <Link to="/reviews" className="px-10 py-4 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-lg">Write a Review</Link>
+              </div>
+            )}
           </div>
+
+          {latestReviews.length > 0 && (
+            <div className="mt-20 text-center">
+              <Link 
+                to="/reviews" 
+                className="group inline-flex items-center gap-2 text-charcoal/50 hover:text-gold uppercase text-xs font-bold tracking-[0.3em] transition-all"
+              >
+                View All Guest Stories <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
@@ -330,7 +425,13 @@ export default function Home() {
            <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/80 to-transparent" />
          </div>
          
-         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-10">
+         <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-10"
+         >
            <h2 className="text-5xl md:text-7xl font-display font-black leading-[0.9] tracking-tighter uppercase text-charcoal">
              Ready for the <br /> <span className="text-gold text-glow-gold">Perfect Catch?</span>
            </h2>
@@ -352,7 +453,7 @@ export default function Home() {
                 Explore Full Menu
               </Link>
            </div>
-         </div>
+         </motion.div>
       </section>
     </div>
   );

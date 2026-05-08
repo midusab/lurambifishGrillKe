@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { MENU_ITEMS } from '../constants';
 import { cn } from '../lib/utils';
 import { Flame, Star, ShoppingBag, Plus } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const categories = ['All', 'Main Dish', 'Drink', 'Breakfast', 'Snacks'];
 
@@ -15,6 +16,10 @@ export default function Menu() {
 
   return (
     <div className="pt-32 pb-24">
+      <SEO 
+        title="Our Menu | Authentic Grilled Tilapia & Sides"
+        description="Explore our curated menu of premium Lake Victoria tilapia, hand-crafted milkshakes, and traditional Kenyan sides. Quality ingredients, authentic spices, and sizes from 200g up to 500g."
+      />
       {/* Menu Header */}
       <div className="max-w-7xl mx-auto px-6 mb-20">
         <div className="flex flex-col items-center text-center space-y-6 max-w-3xl mx-auto">
@@ -163,8 +168,9 @@ export default function Menu() {
       {/* Special Banner */}
       <section className="mt-32 max-w-7xl mx-auto px-6">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
           viewport={{ once: true }}
           className="relative h-96 rounded-2xl overflow-hidden flex items-center justify-center text-center p-12"
         >
@@ -175,7 +181,13 @@ export default function Menu() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-gold/10 via-white/95 to-gold/10 opacity-80" />
           
-          <div className="relative z-10 space-y-8 max-w-2xl">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="relative z-10 space-y-8 max-w-2xl"
+          >
             <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase leading-[0.9] text-charcoal">
               TODAY’S <span className="text-gold text-glow-gold">SECRET</span> CATCH
             </h2>
@@ -185,7 +197,7 @@ export default function Menu() {
             <button className="px-10 py-4 border border-gold/30 text-gold uppercase text-[10px] font-bold tracking-[0.3em] rounded-lg hover:bg-gold hover:text-charcoal hover:border-gold transition-all">
               Request Daily Special
             </button>
-          </div>
+          </motion.div>
         </motion.div>
       </section>
     </div>

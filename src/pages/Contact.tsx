@@ -1,9 +1,14 @@
 import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, Clock, Send, Instagram, Facebook, Twitter } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Contact() {
   return (
     <div className="pt-32 pb-24">
+      <SEO 
+        title="Contact & Reservations | Visit Us in Kakamega"
+        description="Book your table at Lurambi Fish Grill. Find our location on Webuye Rd, Lurambi, and get in touch for private events, corporate catering, or premium seafood dining inquiries."
+      />
       {/* Contact Header */}
       <div className="max-w-7xl mx-auto px-6 mb-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-end">
@@ -134,8 +139,9 @@ export default function Contact() {
       {/* Map Placeholder */}
       <div className="max-w-7xl mx-auto px-6 mt-32">
         <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
           viewport={{ once: true }}
           className="relative h-[500px] rounded-2xl overflow-hidden grayscale border border-white/5 group"
         >
@@ -148,7 +154,13 @@ export default function Contact() {
             allowFullScreen 
             loading="lazy" 
           />
-          <div className="absolute top-10 left-10 z-20 glass p-8 rounded-xl space-y-4 max-w-xs">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="absolute top-10 left-10 z-20 glass p-8 rounded-xl space-y-4 max-w-xs"
+          >
             <h4 className="font-display font-bold uppercase tracking-[0.3em] text-gold text-xs">Our Location</h4>
             <p className="text-charcoal text-sm leading-relaxed font-light italic">
               Located on the outskirts of Kakamega town, Lurambi Fish Grill offers a serene escape with easy access from the main highway.
@@ -156,7 +168,7 @@ export default function Contact() {
             <div className="flex items-center gap-2 text-gold text-[10px] font-bold uppercase tracking-widest">
               <MapPin size={14} /> Get Directions
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </div>

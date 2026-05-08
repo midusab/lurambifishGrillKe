@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "Review": {
+      "title": "Review",
+      "description": "Customer reviews and ratings for the restaurant.",
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string",
+          "description": "Name of the customer providing the review."
+        },
+        "rating": {
+          "type": "integer",
+          "description": "Rating given by the customer (1-5)."
+        },
+        "comment": {
+          "type": "string",
+          "description": "The review text content."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the review was submitted."
+        },
+        "approved": {
+          "type": "boolean",
+          "description": "Whether the review has been moderated and approved for display."
+        }
+      },
+      "required": ["userName", "rating", "comment", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Collection of customer reviews."
+    }
+  }
+}
