@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { collection, query, orderBy, limit, onSnapshot, where } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { STATS, MENU_ITEMS } from '../constants';
+import { MenuItem } from '../types';
 import { cn } from '../lib/utils';
 import SEO from '../components/SEO';
 
@@ -27,7 +28,7 @@ export default function Home() {
       limit(3)
     );
     const unsubscribeMenu = onSnapshot(menuQ, (snapshot) => {
-      const firestoreFeatured = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const firestoreFeatured = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as MenuItem));
       
       // Merge strategy: Start with constant featured items, replace if found in Firestore
       const constantFeatured = MENU_ITEMS.filter(i => i.isChefSpecial).slice(0, 3);
@@ -118,17 +119,6 @@ export default function Home() {
             Voted #1 Seafood in Kakamega
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.1 }}
-            className="flex justify-center mb-6"
-          >
-            <div className="w-32 h-32 md:w-40 md:h-40 bg-white/10 backdrop-blur-md rounded-[2.5rem] p-4 border border-white/20 shadow-2xl relative group">
-              <img src="/input_file_0.png" alt="Lurambi Fish Grill" className="w-full h-full object-contain animate-pulse-subtle group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gold/10 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
