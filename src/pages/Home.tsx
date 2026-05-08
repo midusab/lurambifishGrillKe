@@ -19,6 +19,11 @@ interface Review {
 export default function Home() {
   const [latestReviews, setLatestReviews] = useState<Review[]>([]);
   const [featuredDishes, setFeaturedDishes] = useState<any[]>([]);
+  const [liveStats, setLiveStats] = useState<any[]>([
+    { label: 'Happy Customers', value: '0', icon: 'Users' },
+    { label: 'Fish Served', value: '0', icon: 'Fish' },
+    { label: 'Chef Awards', value: '0', icon: 'Star' }
+  ]);
 
   useEffect(() => {
     // Fetch featured dishes
@@ -29,42 +34,48 @@ export default function Home() {
     );
     const unsubscribeMenu = onSnapshot(menuQ, (snapshot) => {
       const firestoreFeatured = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as MenuItem));
-      
-      // Merge strategy: Start with constant featured items, replace if found in Firestore
-      const constantFeatured = MENU_ITEMS.filter(i => i.isChefSpecial).slice(0, 3);
-      const merged = [...constantFeatured];
-      
-      firestoreFeatured.forEach(fsItem => {
-        const idx = merged.findIndex(m => m.name.toLowerCase() === fsItem.name.toLowerCase());
-        if (idx !== -1) {
-          merged[idx] = { ...merged[idx], ...fsItem };
-        } else if (merged.length < 3) {
-          merged.push(fsItem);
-        }
-      });
-      
-      setFeaturedDishes(merged.slice(0, 3));
+      setFeaturedDishes(firestoreFeatured);
     }, (err) => {
       handleFirestoreError(err, OperationType.LIST, 'menu');
-      const featured = MENU_ITEMS.filter(i => i.isChefSpecial).slice(0, 3);
-      setFeaturedDishes(featured);
+      setFeaturedDishes([]);
     });
 
-    // Fetch reviews
-    const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'), limit(4));
+    // Fetch reviews (only approved ones)
+    const q = query(
+      collection(db, 'reviews'), 
+      where('status', '==', 'approved'),
+      orderBy('createdAt', 'desc'), 
+      limit(4)
+    );
     const unsubscribeReviews = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       })) as Review[];
       setLatestReviews(data);
+      
+      // Update stats based on reviews count
+      setLiveStats(prev => prev.map(s => {
+        if (s.label === 'Happy Customers') return { ...s, value: `${snapshot.size * 5}+` }; // Mocked multiplier
+        if (s.label === 'Fish Served') return { ...s, value: `${snapshot.size * 3}+` };
+        return s;
+      }));
     }, (err) => {
       handleFirestoreError(err, OperationType.LIST, 'reviews');
+    });
+
+    // Fetch total menu items for stats
+    const unsubStats = onSnapshot(collection(db, 'menu'), (snap) => {
+      setLiveStats(prev => prev.map(s => {
+        if (s.label === 'Chef Awards') return { ...s, value: `${Math.floor(snap.size / 2)}` };
+        return s;
+      }));
     });
 
     return () => {
       unsubscribeMenu();
       unsubscribeReviews();
+      unsubStats();
     };
   }, []);
 
@@ -194,7 +205,7 @@ export default function Home() {
       {/* Stats Section */}
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-8">
-          {STATS.map((stat, i) => {
+          {liveStats.map((stat, i) => {
             const Icon = iconMap[stat.icon];
             return (
               <motion.div

@@ -22,23 +22,11 @@ export default function Menu() {
         ...doc.data()
       })) as MenuItem[];
       
-      // Merge strategy: Use constants as base, replace by name from Firestore, and add new items
-      const merged = [...MENU_ITEMS];
-      
-      firestoreItems.forEach(fsItem => {
-        const existingIndex = merged.findIndex(m => m.name.toLowerCase() === fsItem.name.toLowerCase());
-        if (existingIndex !== -1) {
-          merged[existingIndex] = { ...merged[existingIndex], ...fsItem };
-        } else {
-          merged.push(fsItem);
-        }
-      });
-
-      setItems(merged);
+      setItems(firestoreItems);
       setLoading(false);
     }, (err) => {
       handleFirestoreError(err, OperationType.LIST, 'menu');
-      setItems(MENU_ITEMS); 
+      setItems([]); 
       setLoading(false);
     });
     return () => unsubscribe();
