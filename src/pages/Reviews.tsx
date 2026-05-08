@@ -93,7 +93,7 @@ export default function Reviews() {
               <p className="text-charcoal/50 font-light text-lg">Your feedback helps us maintain the gold standard of Kenyan seafood excellence.</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-8 glass p-8 rounded-2xl border-charcoal/5 relative overflow-hidden">
+            <form onSubmit={handleSubmit} className="space-y-8 glass p-8 rounded-3xl border-charcoal/5 relative overflow-hidden">
               <AnimatePresence>
                 {submitted && (
                   <motion.div 
@@ -125,7 +125,7 @@ export default function Reviews() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your name"
-                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20"
+                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20"
                   />
                 </div>
 
@@ -156,7 +156,7 @@ export default function Reviews() {
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Tell us about the fish, the service, and the atmosphere..."
-                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 resize-none"
+                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 resize-none"
                   />
                 </div>
 
@@ -167,7 +167,7 @@ export default function Reviews() {
                 <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-5 bg-charcoal text-white font-black uppercase text-xs tracking-[0.3em] rounded-xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all disabled:opacity-50"
+                  className="w-full py-5 bg-charcoal text-white font-black uppercase text-xs tracking-[0.3em] rounded-2xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all disabled:opacity-50"
                 >
                   {isSubmitting ? 'Submitting...' : (
                     <>Submit Review <Send size={14} /></>
@@ -190,7 +190,7 @@ export default function Reviews() {
 
             <div className="space-y-8 max-h-[800px] overflow-y-auto pr-4 scrollbar-hide">
               {reviews.length === 0 ? (
-                <div className="p-12 text-center border-2 border-dashed border-charcoal/5 rounded-2xl">
+                <div className="p-12 text-center border-2 border-dashed border-charcoal/5 rounded-3xl">
                   <Quote className="mx-auto text-charcoal/10 mb-4" size={40} />
                   <p className="text-charcoal/40 font-light italic">No reviews yet. Be the first to share your experience!</p>
                 </div>
@@ -201,7 +201,7 @@ export default function Reviews() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="p-8 glass rounded-2xl border-charcoal/5 space-y-6"
+                    className="p-8 glass rounded-3xl border-charcoal/5 space-y-6"
                   >
                     <div className="flex justify-between items-start">
                       <div className="flex items-center gap-4">

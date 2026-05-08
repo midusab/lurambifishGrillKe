@@ -7,7 +7,7 @@ import { cn } from '../lib/utils';
 import { Flame, Star, ShoppingBag, Plus } from 'lucide-react';
 import SEO from '../components/SEO';
 
-const categories = ['All', 'Main Dish', 'Drink', 'Breakfast', 'Snacks'];
+import { MENU_ITEMS } from '../constants';
 
 export default function Menu() {
   const [items, setItems] = useState<MenuItem[]>([]);
@@ -17,18 +17,35 @@ export default function Menu() {
   useEffect(() => {
     const q = query(collection(db, 'menu'), orderBy('category'), orderBy('name'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map(doc => ({
+      const firestoreItems = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       })) as MenuItem[];
-      setItems(data);
+      
+      // Merge strategy: Use constants as base, replace by name from Firestore, and add new items
+      const merged = [...MENU_ITEMS];
+      
+      firestoreItems.forEach(fsItem => {
+        const existingIndex = merged.findIndex(m => m.name.toLowerCase() === fsItem.name.toLowerCase());
+        if (existingIndex !== -1) {
+          merged[existingIndex] = { ...merged[existingIndex], ...fsItem };
+        } else {
+          merged.push(fsItem);
+        }
+      });
+
+      setItems(merged);
       setLoading(false);
     }, (err) => {
       handleFirestoreError(err, OperationType.LIST, 'menu');
+      setItems(MENU_ITEMS); 
       setLoading(false);
     });
     return () => unsubscribe();
   }, []);
+
+  // Filter unique categories based on merged items
+  const categories = ['All', ...Array.from(new Set(items.map(item => item.category)))];
 
   const filteredItems = items.filter(item => 
     activeCategory === 'All' ? true : item.category === activeCategory
@@ -122,7 +139,7 @@ export default function Menu() {
                 className="group p-4 rounded-3xl glass border-charcoal/5 hover:border-gold/20 transition-all duration-500 overflow-hidden"
               >
                 {/* Image Container */}
-                <div className="relative h-64 rounded-xl overflow-hidden mb-6">
+                <div className="relative h-64 rounded-2xl overflow-hidden mb-6">
                   <img 
                     src={item.image} 
                     alt={item.name} 
@@ -232,7 +249,7 @@ export default function Menu() {
             <p className="text-charcoal/70 italic text-lg md:text-xl font-light">
               "Ask your server about our daily off-menu specialties sourced directly from the fishermen at first light."
             </p>
-            <button className="px-10 py-4 border border-gold/30 text-gold uppercase text-[10px] font-bold tracking-[0.3em] rounded-xl hover:bg-gold hover:text-charcoal hover:border-gold transition-all">
+            <button className="px-10 py-4 border border-gold/30 text-gold uppercase text-[10px] font-bold tracking-[0.3em] rounded-2xl hover:bg-gold hover:text-charcoal hover:border-gold transition-all">
               Request Daily Special
             </button>
           </motion.div>

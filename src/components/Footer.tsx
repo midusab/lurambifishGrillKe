@@ -14,8 +14,8 @@ export default function Footer() {
           className="space-y-6"
         >
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white rounded-xl overflow-hidden flex items-center justify-center border border-gold/30 shadow-sm">
-              <img src="/input_file_0.png" alt="Lurambi Logo" className="w-full h-full object-cover" />
+            <div className="w-10 h-10 bg-white rounded-2xl overflow-hidden flex items-center justify-center border border-gold/30 shadow-sm p-1">
+              <img src="/input_file_0.png" alt="Lurambi Logo" className="w-full h-full object-contain" />
             </div>
             <span className="font-display text-lg font-bold tracking-tighter uppercase text-charcoal">
               Lurambi <span className="text-gold">Fish Grill</span>

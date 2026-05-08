@@ -107,7 +107,7 @@ export default function Contact() {
                     { icon: MapPin, label: 'Find Us', value: 'Webuye Rd, Lurambi' }
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-5 group/item">
-                      <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-gold group-hover/item:bg-gold group-hover/item:text-charcoal transition-colors">
+                      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-gold group-hover/item:bg-gold group-hover/item:text-charcoal transition-colors">
                         <item.icon size={20} />
                       </div>
                       <div>
@@ -120,7 +120,7 @@ export default function Contact() {
 
                 <div className="pt-8 border-t border-white/5 flex gap-4">
                   {[Instagram, Facebook, Twitter].map((Icon, i) => (
-                    <a key={i} href="#" className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-gold hover:text-charcoal transition-all">
+                    <a key={i} href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-gold hover:text-charcoal transition-all">
                       <Icon size={18} />
                     </a>
                   ))}
@@ -131,7 +131,7 @@ export default function Contact() {
 
             <div className="bg-white p-10 rounded-3xl border border-charcoal/5 shadow-xl space-y-6">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-charcoal/5 rounded-xl flex items-center justify-center text-gold">
+                <div className="w-12 h-12 bg-charcoal/5 rounded-2xl flex items-center justify-center text-gold">
                   <Clock size={24} />
                 </div>
                 <h4 className="text-xl font-display font-black uppercase tracking-tight text-charcoal">Opening Hours</h4>
@@ -168,7 +168,7 @@ export default function Contact() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="w-24 h-24 bg-green-500 rounded-3xl flex items-center justify-center shadow-2xl shadow-green-500/20"
+                    className="w-24 h-24 bg-green-500 rounded-[2rem] flex items-center justify-center shadow-2xl shadow-green-500/20"
                   >
                     <CheckCircle2 className="text-white w-12 h-12" />
                   </motion.div>
@@ -179,7 +179,7 @@ export default function Contact() {
                   <button 
                     type="button"
                     onClick={() => setSubmitted(false)}
-                    className="px-12 py-4 bg-charcoal text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-xl hover:bg-gold hover:text-charcoal transition-all shadow-xl"
+                    className="px-12 py-4 bg-charcoal text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-2xl hover:bg-gold hover:text-charcoal transition-all shadow-xl"
                   >
                     Close Message
                   </button>
@@ -202,7 +202,7 @@ export default function Contact() {
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="Enter your name"
-                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
+                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
                   />
                 </div>
                 
@@ -214,7 +214,7 @@ export default function Contact() {
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="Enter your email"
-                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
+                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
                   />
                 </div>
 
@@ -230,7 +230,7 @@ export default function Contact() {
                           checked={formData.type === type}
                           onChange={() => setFormData({...formData, type})}
                         />
-                        <div className="px-4 py-3 rounded-xl border border-charcoal/10 bg-charcoal/5 peer-checked:border-gold peer-checked:bg-gold/5 text-center transition-all group-hover:border-gold/30">
+                        <div className="px-4 py-3 rounded-2xl border border-charcoal/10 bg-charcoal/5 peer-checked:border-gold peer-checked:bg-gold/5 text-center transition-all group-hover:border-gold/30">
                           <span className="text-[9px] font-black uppercase tracking-widest text-charcoal/40 peer-checked:text-gold">{type}</span>
                         </div>
                       </label>
@@ -245,14 +245,14 @@ export default function Contact() {
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     placeholder="Special requests or occasion details..."
-                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 resize-none font-bold"
+                    className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 resize-none font-bold"
                   />
                 </div>
 
                 <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-5 bg-charcoal text-white font-black uppercase text-xs tracking-[0.3em] rounded-xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all shadow-xl group disabled:opacity-50"
+                  className="w-full py-5 bg-charcoal text-white font-black uppercase text-xs tracking-[0.3em] rounded-2xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all shadow-xl group disabled:opacity-50"
                 >
                   {isSubmitting ? 'Sending...' : (
                     <>Confirm Reservation <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>

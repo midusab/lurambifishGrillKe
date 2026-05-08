@@ -17,6 +17,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminMenu from './pages/AdminMenu';
 import AdminReviews from './pages/AdminReviews';
+import AdminReservations from './pages/AdminReservations';
 import NotFound from './pages/NotFound';
 import WhatsAppButton from './components/WhatsAppButton';
 import FloatingCallButton from './components/FloatingCallButton';
@@ -100,6 +101,14 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <PageWrapper><AdminReviews /></PageWrapper>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/reservations" 
+              element={
+                <ProtectedRoute>
+                  <PageWrapper><AdminReservations /></PageWrapper>
                 </ProtectedRoute>
               } 
             />

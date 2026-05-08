@@ -40,8 +40,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
-          <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-lg overflow-hidden flex items-center justify-center transition-transform group-hover:scale-110 border border-gold/20 shadow-lg">
-            <img src="/input_file_0.png" alt="Lurambi Logo" className="w-full h-full object-cover" />
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-2xl overflow-hidden flex items-center justify-center transition-transform group-hover:scale-110 border border-gold/20 shadow-lg p-1.5">
+            <img src="/input_file_0.png" alt="Lurambi Logo" className="w-full h-full object-contain" />
           </div>
           <span className={cn(
             "font-display text-lg md:text-xl font-bold tracking-tighter uppercase hidden sm:block",

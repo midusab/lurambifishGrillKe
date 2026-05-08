@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flame, UtensilsCrossed, Utensils, ShoppingBag, Truck, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
+import { collection, query, orderBy, limit, onSnapshot, where } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
-import { STATS } from '../constants';
+import { STATS, MENU_ITEMS } from '../constants';
 import { cn } from '../lib/utils';
 import SEO from '../components/SEO';
 
@@ -21,13 +21,32 @@ export default function Home() {
 
   useEffect(() => {
     // Fetch featured dishes
-    const menuQ = query(collection(db, 'menu'), limit(6));
+    const menuQ = query(
+      collection(db, 'menu'), 
+      where('isChefSpecial', '==', true),
+      limit(3)
+    );
     const unsubscribeMenu = onSnapshot(menuQ, (snapshot) => {
-      const data = snapshot.docs
-        .map(doc => ({ id: doc.id, ...doc.data() }))
-        .filter((item: any) => item.isChefSpecial)
-        .slice(0, 3);
-      setFeaturedDishes(data);
+      const firestoreFeatured = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      
+      // Merge strategy: Start with constant featured items, replace if found in Firestore
+      const constantFeatured = MENU_ITEMS.filter(i => i.isChefSpecial).slice(0, 3);
+      const merged = [...constantFeatured];
+      
+      firestoreFeatured.forEach(fsItem => {
+        const idx = merged.findIndex(m => m.name.toLowerCase() === fsItem.name.toLowerCase());
+        if (idx !== -1) {
+          merged[idx] = { ...merged[idx], ...fsItem };
+        } else if (merged.length < 3) {
+          merged.push(fsItem);
+        }
+      });
+      
+      setFeaturedDishes(merged.slice(0, 3));
+    }, (err) => {
+      handleFirestoreError(err, OperationType.LIST, 'menu');
+      const featured = MENU_ITEMS.filter(i => i.isChefSpecial).slice(0, 3);
+      setFeaturedDishes(featured);
     });
 
     // Fetch reviews
@@ -99,6 +118,18 @@ export default function Home() {
             Voted #1 Seafood in Kakamega
           </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.1 }}
+            className="flex justify-center mb-6"
+          >
+            <div className="w-32 h-32 md:w-40 md:h-40 bg-white/10 backdrop-blur-md rounded-[2.5rem] p-4 border border-white/20 shadow-2xl relative group">
+              <img src="/input_file_0.png" alt="Lurambi Fish Grill" className="w-full h-full object-contain animate-pulse-subtle group-hover:scale-110 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gold/10 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+          </motion.div>
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -127,7 +158,7 @@ export default function Home() {
           >
             <Link 
               to="/menu"
-              className="group relative px-10 py-5 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-xl overflow-hidden transition-all hover:scale-105"
+              className="group relative px-10 py-5 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-2xl overflow-hidden transition-all hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Order Online <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -135,7 +166,7 @@ export default function Home() {
             </Link>
             <Link 
               to="/contact"
-              className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black uppercase text-xs tracking-widest rounded-xl transition-all"
+              className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black uppercase text-xs tracking-widest rounded-2xl transition-all"
             >
               Book a Table
             </Link>
@@ -182,9 +213,9 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center space-y-2 p-8 glass rounded-2xl border-charcoal/5 hover:border-gold/20 transition-colors group"
+                className="text-center space-y-2 p-8 glass rounded-3xl border-charcoal/5 hover:border-gold/20 transition-colors group"
               >
-                <div className="w-12 h-12 bg-charcoal/5 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 transition-colors">
+                <div className="w-12 h-12 bg-charcoal/5 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 transition-colors">
                   <Icon className="text-gold w-6 h-6" />
                 </div>
                 <h3 className="text-4xl font-display font-black text-charcoal">{stat.value}</h3>
@@ -216,7 +247,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: i * 0.2 }}
                 viewport={{ once: true }}
-                className="group relative h-[500px] overflow-hidden rounded-2xl"
+                className="group relative h-[500px] overflow-hidden rounded-[2.5rem]"
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-10 transition-opacity duration-500" />
                 <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 z-10 transition-opacity duration-500" />
@@ -281,7 +312,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="aspect-square rounded-2xl overflow-hidden border border-charcoal/5">
+            <div className="aspect-square rounded-[2.5rem] overflow-hidden border border-charcoal/5">
               <img 
                 src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=80" 
                 alt="Ambiance" 
@@ -293,7 +324,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
               viewport={{ once: true }}
-              className="absolute -bottom-10 -right-10 w-64 h-64 glass rounded-2xl p-8 flex flex-col justify-center gap-4 border-gold/10 shadow-2xl"
+              className="absolute -bottom-10 -right-10 w-64 h-64 glass rounded-[2rem] p-8 flex flex-col justify-center gap-4 border-gold/10 shadow-2xl"
             >
               <div className="w-12 h-12 bg-gold/20 rounded-xl flex items-center justify-center">
                 <Star className="text-gold animate-pulse" />
@@ -366,7 +397,7 @@ export default function Home() {
                     viewport={{ once: true }}
                     className="flex gap-6 group"
                   >
-                    <div className="w-14 h-14 shrink-0 rounded-xl bg-charcoal/5 flex items-center justify-center border border-charcoal/10 group-hover:border-gold/30 transition-colors">
+                    <div className="w-14 h-14 shrink-0 rounded-2xl bg-charcoal/5 flex items-center justify-center border border-charcoal/10 group-hover:border-gold/30 transition-colors">
                       <Icon className="text-gold w-6 h-6" />
                     </div>
                     <div className="space-y-2">
@@ -429,7 +460,7 @@ export default function Home() {
               <div className="col-span-full p-20 text-center glass rounded-2xl border-dashed border-charcoal/10">
                 <Quote className="mx-auto text-gold/20 w-16 h-16 mb-6" />
                 <p className="text-charcoal/50 font-light italic text-xl mb-8">Be the first to share your experience with Lurambi Fish Grill.</p>
-                <Link to="/reviews" className="px-10 py-4 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-xl">Write a Review</Link>
+                <Link to="/reviews" className="px-10 py-4 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-2xl">Write a Review</Link>
               </div>
             )}
           </div>
@@ -475,13 +506,13 @@ export default function Home() {
            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
              <Link 
                 to="/contact" 
-                className="px-12 py-6 bg-gold text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-xl hover:scale-105 transition-all shadow-lg shadow-gold/20"
+                className="px-12 py-6 bg-gold text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-2xl hover:scale-105 transition-all shadow-lg shadow-gold/20"
               >
                 Secure Your Table
               </Link>
               <Link 
                 to="/menu" 
-                className="px-12 py-6 glass text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-xl hover:bg-charcoal/10 transition-all font-bold"
+                className="px-12 py-6 glass text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-2xl hover:bg-charcoal/10 transition-all font-bold"
               >
                 Explore Full Menu
               </Link>

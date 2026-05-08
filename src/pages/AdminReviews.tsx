@@ -138,7 +138,7 @@ export default function AdminReviews() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="bg-white p-8 rounded-2xl border border-charcoal/5 shadow-sm hover:shadow-md transition-all flex flex-col md:row gap-8 items-start"
+                  className="bg-white p-8 rounded-3xl border border-charcoal/5 shadow-sm hover:shadow-md transition-all flex flex-col md:row gap-8 items-start"
                 >
                   <div className="flex gap-4 items-start shrink-0">
                     <div className="w-14 h-14 rounded-full bg-charcoal/5 border-2 border-gold/20 flex items-center justify-center">

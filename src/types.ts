@@ -23,3 +23,13 @@ export interface Stat {
   value: string;
   icon: string;
 }
+
+export interface Reservation {
+  id: string;
+  name: string;
+  email: string;
+  type: string;
+  message?: string;
+  status: 'pending' | 'confirmed' | 'cancelled';
+  createdAt: any;
+}

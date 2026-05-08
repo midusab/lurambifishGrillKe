@@ -142,7 +142,7 @@ export default function AdminDashboard() {
     { label: 'Revenue (Est.)', value: `KES ${statsData.menuCount * 450}`, icon: TrendingUp, color: 'text-green-500' },
     { label: 'Total Guests', value: statsData.reviewCount * 12, icon: Users, color: 'text-blue-500' },
     { label: 'Pending Reviews', value: reviews.filter(r => r.status === 'pending' || !r.status).length, icon: MessageSquare, color: 'text-orange-500' },
-    { label: 'Avg Rating', value: statsData.avgRating, icon: Star, color: 'text-gold' },
+    { label: 'Pending Bookings', value: activities.filter(a => a.type === 'reservation' && (!a.status || a.status === 'pending')).length, icon: Calendar, color: 'text-gold' },
   ];
 
   const quickActions = [
@@ -204,6 +204,13 @@ export default function AdminDashboard() {
             >
               <MessageSquare size={16} />
               <span className="hidden md:inline">Reviews</span>
+            </button>
+            <button 
+              onClick={() => navigate('/admin/reservations')}
+              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
+            >
+              <Calendar size={16} />
+              <span className="hidden md:inline">Bookings</span>
             </button>
           </nav>
         </div>
@@ -303,6 +310,33 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/10 transition-colors" />
+          </button>
+
+          <button
+            onClick={() => navigate('/admin/reservations')}
+            className="group relative bg-charcoal p-10 rounded-3xl text-left overflow-hidden transition-all hover:scale-[1.02] shadow-2xl cursor-pointer md:col-span-2"
+          >
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+              <div className="space-y-6">
+                <div className="w-16 h-16 bg-gold rounded-2xl flex items-center justify-center text-charcoal shadow-lg">
+                  <Calendar size={32} />
+                </div>
+                <div>
+                  <h3 className="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">Reservation Hub</h3>
+                  <p className="text-white/40 text-sm font-medium leading-relaxed max-w-[400px]">Manage all incoming table bookings, private events, and guest requests in real-time.</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="text-right hidden md:block">
+                  <p className="text-[10px] text-white/30 uppercase font-black tracking-widest mb-1">Live Status</p>
+                  <p className="text-xl font-display font-black text-gold">ACTIVE SYSTEM</p>
+                </div>
+                <div className="px-8 py-4 bg-white/10 rounded-2xl text-gold text-[10px] font-black uppercase tracking-widest group-hover:bg-gold group-hover:text-charcoal transition-all">
+                  Open Hub
+                </div>
+              </div>
+            </div>
+            <div className="absolute -right-24 -top-24 w-96 h-96 bg-gold/5 rounded-full blur-[100px] group-hover:bg-gold/10 transition-colors" />
           </button>
         </div>
 
