@@ -25,6 +25,7 @@ export default function About() {
           <img 
             src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80" 
             alt="Lakeside" 
+            loading="eager"
             className="w-full h-full object-cover grayscale opacity-20 animate-subtle-zoom"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/80 to-white" />
