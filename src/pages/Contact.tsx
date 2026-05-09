@@ -14,10 +14,7 @@ export default function Contact() {
     name: '',
     email: '',
     phone: '',
-    type: 'Table Booking',
-    guests: '2',
-    date: '',
-    time: '',
+    subject: 'General Inquiry',
     message: ''
   });
 
@@ -45,10 +42,7 @@ export default function Contact() {
           name: '', 
           email: '', 
           phone: '',
-          type: 'Table Booking', 
-          guests: '2',
-          date: '',
-          time: '',
+          subject: 'General Inquiry',
           message: '' 
         });
       }, 5000);
@@ -63,8 +57,8 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-white">
       <SEO 
-        title="Reservations & Contact | Lurambi Fish Grill"
-        description="Book your table at Lurambi Fish Grill. Experience premium lakeside dining in the heart of Kakamega."
+        title="Inquiry & Contact | Lurambi Fish Grill"
+        description="Connect with Lurambi Fish Grill for inquiries and events. Experience premium lakeside dining in the heart of Kakamega."
       />
 
       {/* Cinematic Header Section */}
@@ -87,14 +81,14 @@ export default function Contact() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-gold text-[10px] font-black tracking-widest mb-4 border border-gold/20"
           >
             <Star className="w-3 h-3 fill-gold" />
-            Direct Reservations
+            General Inquiries
           </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-8xl font-display font-black tracking-tighter leading-tight text-white"
           >
-            Secure Your <br /> <span className="text-gold text-glow-gold">Lakeside Table</span>
+            Connect With <br /> <span className="text-gold text-glow-gold">Lurambi Grill</span>
           </motion.h1>
         </div>
       </section>
@@ -114,7 +108,7 @@ export default function Contact() {
                 
                 <div className="space-y-6">
                   {[
-                    { icon: Phone, label: 'Reservations', value: '+254 794 532 900' },
+                    { icon: Phone, label: 'Call Us', value: '+254 794 532 900' },
                     { icon: Mail, label: 'General Inquiry', value: 'hello@lurambi.ke' },
                     { icon: MapPin, label: 'Find Us', value: 'Webuye Rd, Lurambi' }
                   ].map((item) => (
@@ -171,8 +165,8 @@ export default function Contact() {
 
 
             <div className="mb-12 space-y-4">
-              <h3 className="text-2xl font-display font-black tracking-tighter text-charcoal">Quick Reservation</h3>
-              <p className="text-charcoal/40 text-xs font-medium">Please fill in the details below to book your lake-side experience.</p>
+              <h3 className="text-2xl font-display font-black tracking-tighter text-charcoal">Send an Inquiry</h3>
+              <p className="text-charcoal/40 text-xs font-medium">Please fill in the details below and we will get back to you shortly.</p>
             </div>
 
             <form className="space-y-8" onSubmit={handleSubmit}>
@@ -214,50 +208,17 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Guests</label>
-                    <select 
-                      value={formData.guests}
-                      onChange={(e) => setFormData({...formData, guests: e.target.value})}
-                      className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all font-bold appearance-none cursor-pointer"
-                    >
-                      {[1,2,3,4,5,6, '7+'].map(n => <option key={n} value={n}>{n} Guests</option>)}
-                    </select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Date</label>
-                    <input 
-                      type="date" 
-                      required
-                      value={formData.date}
-                      onChange={(e) => setFormData({...formData, date: e.target.value})}
-                      className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all font-bold cursor-pointer"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Time</label>
-                    <input 
-                      type="time" 
-                      required
-                      value={formData.time}
-                      onChange={(e) => setFormData({...formData, time: e.target.value})}
-                      className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all font-bold cursor-pointer"
-                    />
-                  </div>
-                </div>
-
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Experience Type</label>
+                  <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Inquiry Subject</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {['Table Booking', 'Couple Special', 'Private Event'].map((type) => (
+                    {['General Inquiry', 'Private Event', 'Feedback'].map((type) => (
                       <label key={type} className="relative cursor-pointer group">
                         <input 
                           type="radio" 
-                          name="res_type" 
+                          name="inquiry_type" 
                           className="hidden peer" 
-                          checked={formData.type === type}
-                          onChange={() => setFormData({...formData, type})}
+                          checked={formData.subject === type}
+                          onChange={() => setFormData({...formData, subject: type})}
                         />
                         <div className="px-4 py-3 rounded-2xl border border-charcoal/10 bg-charcoal/5 peer-checked:border-gold peer-checked:bg-gold/5 text-center transition-all group-hover:border-gold/30">
                           <span className="text-[9px] font-black tracking-widest text-charcoal/40 peer-checked:text-gold">{type}</span>
@@ -284,7 +245,7 @@ export default function Contact() {
                   className="w-full py-5 bg-charcoal text-white font-black text-xs tracking-[0.3em] rounded-2xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all shadow-xl group disabled:opacity-50"
                 >
                   {isSubmitting ? 'Sending...' : (
-                    <>Confirm Reservation <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>
+                    <>Send Inquiry <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>
                   )}
                 </button>
               </div>
