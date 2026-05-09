@@ -118,7 +118,7 @@ export default function Reviews() {
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1">Full Name</label>
+                  <label className="text-[10px] tracking-widest text-charcoal/40 ml-1">Full Name</label>
                   <input 
                     type="text"
                     required
@@ -130,7 +130,7 @@ export default function Reviews() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1">Rating</label>
+                  <label className="text-[10px] tracking-widest text-charcoal/40 ml-1">Rating</label>
                   <div className="flex gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -149,7 +149,7 @@ export default function Reviews() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1">Your Review</label>
+                  <label className="text-[10px] tracking-widest text-charcoal/40 ml-1">Your Review</label>
                   <textarea 
                     required
                     rows={4}
@@ -161,13 +161,13 @@ export default function Reviews() {
                 </div>
 
                 {error && (
-                  <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest">{error}</p>
+                  <p className="text-red-500 text-[10px] font-bold tracking-widest">{error}</p>
                 )}
 
                 <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-5 bg-charcoal text-white font-black uppercase text-xs tracking-[0.3em] rounded-2xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all disabled:opacity-50"
+                  className="w-full py-5 bg-charcoal text-white font-black text-xs tracking-widest rounded-2xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all disabled:opacity-50"
                 >
                   {isSubmitting ? 'Submitting...' : (
                     <>Submit Review <Send size={14} /></>
@@ -184,7 +184,7 @@ export default function Reviews() {
                 <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center">
                   <MessageSquare className="text-gold" size={24} />
                 </div>
-                <h3 className="text-2xl font-display font-black tracking-tighter uppercase">{reviews.length} Guest Reviews</h3>
+                <h3 className="text-2xl font-display font-black tracking-tighter">{reviews.length} Guest Reviews</h3>
               </div>
             </div>
 
@@ -209,7 +209,7 @@ export default function Reviews() {
                           <User size={18} className="text-charcoal" />
                         </div>
                         <div>
-                          <h4 className="font-display font-bold text-charcoal uppercase text-sm tracking-widest">{review.userName}</h4>
+                          <h4 className="font-display font-bold text-charcoal text-sm tracking-widest">{review.userName}</h4>
                           <div className="flex items-center gap-1 mt-1">
                             {[...Array(5)].map((_, idx) => (
                               <Star 
@@ -221,7 +221,7 @@ export default function Reviews() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 text-[10px] text-charcoal/30 uppercase tracking-widest">
+                      <div className="flex items-center gap-2 text-[10px] text-charcoal/30 tracking-widest">
                         <Calendar size={12} />
                         {review.createdAt?.toDate ? review.createdAt.toDate().toLocaleDateString() : 'Just now'}
                       </div>

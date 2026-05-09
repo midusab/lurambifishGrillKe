@@ -148,11 +148,11 @@ export default function Contact() {
                 <div className="w-12 h-12 bg-charcoal/5 rounded-2xl flex items-center justify-center text-gold">
                   <Clock size={24} />
                 </div>
-                <h4 className="text-xl font-display font-black uppercase tracking-tight text-charcoal">Opening Hours</h4>
+                <h4 className="text-xl font-display font-black tracking-tight text-charcoal">Opening Hours</h4>
               </div>
               <div className="space-y-3 pt-2">
                 <div className="flex justify-between items-center py-2 border-b border-charcoal/5">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-charcoal/30">Weekdays</span>
+                  <span className="text-[10px] font-black tracking-widest text-charcoal/30">Weekdays</span>
                   <span className="text-[10px] font-black tracking-widest text-charcoal">10:00 AM - 10:00 PM</span>
                 </div>
                 <div className="flex justify-between items-center py-2">
@@ -187,13 +187,13 @@ export default function Contact() {
                     <CheckCircle2 className="text-white w-12 h-12" />
                   </motion.div>
                   <div className="space-y-3">
-                    <h3 className="text-4xl font-display font-black uppercase tracking-tighter text-charcoal">Request <br /> <span className="text-green-500">Received</span></h3>
+                    <h3 className="text-4xl font-display font-black tracking-tighter text-charcoal">Request <br /> <span className="text-green-500">Received</span></h3>
                     <p className="text-charcoal/40 text-sm max-w-xs mx-auto font-medium">Our team has been notified. We will contact you shortly to confirm your lakeside experience.</p>
                   </div>
                   <button 
                     type="button"
                     onClick={() => setSubmitted(false)}
-                    className="px-12 py-4 bg-charcoal text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-2xl hover:bg-gold hover:text-charcoal transition-all shadow-xl"
+                    className="px-12 py-4 bg-charcoal text-white text-[10px] font-black tracking-widest rounded-2xl hover:bg-gold hover:text-charcoal transition-all shadow-xl"
                   >
                     Close Message
                   </button>
@@ -202,7 +202,7 @@ export default function Contact() {
             </AnimatePresence>
 
             <div className="mb-10 space-y-2">
-              <h3 className="text-2xl font-display font-black uppercase tracking-tighter text-charcoal">Quick Reservation</h3>
+              <h3 className="text-2xl font-display font-black tracking-tighter text-charcoal">Quick Reservation</h3>
               <p className="text-charcoal/40 text-xs font-medium">Please fill in the details below to book your lake-side experience.</p>
             </div>
 
@@ -291,7 +291,7 @@ export default function Contact() {
                           onChange={() => setFormData({...formData, type})}
                         />
                         <div className="px-4 py-3 rounded-2xl border border-charcoal/10 bg-charcoal/5 peer-checked:border-gold peer-checked:bg-gold/5 text-center transition-all group-hover:border-gold/30">
-                          <span className="text-[9px] font-black uppercase tracking-widest text-charcoal/40 peer-checked:text-gold">{type}</span>
+                          <span className="text-[9px] font-black tracking-widest text-charcoal/40 peer-checked:text-gold">{type}</span>
                         </div>
                       </label>
                     ))}
@@ -339,8 +339,8 @@ export default function Contact() {
             <div className="absolute inset-0 bg-gold/5 pointer-events-none" />
             
             <div className="absolute bottom-10 left-10 glass p-8 rounded-[2.5rem] max-w-xs border border-white/20 hidden md:block">
-              <h4 className="text-xl font-display font-black text-charcoal uppercase mb-2">Visit Lurambi</h4>
-              <p className="text-[10px] text-charcoal/50 font-bold uppercase tracking-widest leading-loose">
+              <h4 className="text-xl font-display font-black text-charcoal mb-2">Visit Lurambi</h4>
+              <p className="text-[10px] text-charcoal/50 font-bold tracking-widest leading-loose">
                 Webuye Road, Lurambi<br />
                 Kakamega, Kenya
               </p>
