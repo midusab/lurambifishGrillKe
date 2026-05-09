@@ -18,7 +18,7 @@ export default function Footer() {
             <div className="w-10 h-10 bg-white rounded-2xl overflow-hidden flex items-center justify-center border border-gold/30 shadow-sm p-1">
               <img src={logo} alt="Lurambi Logo" className="w-full h-full object-contain" />
             </div>
-            <span className="font-display text-lg font-bold tracking-tighter uppercase text-charcoal">
+            <span className="font-display text-lg font-bold tracking-tighter text-charcoal">
               Lurambi <span className="text-gold">Fish Grill</span>
             </span>
           </Link>
@@ -45,7 +45,7 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          <h4 className="font-display text-charcoal uppercase text-sm font-bold mb-6 tracking-widest">Navigation</h4>
+          <h4 className="font-display text-charcoal tracking-widest">Navigation</h4>
           <ul className="space-y-4">
             <li><Link to="/" className="text-charcoal/50 hover:text-gold transition-colors text-sm font-medium">Home</Link></li>
             <li><Link to="/menu" className="text-charcoal/50 hover:text-gold transition-colors text-sm font-medium">Our Menu</Link></li>
@@ -61,7 +61,7 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-           <h4 className="font-display text-charcoal uppercase text-sm font-bold mb-6 tracking-widest">Our Services</h4>
+           <h4 className="font-display text-charcoal tracking-widest">Our Services</h4>
            <ul className="space-y-4">
             <li className="text-charcoal/50 text-sm font-medium flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-gold" />
@@ -88,7 +88,7 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <h4 className="font-display text-charcoal uppercase text-sm font-bold mb-6 tracking-widest">Opening Hours</h4>
+          <h4 className="font-display text-charcoal tracking-widest">Opening Hours</h4>
           <ul className="space-y-4">
             <li className="flex justify-between text-sm">
               <span className="text-charcoal/50">Mon - Fri</span>
@@ -111,7 +111,7 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
         >
-           <h4 className="font-display text-charcoal uppercase text-sm font-bold mb-6 tracking-widest">Contact Info</h4>
+           <h4 className="font-display text-charcoal tracking-widest">Contact Info</h4>
            <ul className="space-y-4">
             <li className="flex gap-3 text-sm">
               <MapPin className="text-gold shrink-0" size={18} />
@@ -130,12 +130,12 @@ export default function Footer() {
       </div>
       
       <div className="max-w-7xl mx-auto px-6 pt-10 border-t border-charcoal/5 flex flex-col md:row justify-between items-center gap-4">
-        <p className="text-charcoal/30 text-xs uppercase tracking-tighter">
+        <p className="text-charcoal/30 text-xs tracking-tighter">
           © 2025 Lurambi Fish Grill. All Rights Reserved.
         </p>
         <div className="flex gap-6">
-          <a href="#" className="text-charcoal/30 text-[10px] uppercase hover:text-charcoal">Privacy Policy</a>
-          <a href="#" className="text-charcoal/30 text-[10px] uppercase hover:text-charcoal">Terms of Service</a>
+          <a href="#" className="text-charcoal/30 text-[10px] hover:text-charcoal">Privacy Policy</a>
+          <a href="#" className="text-charcoal/30 text-[10px] hover:text-charcoal">Terms of Service</a>
         </div>
       </div>
     </footer>

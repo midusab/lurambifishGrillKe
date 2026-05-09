@@ -45,7 +45,7 @@ export default function Navbar() {
             <img src={logo} alt="Lurambi Logo" className="w-full h-full object-contain" />
           </div>
           <span className={cn(
-            "font-display text-lg md:text-xl font-bold tracking-tighter uppercase hidden sm:block",
+            "font-display text-lg md:text-xl font-bold tracking-tighter hidden sm:block",
             isScrolled ? "text-charcoal" : "text-white"
           )}>
             Lurambi <span className="text-gold">Fish Grill</span>
@@ -59,7 +59,7 @@ export default function Navbar() {
               key={link.name}
               to={link.href}
               className={cn(
-                'text-sm font-medium uppercase letter-spacing-wide transition-colors hover:text-gold relative',
+                'text-sm font-medium tracking-widest transition-colors hover:text-gold relative',
                 location.pathname === link.href 
                   ? 'text-gold' 
                   : (isScrolled ? 'text-charcoal/70' : 'text-white/80')
@@ -76,7 +76,7 @@ export default function Navbar() {
           ))}
           <Link
             to="/contact"
-            className="px-6 py-2 bg-gold text-charcoal font-bold text-xs uppercase tracking-widest rounded-lg hover:bg-white transition-colors"
+            className="px-6 py-2 bg-gold text-charcoal font-bold text-xs tracking-widest rounded-lg hover:bg-white transition-colors"
           >
             Book a Table
           </Link>
@@ -109,7 +109,7 @@ export default function Navbar() {
                   key={link.name}
                   to={link.href}
                   className={cn(
-                    'text-xl font-display font-medium uppercase',
+                    'text-xl font-display font-medium',
                     location.pathname === link.href ? 'text-gold' : 'text-charcoal'
                   )}
                 >
@@ -118,7 +118,7 @@ export default function Navbar() {
               ))}
               <Link
                 to="/contact"
-                className="w-full py-4 bg-gold text-charcoal font-bold text-center uppercase tracking-widest rounded-lg"
+                className="w-full py-4 bg-gold text-charcoal font-bold text-center tracking-widest rounded-lg"
               >
                 Book a Table
               </Link>
