@@ -153,11 +153,11 @@ export default function Contact() {
               <div className="space-y-3 pt-2">
                 <div className="flex justify-between items-center py-2 border-b border-charcoal/5">
                   <span className="text-[10px] font-black uppercase tracking-widest text-charcoal/30">Weekdays</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-charcoal">10:00 AM - 10:00 PM</span>
+                  <span className="text-[10px] font-black tracking-widest text-charcoal">10:00 AM - 10:00 PM</span>
                 </div>
                 <div className="flex justify-between items-center py-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-charcoal/30">Weekends</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-gold">09:00 AM - 11:00 PM</span>
+                  <span className="text-[10px] font-black tracking-widest text-charcoal/30">Weekends</span>
+                  <span className="text-[10px] font-black tracking-widest text-gold">09:00 AM - 11:00 PM</span>
                 </div>
               </div>
             </div>
@@ -209,7 +209,7 @@ export default function Contact() {
             <form className="space-y-8" onSubmit={handleSubmit}>
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Your Full Name</label>
+                  <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Your Full Name</label>
                   <input 
                     type="text" 
                     required
@@ -222,7 +222,7 @@ export default function Contact() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Email Address</label>
+                    <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Email Address</label>
                     <input 
                       type="email" 
                       required
@@ -233,7 +233,7 @@ export default function Contact() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Phone Number</label>
+                    <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Phone Number</label>
                     <input 
                       type="tel" 
                       required
@@ -247,7 +247,7 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Guests</label>
+                    <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Guests</label>
                     <select 
                       value={formData.guests}
                       onChange={(e) => setFormData({...formData, guests: e.target.value})}
@@ -257,7 +257,7 @@ export default function Contact() {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Date</label>
+                    <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Date</label>
                     <input 
                       type="date" 
                       required
@@ -267,7 +267,7 @@ export default function Contact() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Time</label>
+                    <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Time</label>
                     <input 
                       type="time" 
                       required
@@ -279,7 +279,7 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Experience Type</label>
+                  <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Experience Type</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {['Table Booking', 'Couple Special', 'Private Event'].map((type) => (
                       <label key={type} className="relative cursor-pointer group">
@@ -299,7 +299,7 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40 ml-1">Message (Optional)</label>
+                  <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Message (Optional)</label>
                   <textarea 
                     rows={4}
                     value={formData.message}
@@ -312,7 +312,7 @@ export default function Contact() {
                 <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-5 bg-charcoal text-white font-black uppercase text-xs tracking-[0.3em] rounded-2xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all shadow-xl group disabled:opacity-50"
+                  className="w-full py-5 bg-charcoal text-white font-black text-xs tracking-[0.3em] rounded-2xl flex items-center justify-center gap-3 hover:bg-gold hover:text-charcoal transition-all shadow-xl group disabled:opacity-50"
                 >
                   {isSubmitting ? 'Sending...' : (
                     <>Confirm Reservation <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>
