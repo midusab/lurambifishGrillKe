@@ -84,7 +84,7 @@ export default function Navbar() {
             }}
             className="px-6 py-2 bg-gold text-charcoal font-bold text-xs tracking-widest rounded-lg hover:bg-white transition-colors cursor-pointer"
           >
-            Book a Table
+            Order Now
           </button>
         </div>
 
@@ -129,7 +129,7 @@ export default function Navbar() {
                 }}
                 className="w-full py-4 bg-gold text-charcoal font-bold text-center tracking-widest rounded-lg cursor-pointer"
               >
-                Book a Table
+                Order Now
               </button>
             </div>
           </motion.div>

@@ -174,7 +174,7 @@ export default function Home() {
               }}
               className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black text-xs tracking-widest rounded-2xl transition-all cursor-pointer"
             >
-              Book a Table
+              Order Now
             </button>
           </motion.div>
         </div>
@@ -190,7 +190,7 @@ export default function Home() {
             <h3 className="font-display font-bold text-xs text-gold">Inquiries</h3>
             <div className="w-2 h-2 bg-green-500 animate-pulse" />
           </div>
-          <p className="text-sm text-charcoal/90 font-medium">Quick Booking Available</p>
+          <p className="text-sm text-charcoal/90 font-medium">Call to Order Now</p>
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-[10px] text-charcoal/50 tracking-widest">
               <Phone size={12} className="text-gold" />
@@ -208,7 +208,7 @@ export default function Home() {
             }}
             className="w-full py-3 bg-charcoal/5 hover:bg-charcoal/10 border border-charcoal/10 rounded-xl text-[10px] font-bold tracking-[0.2em] transition-colors cursor-pointer"
           >
-            Book a Table
+            Call to Order
           </button>
         </motion.div>
       </section>
@@ -523,7 +523,7 @@ export default function Home() {
                }}
                className="px-12 py-6 bg-gold text-charcoal font-black text-xs tracking-[0.2em] rounded-2xl hover:scale-105 transition-all shadow-lg shadow-gold/20 cursor-pointer"
              >
-               Book a Table
+               Order Now
              </button>
              <Link 
                to="/menu" 
