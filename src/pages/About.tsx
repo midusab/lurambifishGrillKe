@@ -34,7 +34,7 @@ export default function About() {
           <motion.span 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="uppercase tracking-[0.3em] text-gold font-bold text-[10px]"
+            className="tracking-widest text-gold font-bold text-[10px]"
           >
             Since 2025
           </motion.span>
@@ -42,9 +42,9 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-7xl md:text-9xl font-display font-black tracking-tighter uppercase leading-[0.8]"
+            className="text-7xl md:text-9xl font-display font-black tracking-tighter leading-[0.8]"
           >
-            THE SPIRIT <br /> OF <span className="text-gold">LURAMBI</span>
+            The Spirit <br /> of <span className="text-gold">Lurambi</span>
           </motion.h1>
         </div>
       </section>
@@ -59,7 +59,7 @@ export default function About() {
             viewport={{ once: true }}
             className="space-y-10 order-2 lg:order-1"
           >
-            <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase leading-tight">
+            <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter leading-tight">
               A Legacy <br /> Born From <span className="text-gold">Water</span>
             </h2>
             <div className="space-y-6 text-charcoal/60 font-light text-lg leading-relaxed italic">
@@ -73,11 +73,11 @@ export default function About() {
             <div className="flex gap-10 pt-6 border-t border-charcoal/5">
               <div className="space-y-2">
                 <p className="text-3xl font-display font-black text-charcoal">100%</p>
-                <p className="text-[10px] uppercase tracking-widest text-gold font-bold">Lakeside Sourced</p>
+                <p className="text-[10px] tracking-widest text-gold font-bold">Lakeside Sourced</p>
               </div>
               <div className="space-y-2">
                 <p className="text-3xl font-display font-black text-charcoal">24h</p>
-                <p className="text-[10px] uppercase tracking-widest text-gold font-bold">Catch to Grill</p>
+                <p className="text-[10px] tracking-widest text-gold font-bold">Catch to Grill</p>
               </div>
             </div>
           </motion.div>
@@ -118,7 +118,7 @@ export default function About() {
              <div className="w-16 h-16 bg-gold/20 rounded-2xl flex items-center justify-center">
                <Heart className="text-gold" size={32} />
              </div>
-             <h3 className="text-4xl font-display font-black uppercase tracking-tight text-charcoal">Our Mission</h3>
+             <h3 className="text-4xl font-display font-black tracking-tight text-charcoal">Our Mission</h3>
              <p className="text-charcoal/50 font-light text-lg leading-relaxed">
                To preserve and polish Kenyan culinary traditions through relentless commitment to quality and innovative grilling techniques, serving every guest with the dignity they deserve.
              </p>
@@ -135,7 +135,7 @@ export default function About() {
              <div className="w-16 h-16 bg-gold/20 rounded-2xl flex items-center justify-center">
                <ShieldCheck className="text-gold" size={32} />
              </div>
-             <h3 className="text-4xl font-display font-black uppercase tracking-tight text-charcoal">Our Vision</h3>
+             <h3 className="text-4xl font-display font-black tracking-tight text-charcoal">Our Vision</h3>
              <p className="text-charcoal/50 font-light text-lg leading-relaxed">
                To become the definitive global reference for African seafood luxury, setting benchmarks in sustainability and culinary excellence that inspire a new generation of Kenyan chefs.
              </p>
@@ -147,8 +147,8 @@ export default function About() {
       <section className="py-40">
         <div className="max-w-7xl mx-auto px-6 text-center space-y-20">
           <div className="space-y-4 max-w-2xl mx-auto">
-             <span className="text-gold text-[10px] font-bold uppercase tracking-[0.3em]">The Ambiance</span>
-             <h2 className="text-5xl md:text-7xl font-display font-black tracking-tighter uppercase leading-[0.9]">DINE IN <br /> <span className="text-gold">SOPHISTICATION</span></h2>
+             <span className="text-gold text-[10px] font-bold tracking-widest">The Ambiance</span>
+             <h2 className="text-5xl md:text-7xl font-display font-black tracking-tighter leading-[0.9]">Dine in <br /> <span className="text-gold">Sophistication</span></h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">

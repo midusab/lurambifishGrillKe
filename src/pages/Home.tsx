@@ -123,7 +123,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-gold text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] mb-4 border border-gold/20"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-gold text-[10px] sm:text-xs font-bold tracking-widest mb-4 border border-gold/20"
           >
             <Star className="w-3 h-3 fill-gold text-gold" />
             Voted #1 Seafood in Kakamega
@@ -136,8 +136,8 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="text-5xl md:text-8xl font-display font-black leading-[0.9] tracking-tighter"
           >
-            KAKAMEGA’S <br />
-            <span className="text-gold text-glow-gold">PREMIUM FISH</span> EXPERIENCE
+            Kakamega’s <br />
+            <span className="text-gold text-glow-gold">Premium Fish</span> Experience
           </motion.h1>
 
           <motion.p
@@ -158,7 +158,7 @@ export default function Home() {
           >
             <Link 
               to="/menu"
-              className="group relative px-10 py-5 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-2xl overflow-hidden transition-all hover:scale-105"
+              className="group relative px-10 py-5 bg-gold text-charcoal font-black text-xs tracking-widest rounded-2xl overflow-hidden transition-all hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Order Online <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -166,7 +166,7 @@ export default function Home() {
             </Link>
             <Link 
               to="/contact"
-              className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black uppercase text-xs tracking-widest rounded-2xl transition-all"
+              className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black text-xs tracking-widest rounded-2xl transition-all"
             >
               Book a Table
             </Link>
@@ -181,21 +181,21 @@ export default function Home() {
           className="hidden lg:block absolute bottom-12 right-12 z-30 w-72 glass p-6 border-charcoal/5 shadow-2xl space-y-4"
         >
           <div className="flex justify-between items-center">
-            <h3 className="font-display font-bold uppercase text-xs text-gold">Reservations</h3>
+            <h3 className="font-display font-bold text-xs text-gold">Reservations</h3>
             <div className="w-2 h-2 bg-green-500 animate-pulse" />
           </div>
           <p className="text-sm text-charcoal/90 font-medium">Quick Booking Available</p>
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-[10px] text-charcoal/50 uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-[10px] text-charcoal/50 tracking-widest">
               <Phone size={12} className="text-gold" />
               <span>+254 700 000 000</span>
             </div>
-            <div className="flex items-center gap-2 text-[10px] text-charcoal/50 uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-[10px] text-charcoal/50 tracking-widest">
               <MapPin size={12} className="text-gold" />
               <span>Webuye Rd, Lurambi</span>
             </div>
           </div>
-          <button className="w-full py-3 bg-charcoal/5 hover:bg-charcoal/10 border border-charcoal/10 rounded-xl text-[10px] uppercase font-bold tracking-[0.2em] transition-colors">
+          <button className="w-full py-3 bg-charcoal/5 hover:bg-charcoal/10 border border-charcoal/10 rounded-xl text-[10px] font-bold tracking-[0.2em] transition-colors">
             Check Availability
           </button>
         </motion.div>
@@ -219,7 +219,7 @@ export default function Home() {
                   <Icon className="text-gold w-6 h-6" />
                 </div>
                 <h3 className="text-4xl font-display font-black text-charcoal">{stat.value}</h3>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-charcoal/40">{stat.label}</p>
+                <p className="text-[10px] tracking-widest text-charcoal/40">{stat.label}</p>
               </motion.div>
             );
           })}
@@ -231,10 +231,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:row justify-between items-end gap-6 mb-16">
             <div className="space-y-4">
-              <span className="text-gold text-[10px] font-bold uppercase tracking-[0.3em]">Signature Selection</span>
-              <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase leading-tight">OUR CHEF'S SPECIALS</h2>
+              <span className="text-gold text-[10px] font-bold tracking-widest">Signature Selection</span>
+              <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter leading-tight">Our Chef's Specials</h2>
             </div>
-            <Link to="/menu" className="group flex items-center gap-2 text-charcoal/50 hover:text-gold uppercase text-xs font-bold tracking-widest transition-all">
+            <Link to="/menu" className="group flex items-center gap-2 text-charcoal/50 hover:text-gold text-xs font-bold tracking-widest transition-all">
               View Full Menu <ChevronRight className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -262,7 +262,7 @@ export default function Home() {
                 
                 <div className="absolute bottom-0 left-0 right-0 p-10 z-20 space-y-4 transform transition-transform group-hover:-translate-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="px-3 py-1 bg-gold text-charcoal text-[9px] font-bold uppercase rounded-xl tracking-[0.3em]">
+                    <span className="px-3 py-1 bg-gold text-charcoal text-[9px] font-bold rounded-xl tracking-widest">
                       {dish.category}
                     </span>
                     <span className="text-lg font-display font-black text-charcoal">
@@ -292,7 +292,7 @@ export default function Home() {
                   <p className="text-charcoal/60 text-xs font-light line-clamp-2 italic">
                     {dish.description}
                   </p>
-                  <button className="pt-4 flex items-center gap-2 text-gold text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">
+                  <button className="pt-4 flex items-center gap-2 text-gold text-[10px] font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">
                     Discover More <ArrowRight size={14} />
                   </button>
                 </div>
@@ -330,7 +330,7 @@ export default function Home() {
                 <Star className="text-gold animate-pulse" />
               </div>
               <p className="text-xl font-display font-bold text-charcoal tracking-tight">Pure Lakeside Tradition</p>
-              <p className="text-[10px] uppercase tracking-widest text-charcoal/50">Quality is our only ingredient.</p>
+              <p className="text-[10px] tracking-widest text-charcoal/50">Quality is our only ingredient.</p>
             </motion.div>
           </motion.div>
 
@@ -361,7 +361,7 @@ export default function Home() {
                       <Icon className="text-gold w-8 h-8" />
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-display font-bold text-charcoal uppercase tracking-widest text-sm">{service.title}</h4>
+                      <h4 className="font-display font-bold text-charcoal tracking-widest text-sm">{service.title}</h4>
                       <p className="text-[10px] text-charcoal/50 leading-relaxed max-w-[150px] mx-auto italic">{service.desc}</p>
                     </div>
                   </motion.div>
@@ -377,8 +377,8 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="space-y-4"
               >
-                <span className="text-gold text-[10px] font-bold uppercase tracking-[0.3em]">Our Excellence</span>
-                <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase leading-tight">Beyond Just <br />A Meal</h2>
+                <span className="text-gold text-[10px] font-bold tracking-widest">Our Excellence</span>
+                <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter leading-tight">Beyond Just <br />A Meal</h2>
               </motion.div>
             
             <div className="space-y-8">
@@ -401,7 +401,7 @@ export default function Home() {
                       <Icon className="text-gold w-6 h-6" />
                     </div>
                     <div className="space-y-2">
-                      <h4 className="font-display font-bold text-charcoal uppercase tracking-wider">{item.title}</h4>
+                      <h4 className="font-display font-bold text-charcoal tracking-wider">{item.title}</h4>
                       <p className="text-charcoal/40 text-sm font-light leading-relaxed">{item.desc}</p>
                     </div>
                   </motion.div>
@@ -423,8 +423,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center space-y-4 mb-20"
           >
-             <span className="text-gold text-[10px] font-bold uppercase tracking-[0.3em]">Guest Feedback</span>
-             <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase leading-tight text-charcoal">What Our Guests <br />Say</h2>
+             <span className="text-gold text-[10px] font-bold tracking-widest">Guest Feedback</span>
+             <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter leading-tight text-charcoal">What Our Guests <br />Say</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -496,7 +496,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-10"
          >
-           <h2 className="text-5xl md:text-7xl font-display font-black leading-[0.9] tracking-tighter uppercase text-charcoal">
+           <h2 className="text-5xl md:text-7xl font-display font-black leading-[0.9] tracking-tighter text-charcoal">
              Ready for the <br /> <span className="text-gold text-glow-gold">Perfect Catch?</span>
            </h2>
            <p className="text-charcoal/60 text-lg font-light tracking-wide italic">
@@ -512,7 +512,7 @@ export default function Home() {
               </Link>
               <Link 
                 to="/menu" 
-                className="px-12 py-6 glass text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-2xl hover:bg-charcoal/10 transition-all font-bold"
+                className="px-12 py-6 glass text-charcoal font-black text-xs tracking-[0.2em] rounded-2xl hover:bg-charcoal/10 transition-all font-bold"
               >
                 Explore Full Menu
               </Link>
