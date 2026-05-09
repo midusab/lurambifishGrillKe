@@ -86,7 +86,7 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-gold/20"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-gold text-[10px] font-black tracking-widest mb-4 border border-gold/20"
           >
             <Star className="w-3 h-3 fill-gold" />
             Direct Reservations
@@ -94,9 +94,9 @@ export default function Contact() {
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-8xl font-display font-black tracking-tighter uppercase leading-[0.9] text-white"
+            className="text-5xl md:text-8xl font-display font-black tracking-tighter leading-[0.9] text-white"
           >
-            SECURE YOUR <br /> <span className="text-gold text-glow-gold">LAKESIDE TABLE</span>
+            Secure Your <br /> <span className="text-gold text-glow-gold">Lakeside Table</span>
           </motion.h1>
         </div>
       </section>
@@ -110,8 +110,8 @@ export default function Contact() {
             <div className="bg-charcoal p-10 rounded-3xl text-white shadow-2xl space-y-10 relative overflow-hidden group">
               <div className="relative z-10 space-y-8">
                 <div className="space-y-4">
-                  <span className="text-gold text-[10px] font-black uppercase tracking-[0.4em]">Connect</span>
-                  <h3 className="text-4xl font-display font-black uppercase tracking-tight leading-none">VISIT <br /> THE <span className="text-gold">GRILL</span></h3>
+                  <span className="text-gold text-[10px] font-black tracking-widest">Connect</span>
+                  <h3 className="text-4xl font-display font-black tracking-tight leading-none">Visit <br /> the <span className="text-gold">Grill</span></h3>
                 </div>
                 
                 <div className="space-y-6">
@@ -125,7 +125,7 @@ export default function Contact() {
                         <item.icon size={20} />
                       </div>
                       <div>
-                        <p className="text-[9px] font-black uppercase tracking-widest text-white/20 mb-1">{item.label}</p>
+                        <p className="text-[9px] font-black tracking-widest text-white/20 mb-1">{item.label}</p>
                         <p className="text-sm font-bold tracking-tight">{item.value}</p>
                       </div>
                     </div>

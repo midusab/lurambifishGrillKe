@@ -50,14 +50,14 @@ export default function Menu() {
           <motion.span 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="px-4 py-1.5 rounded-full glass text-gold text-[10px] font-bold uppercase tracking-[0.3em]"
+            className="px-4 py-1.5 rounded-full glass text-gold text-[10px] font-bold tracking-widest"
           >
             Exquisite Dining
           </motion.span>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-6xl md:text-8xl font-display font-black tracking-tighter uppercase leading-[0.85]"
+            className="text-6xl md:text-8xl font-display font-black tracking-tighter leading-[0.85]"
           >
             Our <span className="text-gold">Menu</span>
           </motion.h1>
@@ -80,7 +80,7 @@ export default function Menu() {
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={cn(
-                "px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all",
+                "px-8 py-3 rounded-full text-[10px] font-bold tracking-widest transition-all",
                 activeCategory === cat 
                   ? "bg-gold text-charcoal shadow-[0_0_20px_rgba(255,178,0,0.3)]" 
                   : "glass text-charcoal/50 hover:text-charcoal hover:border-charcoal/30"
@@ -97,11 +97,11 @@ export default function Menu() {
         <div className="glass border-gold/20 px-8 py-4 rounded-3xl flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
-            <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/70">
+            <span className="text-[10px] font-bold tracking-widest text-charcoal/70">
               Fish sizes available: <span className="text-gold">200g, 250g, 300g, 350g, 400g, 450g, 500g</span>
             </span>
           </div>
-          <p className="text-[10px] uppercase font-bold tracking-widest text-gold italic">
+          <p className="text-[10px] font-bold tracking-widest text-gold italic">
             Milkshakes & Ice Cream Available
           </p>
         </div>
@@ -162,7 +162,7 @@ export default function Menu() {
                 <div className="px-4 pb-4 space-y-4">
                   <div className="flex justify-between items-start gap-4">
                     <div className="space-y-1">
-                      <h3 className="font-display text-xl font-bold text-charcoal uppercase tracking-tight group-hover:text-gold transition-colors">
+                      <h3 className="font-display text-xl font-bold text-charcoal tracking-tight group-hover:text-gold transition-colors">
                         {item.name}
                       </h3>
                       {item.rating && (
@@ -192,10 +192,10 @@ export default function Menu() {
                   
                   {/* Footer details */}
                   <div className="pt-4 flex items-center justify-between border-t border-charcoal/5">
-                    <span className="text-[9px] uppercase tracking-widest text-charcoal/30 font-bold">
+                    <span className="text-[9px] tracking-widest text-charcoal/30 font-bold">
                       Category: {item.category}
                     </span>
-                    <button className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest text-gold opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-gold opacity-0 group-hover:opacity-100 transition-opacity">
                       Quick Order <ShoppingBag size={12} />
                     </button>
                   </div>
@@ -229,13 +229,13 @@ export default function Menu() {
             viewport={{ once: true }}
             className="relative z-10 space-y-8 max-w-2xl"
           >
-            <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase leading-[0.9] text-charcoal">
-              TODAY’S <span className="text-gold text-glow-gold">SECRET</span> CATCH
+            <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter leading-[0.9] text-charcoal">
+              Today’s <span className="text-gold text-glow-gold">Secret</span> Catch
             </h2>
             <p className="text-charcoal/70 italic text-lg md:text-xl font-light">
               "Ask your server about our daily off-menu specialties sourced directly from the fishermen at first light."
             </p>
-            <button className="px-10 py-4 border border-gold/30 text-gold uppercase text-[10px] font-bold tracking-[0.3em] rounded-2xl hover:bg-gold hover:text-charcoal hover:border-gold transition-all">
+            <button className="px-10 py-4 border border-gold/30 text-gold text-[10px] font-bold tracking-widest rounded-2xl hover:bg-gold hover:text-charcoal hover:border-gold transition-all">
               Request Daily Special
             </button>
           </motion.div>
