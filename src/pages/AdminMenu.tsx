@@ -38,7 +38,7 @@ export default function AdminMenu() {
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadError, setUploadError] = useState<string | null>(null);
+
   const [searchQuery, setSearchQuery] = useState('');
   
   const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
@@ -48,11 +48,11 @@ export default function AdminMenu() {
     if (!file) return;
 
     if (file.size > MAX_FILE_SIZE) {
-      setUploadError('File size must be less than 2MB');
+      showToast('File size must be less than 2MB', 'error');
       return;
     }
 
-    setUploadError(null);
+
     setIsUploading(true);
 
     try {
@@ -70,7 +70,7 @@ export default function AdminMenu() {
       setFormData(prev => ({ ...prev, image: publicUrl }));
     } catch (err: any) {
       console.error('Upload error:', err);
-      setUploadError(err.message || 'Failed to upload image. Please try again.');
+      showToast(err.message || 'Failed to upload image. Please try again.', 'error');
     } finally {
       setIsUploading(false);
     }
@@ -402,11 +402,7 @@ export default function AdminMenu() {
                             placeholder="Or paste an image URL..."
                           />
                         </div>
-                        {uploadError && (
-                          <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest flex items-center gap-1">
-                            <AlertCircle size={10} /> {uploadError}
-                          </p>
-                        )}
+
                       </div>
                     </div>
                   </div>
