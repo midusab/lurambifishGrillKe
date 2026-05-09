@@ -506,7 +506,7 @@ export default function Home() {
            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
              <Link 
                 to="/contact" 
-                className="px-12 py-6 bg-gold text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-2xl hover:scale-105 transition-all shadow-lg shadow-gold/20"
+                className="px-12 py-6 bg-gold text-charcoal font-black text-xs tracking-[0.2em] rounded-2xl hover:scale-105 transition-all shadow-lg shadow-gold/20"
               >
                 Secure Your Table
               </Link>
