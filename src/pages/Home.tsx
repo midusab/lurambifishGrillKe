@@ -450,7 +450,7 @@ export default function Home() {
                       <User className="text-gold" size={24} />
                     </div>
                     <div>
-                      <h5 className="font-display font-bold text-charcoal uppercase tracking-widest text-sm">{t.userName}</h5>
+                      <h5 className="font-display font-bold text-charcoal tracking-widest text-sm">{t.userName}</h5>
                       <p className="text-xs text-charcoal/40">Verified Guest</p>
                     </div>
                   </div>
@@ -460,7 +460,7 @@ export default function Home() {
               <div className="col-span-full p-20 text-center glass rounded-2xl border-dashed border-charcoal/10">
                 <Quote className="mx-auto text-gold/20 w-16 h-16 mb-6" />
                 <p className="text-charcoal/50 font-light italic text-xl mb-8">Be the first to share your experience with Lurambi Fish Grill.</p>
-                <Link to="/reviews" className="px-10 py-4 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-2xl">Write a Review</Link>
+                <Link to="/reviews" className="px-10 py-4 bg-gold text-charcoal font-black text-xs tracking-widest rounded-2xl">Write a Review</Link>
               </div>
             )}
           </div>
@@ -469,7 +469,7 @@ export default function Home() {
             <div className="mt-20 text-center">
               <Link 
                 to="/reviews" 
-                className="group inline-flex items-center gap-2 text-charcoal/50 hover:text-gold uppercase text-xs font-bold tracking-[0.3em] transition-all"
+                className="group inline-flex items-center gap-2 text-charcoal/50 hover:text-gold text-xs font-bold tracking-widest transition-all"
               >
                 View All Guest Stories <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Link>
