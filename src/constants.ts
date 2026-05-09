@@ -303,3 +303,4 @@ export const STATS: Stat[] = [
 ];
 
 export const ADMIN_EMAIL = 'lurambifishgrillKE@gmail.com';
+export const WHATSAPP_LINK = 'https://wa.me/254794532900?text=Hello%20Lurambi%20Fish%20Grill,%20I\'d%20like%20to%20place%20an%20order.';

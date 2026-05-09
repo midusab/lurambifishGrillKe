@@ -23,6 +23,7 @@ import { useAuth } from '../lib/AuthContext';
 import { useToast } from '../lib/ToastContext';
 import SEO from '../components/SEO';
 import { migrateMenu } from '../lib/migrateMenu';
+import { cleanupReviewsData } from '../lib/cleanupReviews';
 
 export default function AdminDashboard() {
   const { user } = useAuth();
@@ -137,6 +138,20 @@ export default function AdminDashboard() {
       setStatsData(prev => ({ ...prev, menuCount: menuSnap.size }));
     } catch (err) {
       showToast('Synchronization failed. Check console.', 'error');
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  const handleCleanup = async () => {
+    if (!window.confirm('This will fix character encoding issues (like "â€œ") in all existing reviews. Proceed?')) return;
+    
+    setIsSyncing(true);
+    try {
+      const count = await cleanupReviewsData();
+      showToast(`Successfully fixed ${count} reviews!`, 'success');
+    } catch (err) {
+      showToast('Cleanup failed. Check console.', 'error');
     } finally {
       setIsSyncing(false);
     }
@@ -369,6 +384,14 @@ export default function AdminDashboard() {
               >
                 <RefreshCw size={12} className={isSyncing ? 'animate-spin' : ''} />
                 Refresh Data
+              </button>
+              <button 
+                onClick={handleCleanup}
+                disabled={isSyncing}
+                className="text-[10px] font-black text-blue-500 tracking-widest flex items-center gap-2 hover:text-charcoal transition-colors cursor-pointer"
+              >
+                <RefreshCw size={12} className={isSyncing ? 'animate-spin' : ''} />
+                Cleanup Reviews
               </button>
             </div>
             
