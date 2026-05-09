@@ -15,7 +15,7 @@ export default function Menu() {
   const [activeCategory, setActiveCategory] = useState('All');
 
   useEffect(() => {
-    const q = query(collection(db, 'menu'), orderBy('category'), orderBy('name'));
+    const q = query(collection(db, 'menu'), orderBy('category'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const firestoreItems = snapshot.docs.map(doc => ({
         id: doc.id,

@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flame, UtensilsCrossed, Utensils, ShoppingBag, Truck, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -139,7 +139,7 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="text-5xl md:text-8xl font-display font-black leading-[0.9] tracking-tighter"
           >
-            Kakamegaâ€™s <br />
+            Kakamega's <br />
             <span className="text-gold text-glow-gold">Premium Fish</span> Experience
           </motion.h1>
 
