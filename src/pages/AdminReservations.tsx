@@ -95,8 +95,8 @@ export default function AdminReservations() {
             <ChevronLeft size={24} className="text-charcoal" />
           </button>
           <div>
-            <h1 className="text-4xl font-display font-black tracking-tighter text-charcoal uppercase leading-none">RESERVATIONS</h1>
-            <p className="text-charcoal/40 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">Manage guest table bookings and events</p>
+            <h1 className="text-4xl font-display font-black tracking-tighter text-charcoal leading-none">Reservations</h1>
+            <p className="text-charcoal/40 text-[10px] font-bold tracking-widest mt-1">Manage guest table bookings and events</p>
           </div>
         </div>
 
@@ -108,7 +108,7 @@ export default function AdminReservations() {
               placeholder="Search by name, email or type..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-white border border-charcoal/5 rounded-2xl focus:outline-none focus:ring-4 focus:ring-gold/10 transition-all text-xs font-bold uppercase tracking-widest placeholder:text-charcoal/20"
+              className="w-full pl-12 pr-4 py-4 bg-white border border-charcoal/5 rounded-2xl focus:outline-none focus:ring-4 focus:ring-gold/10 transition-all text-xs font-bold tracking-widest placeholder:text-charcoal/20"
             />
           </div>
           <div className="flex gap-2">
@@ -116,7 +116,7 @@ export default function AdminReservations() {
                 <select 
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value as any)}
-                  className="appearance-none pl-10 pr-10 py-4 bg-white border border-charcoal/5 rounded-2xl focus:outline-none focus:ring-4 focus:ring-gold/10 transition-all text-[10px] font-black uppercase tracking-widest cursor-pointer"
+                  className="appearance-none pl-10 pr-10 py-4 bg-white border border-charcoal/5 rounded-2xl focus:outline-none focus:ring-4 focus:ring-gold/10 transition-all text-[10px] font-black tracking-widest cursor-pointer"
                 >
                   <option value="all">All Status</option>
                   <option value="pending">Pending</option>
@@ -133,7 +133,7 @@ export default function AdminReservations() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4">
             <div className="w-12 h-12 border-4 border-gold/30 border-t-gold rounded-full animate-spin" />
-            <p className="text-[10px] font-bold text-charcoal/30 uppercase tracking-widest">Loading bookings...</p>
+            <p className="text-[10px] font-bold text-charcoal/30 tracking-widest">Loading bookings...</p>
           </div>
         ) : filteredReservations.length === 0 ? (
           <motion.div 
@@ -142,8 +142,8 @@ export default function AdminReservations() {
             className="text-center py-32 glass rounded-[3rem] border-dashed border-charcoal/10"
           >
             <Calendar className="mx-auto text-charcoal/10 w-24 h-24 mb-6" />
-            <p className="text-charcoal/40 font-black uppercase tracking-[0.2em] text-sm">No reservations found</p>
-            <p className="text-charcoal/20 text-xs mt-2 uppercase tracking-widest">Try adjusting your search or filters</p>
+            <p className="text-charcoal/40 font-black tracking-widest text-sm">No reservations found</p>
+            <p className="text-charcoal/20 text-xs mt-2 tracking-widest">Try adjusting your search or filters</p>
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 gap-6">
@@ -162,12 +162,12 @@ export default function AdminReservations() {
                       <User size={28} />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="font-display font-black text-2xl text-charcoal uppercase tracking-tight leading-none">{res.name}</h3>
-                      <div className="flex items-center gap-2 text-[10px] text-charcoal/40 font-bold uppercase tracking-widest">
+                      <h3 className="font-display font-black text-2xl text-charcoal tracking-tight leading-none">{res.name}</h3>
+                      <div className="flex items-center gap-2 text-[10px] text-charcoal/40 font-bold tracking-widest">
                         <Mail size={12} className="text-gold" />
                         {res.email}
                       </div>
-                      <div className="flex items-center gap-2 text-[10px] text-charcoal/40 font-bold uppercase tracking-widest">
+                      <div className="flex items-center gap-2 text-[10px] text-charcoal/40 font-bold tracking-widest">
                         <Clock size={12} className="text-gold" />
                         {res.createdAt?.toDate ? res.createdAt.toDate().toLocaleString() : 'Just now'}
                       </div>
@@ -189,7 +189,7 @@ export default function AdminReservations() {
                           {(res as any).date} @ {(res as any).time}
                         </span>
                       )}
-                      <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border ${
+                      <span className={`px-4 py-1.5 rounded-full text-[9px] font-black tracking-widest border ${
                         res.status === 'confirmed' ? 'bg-green-50 text-green-500 border-green-100' :
                         res.status === 'cancelled' ? 'bg-red-50 text-red-500 border-red-100' :
                         'bg-blue-50 text-blue-500 border-blue-100'

@@ -101,8 +101,8 @@ export default function AdminReviews() {
             <ChevronLeft size={20} className="text-charcoal" />
           </button>
           <div>
-            <h1 className="text-3xl font-display font-black tracking-tighter text-charcoal uppercase">REVIEW MODERATION</h1>
-            <p className="text-charcoal/40 text-[10px] font-bold uppercase tracking-widest">Manage guest stories and feedback</p>
+            <h1 className="text-3xl font-display font-black tracking-tighter text-charcoal">Review Moderation</h1>
+            <p className="text-charcoal/40 text-[10px] font-bold tracking-widest">Manage guest stories and feedback</p>
           </div>
         </div>
 
@@ -113,7 +113,7 @@ export default function AdminReviews() {
             placeholder="Search reviews..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-white border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all text-xs font-bold uppercase tracking-widest"
+            className="w-full pl-12 pr-4 py-3 bg-white border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all text-xs font-bold tracking-widest"
           />
         </div>
       </header>
@@ -126,7 +126,7 @@ export default function AdminReviews() {
         ) : filteredReviews.length === 0 ? (
           <div className="text-center py-32 glass rounded-3xl border-dashed border-charcoal/10">
             <MessageSquare className="mx-auto text-charcoal/10 w-16 h-16 mb-4" />
-            <p className="text-charcoal/40 font-bold uppercase tracking-widest text-xs">No reviews found</p>
+            <p className="text-charcoal/40 font-bold tracking-widest text-xs">No reviews found</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6">
@@ -145,13 +145,13 @@ export default function AdminReviews() {
                       <User className="text-gold" size={24} />
                     </div>
                     <div>
-                      <h3 className="font-display font-bold text-lg text-charcoal uppercase tracking-tight">{review.userName}</h3>
+                      <h3 className="font-display font-bold text-lg text-charcoal tracking-tight">{review.userName}</h3>
                       <div className="flex gap-1 text-gold mb-1">
                         {[...Array(5)].map((_, i) => (
                           <Star key={i} size={12} fill={i < review.rating ? "currentColor" : "none"} className={i < review.rating ? "" : "text-charcoal/10"} />
                         ))}
                       </div>
-                      <div className="flex items-center gap-2 text-[10px] text-charcoal/30 font-bold uppercase tracking-widest">
+                      <div className="flex items-center gap-2 text-[10px] text-charcoal/30 font-bold tracking-widest">
                         <Clock size={10} />
                         {review.createdAt?.toDate ? review.createdAt.toDate().toLocaleDateString() : 'Recent'}
                       </div>
@@ -163,7 +163,7 @@ export default function AdminReviews() {
                       “{review.comment}”
                     </p>
                     <div className="flex gap-2">
-                      <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest ${
+                      <span className={`px-3 py-1 rounded-lg text-[8px] font-black tracking-widest ${
                         review.status === 'approved' ? 'bg-green-50 text-green-500' :
                         review.status === 'rejected' ? 'bg-red-50 text-red-500' :
                         'bg-blue-50 text-blue-500'
