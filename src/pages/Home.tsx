@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flame, UtensilsCrossed, Utensils, ShoppingBag, Truck, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -476,7 +476,7 @@ export default function Home() {
                     {[...Array(t.rating)].map((_, j) => <Star key={j} size={14} fill="currentColor" />)}
                   </div>
                   <p className="text-base md:text-lg font-light italic text-charcoal/90 leading-relaxed relative z-10">
-                    â€œ{t.comment}â€
+                    "{t.comment}"
                   </p>
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-full bg-charcoal/5 border-2 border-gold/20 flex items-center justify-center">
@@ -558,3 +558,4 @@ export default function Home() {
     </div>
   );
 }
+

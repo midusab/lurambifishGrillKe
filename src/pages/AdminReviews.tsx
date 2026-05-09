@@ -160,7 +160,7 @@ export default function AdminReviews() {
 
                   <div className="flex-1 space-y-4">
                     <p className="text-charcoal/70 text-sm italic leading-relaxed">
-                      “{review.comment}”
+                      "{review.comment}"
                     </p>
                     <div className="flex gap-2">
                       <span className={`px-3 py-1 rounded-lg text-[8px] font-black tracking-widest ${

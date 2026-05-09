@@ -206,7 +206,7 @@ export default function AdminReservations() {
                     {res.message && (
                       <div className="bg-charcoal/[0.02] p-6 rounded-2xl border border-charcoal/5 w-full">
                          <p className="text-charcoal/60 text-xs italic leading-relaxed">
-                          “{res.message}”
+                          "{res.message}"
                         </p>
                       </div>
                     )}
