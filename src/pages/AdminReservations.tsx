@@ -12,7 +12,7 @@ import {
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  Calendar, 
+  MessageSquare, 
   CheckCircle, 
   XCircle, 
   Trash2, 
@@ -22,7 +22,7 @@ import {
   Clock,
   Mail,
   Filter,
-  Users
+  MapPin
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import { useToast } from '../lib/ToastContext';
@@ -84,7 +84,7 @@ export default function AdminReservations() {
 
   return (
     <div className="min-h-screen bg-[#f8f9fa] p-6 md:p-12">
-      <SEO title="Reservations Management | Lurambi Admin" description="Manage guest table bookings and events" />
+      <SEO title="Inquiry Management | Lurambi Admin" description="Manage guest inquiries, private events and special requests" />
 
       <header className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-12">
         <div className="flex items-center gap-4">
@@ -95,8 +95,8 @@ export default function AdminReservations() {
             <ChevronLeft size={24} className="text-charcoal" />
           </button>
           <div>
-            <h1 className="text-4xl font-display font-black tracking-tighter text-charcoal leading-none">Reservations</h1>
-            <p className="text-charcoal/40 text-[10px] font-bold tracking-widest mt-1">Manage guest table bookings and events</p>
+            <h1 className="text-4xl font-display font-black tracking-tighter text-charcoal leading-none">Inquiries</h1>
+            <p className="text-charcoal/40 text-[10px] font-bold tracking-widest mt-1">Manage guest inquiries, private events and feedback</p>
           </div>
         </div>
 
@@ -133,7 +133,7 @@ export default function AdminReservations() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4">
             <div className="w-12 h-12 border-4 border-gold/30 border-t-gold rounded-full animate-spin" />
-            <p className="text-[10px] font-bold text-charcoal/30 tracking-widest">Loading bookings...</p>
+            <p className="text-[10px] font-bold text-charcoal/30 tracking-widest">Loading inquiries...</p>
           </div>
         ) : filteredReservations.length === 0 ? (
           <motion.div 
@@ -141,8 +141,8 @@ export default function AdminReservations() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-32 glass rounded-[3rem] border-dashed border-charcoal/10"
           >
-            <Calendar className="mx-auto text-charcoal/10 w-24 h-24 mb-6" />
-            <p className="text-charcoal/40 font-black tracking-widest text-sm">No reservations found</p>
+            <MessageSquare className="mx-auto text-charcoal/10 w-24 h-24 mb-6" />
+            <p className="text-charcoal/40 font-black tracking-widest text-sm">No inquiries found</p>
             <p className="text-charcoal/20 text-xs mt-2 tracking-widest">Try adjusting your search or filters</p>
           </motion.div>
         ) : (
@@ -179,6 +179,12 @@ export default function AdminReservations() {
                       <span className="px-4 py-1.5 bg-charcoal/5 text-charcoal/60 text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-charcoal/5">
                         {res.subject || res.type}
                       </span>
+                      {(res as any).location && (
+                        <span className="px-4 py-1.5 bg-blue-50 text-blue-500 text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-blue-100 flex items-center gap-1.5">
+                          <MapPin size={10} />
+                          {(res as any).location}
+                        </span>
+                      )}
                       {(res as any).guests && (
                         <span className="px-4 py-1.5 bg-gold/5 text-gold text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-gold/10">
                           {(res as any).guests} Guests

@@ -79,7 +79,7 @@ export default function Navbar() {
           ))}
           <button
             onClick={() => {
-              showToast('Reservation system coming soon! Please use our inquiry form.', 'info');
+              showToast('Table reservation system coming soon!', 'info');
               navigate('/contact');
             }}
             className="px-6 py-2 bg-gold text-charcoal font-bold text-xs tracking-widest rounded-lg hover:bg-white transition-colors cursor-pointer"
@@ -124,7 +124,7 @@ export default function Navbar() {
               ))}
               <button
                 onClick={() => {
-                  showToast('Reservation system coming soon! Please use our inquiry form.', 'info');
+                  showToast('Table reservation system coming soon!', 'info');
                   navigate('/contact');
                 }}
                 className="w-full py-4 bg-gold text-charcoal font-bold text-center tracking-widest rounded-lg cursor-pointer"

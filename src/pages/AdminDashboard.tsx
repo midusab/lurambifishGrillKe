@@ -33,7 +33,7 @@ export default function AdminDashboard() {
     reviewCount: 0,
     avgRating: 0,
     pendingReviews: 0,
-    pendingReservations: 0
+    pendingInquiries: 0
   });
   const [activities, setActivities] = useState<any[]>([]);
   const [reviews, setReviews] = useState<any[]>([]);
@@ -53,14 +53,14 @@ export default function AdminDashboard() {
         const avg = reviewsData.length > 0 ? (totalRating / reviewsData.length).toFixed(1) : 0;
 
         const pendingReviews = reviewsData.filter(r => r.status === 'pending' || !r.status).length;
-        const pendingReservations = resSnap.docs.filter(d => d.data().status === 'pending').length;
+        const pendingInquiries = resSnap.docs.filter(d => d.data().status === 'pending').length;
 
         setStatsData({
           menuCount: menuSnap.size,
           reviewCount: reviewSnap.size,
           avgRating: Number(avg),
           pendingReviews,
-          pendingReservations
+          pendingInquiries
         });
       } catch (err) {
         console.error('Stats fetch error:', err);
@@ -102,12 +102,12 @@ export default function AdminDashboard() {
       const resActs = snapshot.docs.map(doc => ({
         id: doc.id,
         user: doc.data().name,
-        action: `Reserved: ${doc.data().type}`,
+        action: `Sent Inquiry: ${doc.data().subject || doc.data().type}`,
         time: doc.data().createdAt?.toDate() || new Date(),
-        icon: Calendar,
-        type: 'reservation'
+        icon: MessageSquare,
+        type: 'inquiry'
       }));
-      updateActivities(resActs, 'reservation');
+      updateActivities(resActs, 'inquiry');
     }, (err) => {
       handleFirestoreError(err, OperationType.LIST, 'contact');
     });
@@ -153,7 +153,7 @@ export default function AdminDashboard() {
     { label: 'Revenue (Est.)', value: `KES ${statsData.menuCount * 450}`, icon: TrendingUp, color: 'text-green-500' },
     { label: 'Total Guests', value: statsData.reviewCount * 12, icon: Users, color: 'text-blue-500' },
     { label: 'Pending Reviews', value: reviews.filter(r => r.status === 'pending' || !r.status).length, icon: MessageSquare, color: 'text-orange-500' },
-    { label: 'Pending Bookings', value: activities.filter(a => a.type === 'reservation' && (!a.status || a.status === 'pending')).length, icon: Calendar, color: 'text-gold' },
+    { label: 'Pending Inquiries', value: activities.filter(a => a.type === 'inquiry' && (!a.status || a.status === 'pending')).length, icon: MessageSquare, color: 'text-gold' },
   ];
 
   const quickActions = [
@@ -223,9 +223,9 @@ export default function AdminDashboard() {
               onClick={() => navigate('/admin/reservations')}
               className="relative flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs tracking-widest transition-all cursor-pointer whitespace-nowrap"
             >
-              <Calendar size={16} />
-              <span className="hidden md:inline">Bookings</span>
-              {statsData.pendingReservations > 0 && (
+              <MessageSquare size={16} />
+              <span className="hidden md:inline">Inquiries</span>
+              {statsData.pendingInquiries > 0 && (
                 <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
               )}
             </button>
@@ -336,11 +336,11 @@ export default function AdminDashboard() {
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
               <div className="space-y-6">
                 <div className="w-16 h-16 bg-gold rounded-2xl flex items-center justify-center text-charcoal shadow-lg">
-                  <Calendar size={32} />
+                  <MessageSquare size={32} />
                 </div>
                 <div>
-                  <h3 className="text-3xl font-display font-black text-white tracking-tight mb-2">Reservation Hub</h3>
-                  <p className="text-white/40 text-sm font-medium leading-relaxed max-w-[400px]">Manage all incoming table bookings, private events, and guest requests in real-time.</p>
+                  <h3 className="text-3xl font-display font-black text-white tracking-tight mb-2">Inquiry Hub</h3>
+                  <p className="text-white/40 text-sm font-medium leading-relaxed max-w-[400px]">Manage all incoming guest inquiries, private events, and special requests in real-time.</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">

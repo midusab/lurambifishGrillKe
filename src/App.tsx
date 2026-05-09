@@ -22,6 +22,7 @@ import NotFound from './pages/NotFound';
 import WhatsAppButton from './components/WhatsAppButton';
 import FloatingCallButton from './components/FloatingCallButton';
 import BackToTop from './components/BackToTop';
+import CookieConsent from './components/CookieConsent';
 import { useEffect, ReactNode } from 'react';
 import { AuthProvider, useAuth } from './lib/AuthContext';
 import { ToastProvider } from './lib/ToastContext';
@@ -122,6 +123,7 @@ function AppContent() {
       {!isAdminPage && <WhatsAppButton />}
       {!isAdminPage && <FloatingCallButton />}
       {!isAdminPage && <BackToTop />}
+      {!isAdminPage && <CookieConsent />}
     </div>
   );
 }

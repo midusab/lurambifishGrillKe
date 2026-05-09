@@ -169,7 +169,7 @@ export default function Home() {
             </Link>
             <button 
               onClick={() => {
-                showToast('Reservation system coming soon! Please use our inquiry form.', 'info');
+                showToast('Table reservation system coming soon!', 'info');
                 navigate('/contact');
               }}
               className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black text-xs tracking-widest rounded-2xl transition-all cursor-pointer"
@@ -203,7 +203,7 @@ export default function Home() {
           </div>
           <button 
             onClick={() => {
-              showToast('Reservation system coming soon! Please use our inquiry form.', 'info');
+              showToast('Table reservation system coming soon!', 'info');
               navigate('/contact');
             }}
             className="w-full py-3 bg-charcoal/5 hover:bg-charcoal/10 border border-charcoal/10 rounded-xl text-[10px] font-bold tracking-[0.2em] transition-colors cursor-pointer"
@@ -516,18 +516,21 @@ export default function Home() {
              Reservations filling up fast for the weekend.
            </p>
            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+             <button 
+               onClick={() => {
+                showToast('Table reservation system coming soon!', 'info');
+                 navigate('/contact');
+               }}
+               className="px-12 py-6 bg-gold text-charcoal font-black text-xs tracking-[0.2em] rounded-2xl hover:scale-105 transition-all shadow-lg shadow-gold/20 cursor-pointer"
+             >
+               Book a Table
+             </button>
              <Link 
-                to="/contact" 
-                className="px-12 py-6 bg-gold text-charcoal font-black text-xs tracking-[0.2em] rounded-2xl hover:scale-105 transition-all shadow-lg shadow-gold/20"
-              >
-                Send an Inquiry
-              </Link>
-              <Link 
-                to="/menu" 
-                className="px-12 py-6 glass text-charcoal font-black text-xs tracking-[0.2em] rounded-2xl hover:bg-charcoal/10 transition-all font-bold"
-              >
-                Explore Full Menu
-              </Link>
+               to="/menu" 
+               className="px-12 py-6 glass text-charcoal font-black text-xs tracking-[0.2em] rounded-2xl hover:bg-charcoal/10 transition-all font-bold"
+             >
+               Explore Full Menu
+             </Link>
            </div>
          </motion.div>
       </section>

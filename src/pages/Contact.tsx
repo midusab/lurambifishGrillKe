@@ -14,9 +14,33 @@ export default function Contact() {
     name: '',
     email: '',
     phone: '',
+    location: '',
     subject: 'General Inquiry',
     message: ''
   });
+
+  const handleGeolocation = () => {
+    if (!navigator.geolocation) {
+      showToast('Geolocation is not supported by your browser', 'error');
+      return;
+    }
+
+    showToast('Getting your location...', 'info');
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          setFormData(prev => ({ ...prev, location: `${latitude.toFixed(4)}, ${longitude.toFixed(4)}` }));
+          showToast('Location captured successfully!', 'success');
+        } catch (error) {
+          showToast('Failed to get location details', 'error');
+        }
+      },
+      () => {
+        showToast('Location permission denied', 'error');
+      }
+    );
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,6 +66,7 @@ export default function Contact() {
           name: '', 
           email: '', 
           phone: '',
+          location: '',
           subject: 'General Inquiry',
           message: '' 
         });
@@ -205,6 +230,26 @@ export default function Contact() {
                       placeholder="e.g. +254..."
                       className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
                     />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Your Location</label>
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      value={formData.location}
+                      onChange={(e) => setFormData({...formData, location: e.target.value})}
+                      placeholder="City, Neighborhood or click Locate Me"
+                      className="w-full bg-charcoal/5 border border-charcoal/10 rounded-2xl px-6 py-4 pr-32 focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none transition-all placeholder:text-charcoal/20 font-bold"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleGeolocation}
+                      className="absolute right-2 top-2 bottom-2 px-4 bg-charcoal/5 hover:bg-charcoal/10 rounded-xl text-[9px] font-black tracking-widest text-gold border border-gold/10 transition-all"
+                    >
+                      Locate Me
+                    </button>
                   </div>
                 </div>
 
