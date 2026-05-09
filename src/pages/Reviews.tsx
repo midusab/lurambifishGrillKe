@@ -88,8 +88,8 @@ export default function Reviews() {
           {/* Form Column */}
           <div className="lg:col-span-5 space-y-12">
             <div className="space-y-4">
-              <span className="text-gold text-[10px] font-bold uppercase tracking-[0.3em]">Share Your Experience</span>
-              <h1 className="text-5xl md:text-7xl font-display font-black tracking-tighter uppercase leading-[0.8]">Leave a <br /><span className="text-gold">Review</span></h1>
+              <span className="text-gold text-[10px] font-bold tracking-widest">Share Your Experience</span>
+              <h1 className="text-5xl md:text-7xl font-display font-black tracking-tighter leading-[0.8]">Leave a <br /><span className="text-gold">Review</span></h1>
               <p className="text-charcoal/50 font-light text-lg">Your feedback helps us maintain the gold standard of Kenyan seafood excellence.</p>
             </div>
 
@@ -108,7 +108,7 @@ export default function Reviews() {
                     <button 
                       type="button"
                       onClick={() => setSubmitted(false)}
-                      className="text-gold text-[10px] font-bold uppercase tracking-widest pt-4"
+                      className="text-gold text-[10px] font-bold tracking-widest pt-4"
                     >
                       Write Another
                     </button>
