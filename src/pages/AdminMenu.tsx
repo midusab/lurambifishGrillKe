@@ -196,8 +196,8 @@ export default function AdminMenu() {
             <ChevronLeft size={20} className="text-charcoal" />
           </button>
           <div>
-            <h1 className="text-3xl font-display font-black tracking-tighter text-charcoal uppercase">MENU MANAGEMENT</h1>
-            <p className="text-charcoal/40 text-[10px] font-bold uppercase tracking-widest">Update your offerings in real-time</p>
+            <h1 className="text-3xl font-display font-black tracking-tighter text-charcoal leading-none">Menu Management</h1>
+            <p className="text-charcoal/40 text-[10px] font-bold tracking-widest">Update your offerings in real-time</p>
           </div>
         </div>
 
@@ -209,12 +209,12 @@ export default function AdminMenu() {
               placeholder="Search dishes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all text-xs font-bold uppercase tracking-widest"
+              className="w-full pl-12 pr-4 py-3 bg-white border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all text-xs font-bold tracking-widest"
             />
           </div>
           <button 
             onClick={() => handleOpenModal()}
-            className="px-6 py-3 bg-gold text-charcoal font-black uppercase text-xs tracking-widest rounded-xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg shadow-gold/10"
+            className="px-6 py-3 bg-gold text-charcoal font-black text-xs tracking-widest rounded-xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg shadow-gold/10"
           >
             <Plus size={18} /> Add Item
           </button>
@@ -245,11 +245,11 @@ export default function AdminMenu() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute top-4 left-4 flex gap-2">
-                      <span className="px-3 py-1 bg-charcoal/90 text-white text-[8px] font-bold uppercase rounded-xl tracking-widest">
+                      <span className="px-3 py-1 bg-charcoal/90 text-white text-[8px] font-bold tracking-widest">
                         {item.category}
                       </span>
                       {item.isChefSpecial && (
-                        <span className="px-3 py-1 bg-gold text-charcoal text-[8px] font-bold uppercase rounded-xl tracking-widest">
+                        <span className="px-3 py-1 bg-gold text-charcoal text-[8px] font-bold tracking-widest">
                           Chef's Special
                         </span>
                       )}
@@ -259,7 +259,7 @@ export default function AdminMenu() {
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-display font-bold text-xl text-charcoal uppercase tracking-tight">{item.name}</h3>
+                        <h3 className="font-display font-bold text-xl text-charcoal tracking-tight">{item.name}</h3>
                         <p className="text-charcoal/40 text-[10px] font-bold uppercase tracking-widest">KES {item.price}</p>
                       </div>
                       <div className="flex gap-2">
@@ -305,10 +305,10 @@ export default function AdminMenu() {
             >
               <div className="p-6 md:p-8 border-b border-charcoal/5 flex justify-between items-center shrink-0">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-display font-black text-charcoal uppercase tracking-tight">
+                  <h2 className="text-xl md:text-2xl font-display font-black text-charcoal tracking-tight">
                     {editingItem ? 'Edit Dish' : 'Add New Dish'}
                   </h2>
-                  <p className="text-[10px] text-charcoal/40 font-bold uppercase tracking-widest">Enter dish details below</p>
+                  <p className="text-[10px] text-charcoal/40 font-bold tracking-widest text-charcoal/40 ml-1">Enter dish details below</p>
                 </div>
                 <button 
                   onClick={() => setIsModalOpen(false)}
@@ -321,7 +321,7 @@ export default function AdminMenu() {
               <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-6 overflow-y-auto custom-scrollbar">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1">Dish Name</label>
+                    <label className="text-[10px] font-bold tracking-widest text-charcoal/40 ml-1">Dish Name</label>
                     <input 
                       type="text"
                       required
@@ -332,7 +332,7 @@ export default function AdminMenu() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1">Category</label>
+                    <label className="text-[10px] font-bold tracking-widest text-charcoal/40 ml-1">Category</label>
                     <select 
                       value={formData.category}
                       onChange={(e) => setFormData({...formData, category: e.target.value as any})}
@@ -345,7 +345,7 @@ export default function AdminMenu() {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1">Price (KES)</label>
+                    <label className="text-[10px] font-bold tracking-widest text-charcoal/40 ml-1">Price (KES)</label>
                     <input 
                       type="number"
                       required
@@ -413,7 +413,7 @@ export default function AdminMenu() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 ml-1">Description</label>
+                  <label className="text-[10px] font-bold tracking-widest text-charcoal/40 ml-1">Description</label>
                   <textarea 
                     rows={3}
                     required
@@ -435,7 +435,7 @@ export default function AdminMenu() {
                     <div className={`w-6 h-6 rounded-xl border-2 flex items-center justify-center transition-all ${formData.isChefSpecial ? 'bg-gold border-gold' : 'border-charcoal/10 group-hover:border-gold/40'}`}>
                       {formData.isChefSpecial && <Check size={14} className="text-charcoal" />}
                     </div>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/60">Chef's Special</span>
+                    <span className="text-[10px] font-bold tracking-widest text-charcoal/60">Chef's Special</span>
                   </label>
                   <label className="flex items-center gap-3 cursor-pointer group">
                     <input 
@@ -447,7 +447,7 @@ export default function AdminMenu() {
                     <div className={`w-6 h-6 rounded-xl border-2 flex items-center justify-center transition-all ${formData.isSpicy ? 'bg-red-500 border-red-500' : 'border-charcoal/10 group-hover:border-red-400'}`}>
                       {formData.isSpicy && <Check size={14} className="text-white" />}
                     </div>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/60">Spicy</span>
+                    <span className="text-[10px] font-bold tracking-widest text-charcoal/60">Spicy</span>
                   </label>
                 </div>
 
@@ -455,14 +455,14 @@ export default function AdminMenu() {
                   <button 
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-6 md:px-8 py-3 md:py-4 bg-charcoal/5 text-charcoal font-black uppercase text-[10px] md:text-xs tracking-widest rounded-xl hover:bg-charcoal/10 transition-all cursor-pointer"
+                    className="px-6 md:px-8 py-3 md:py-4 bg-charcoal/5 text-charcoal font-black text-[10px] md:text-xs tracking-widest rounded-xl hover:bg-charcoal/10 transition-all cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button 
                     type="submit"
                     disabled={isSaving}
-                    className="px-8 md:px-10 py-3 md:py-4 bg-gold text-charcoal font-black uppercase text-[10px] md:text-xs tracking-widest rounded-xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg shadow-gold/20 disabled:opacity-50 cursor-pointer"
+                    className="px-8 md:px-10 py-3 md:py-4 bg-gold text-charcoal font-black text-[10px] md:text-xs tracking-widest rounded-xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg shadow-gold/20 disabled:opacity-50 cursor-pointer"
                   >
                     <Save size={18} /> {isSaving ? 'Saving...' : 'Save Dish'}
                   </button>
