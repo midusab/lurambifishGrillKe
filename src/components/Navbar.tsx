@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useToast } from '../lib/ToastContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Fish } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -17,6 +18,8 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { showToast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,12 +77,15 @@ export default function Navbar() {
               )}
             </Link>
           ))}
-          <Link
-            to="/contact"
-            className="px-6 py-2 bg-gold text-charcoal font-bold text-xs tracking-widest rounded-lg hover:bg-white transition-colors"
+          <button
+            onClick={() => {
+              showToast('Reservation system coming soon! Please use our inquiry form.', 'info');
+              navigate('/contact');
+            }}
+            className="px-6 py-2 bg-gold text-charcoal font-bold text-xs tracking-widest rounded-lg hover:bg-white transition-colors cursor-pointer"
           >
-            Coming Soon
-          </Link>
+            Book a Table
+          </button>
         </div>
 
         {/* Mobile Toggle */}
@@ -116,12 +122,15 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <Link
-                to="/contact"
-                className="w-full py-4 bg-gold text-charcoal font-bold text-center tracking-widest rounded-lg"
+              <button
+                onClick={() => {
+                  showToast('Reservation system coming soon! Please use our inquiry form.', 'info');
+                  navigate('/contact');
+                }}
+                className="w-full py-4 bg-gold text-charcoal font-bold text-center tracking-widest rounded-lg cursor-pointer"
               >
-                Coming Soon
-              </Link>
+                Book a Table
+              </button>
             </div>
           </motion.div>
         )}
