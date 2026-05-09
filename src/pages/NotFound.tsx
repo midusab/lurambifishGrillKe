@@ -44,8 +44,8 @@ export default function NotFound() {
         </motion.div>
 
         <div className="space-y-4">
-          <h2 className="text-3xl font-display font-black text-charcoal uppercase tracking-tighter">LOST AT SEA?</h2>
-          <p className="text-charcoal/40 text-sm font-bold uppercase tracking-[0.2em] leading-relaxed">
+          <h2 className="text-3xl font-display font-black text-charcoal tracking-tighter">Lost at Sea?</h2>
+          <p className="text-charcoal/40 text-sm font-bold tracking-widest leading-relaxed">
             The page you're looking for has drifted away. <br />
             Let's get you back to the grill.
           </p>
@@ -54,13 +54,13 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
           <button
             onClick={() => navigate('/')}
-            className="px-8 py-4 bg-charcoal text-white font-black uppercase text-[10px] tracking-widest rounded-xl hover:bg-gold hover:text-charcoal transition-all flex items-center justify-center gap-3 shadow-xl"
+            className="px-8 py-4 bg-charcoal text-white font-black text-[10px] tracking-widest rounded-xl hover:bg-gold hover:text-charcoal transition-all flex items-center justify-center gap-3 shadow-xl"
           >
             <Home size={16} /> Back to Home
           </button>
           <button
             onClick={() => navigate(-1)}
-            className="px-8 py-4 bg-charcoal/5 text-charcoal font-black uppercase text-[10px] tracking-widest rounded-xl hover:bg-charcoal/10 transition-all flex items-center justify-center gap-3"
+            className="px-8 py-4 bg-charcoal/5 text-charcoal font-black text-[10px] tracking-widest rounded-xl hover:bg-charcoal/10 transition-all flex items-center justify-center gap-3"
           >
             <ArrowLeft size={16} /> Go Back
           </button>
