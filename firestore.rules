@@ -27,17 +27,29 @@ service cloud.firestore {
     // Reviews: Public read/create, Admin moderate
     match /reviews/{review} {
       allow read: if true;
-      allow create: if true;
+      allow create: if true &&
+        request.resource.data.keys().hasAll(['userName', 'rating', 'comment', 'status', 'approved']) &&
+        request.resource.data.userName is string &&
+        request.resource.data.userName.size() > 0 && request.resource.data.userName.size() <= 100 &&
+        request.resource.data.comment is string &&
+        request.resource.data.comment.size() <= 1000 &&
+        request.resource.data.rating is number &&
+        request.resource.data.rating >= 1 && request.resource.data.rating <= 5 &&
+        request.resource.data.status == 'pending' &&
+        request.resource.data.approved == false;
       allow update, delete: if isAdmin();
     }
 
-    // 3. Reservations Access (This is what the website uses)
-    match /reservations/{document=**} {
-      allow read: if true;
-      allow create: if true;
-      allow update, delete: if request.auth != null && 
-                              (request.auth.uid == 'JyJspf6nxoNCQCnXQD5CfcMyg653' || 
-                               request.auth.token.email.toLowerCase() == 'lurambifishgrillke@gmail.com');
+    // Contact (Inquiries): Public create, Admin read/update/delete
+    match /contact/{document=**} {
+      allow read: if isAdmin();
+      allow create: if true &&
+        request.resource.data.keys().hasAll(['name', 'email', 'phone', 'subject', 'message']) &&
+        request.resource.data.name is string && request.resource.data.name.size() <= 100 &&
+        request.resource.data.email is string && request.resource.data.email.size() <= 150 &&
+        request.resource.data.phone is string && request.resource.data.phone.size() <= 20 &&
+        request.resource.data.message is string && request.resource.data.message.size() <= 2000;
+      allow update, delete: if isAdmin();
     }
   }
 }
