@@ -46,15 +46,27 @@ export default function Reviews() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !comment || rating < 1) return;
+    
+    const trimmedName = name.trim();
+    const trimmedComment = comment.trim();
+
+    if (!trimmedName || !trimmedComment || rating < 1 || rating > 5) {
+      showToast('Please provide a valid name, rating, and comment.', 'error');
+      return;
+    }
+
+    if (trimmedName.length > 100 || trimmedComment.length > 1000) {
+      showToast('Input exceeds maximum allowed length.', 'error');
+      return;
+    }
 
     setIsSubmitting(true);
 
     try {
       await addDoc(collection(db, 'reviews'), {
-        userName: name,
+        userName: trimmedName,
         rating,
-        comment,
+        comment: trimmedComment,
         createdAt: serverTimestamp(),
         status: 'pending',
         approved: false
@@ -134,6 +146,7 @@ export default function Reviews() {
                   <textarea 
                     required
                     rows={4}
+                    maxLength={1000}
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Tell us about the fish, the service, and the atmosphere..."

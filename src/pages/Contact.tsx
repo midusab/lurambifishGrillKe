@@ -36,8 +36,25 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email) {
-      showToast('Please provide your name and email.', 'error');
+    
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const phone = formData.phone.trim();
+    const message = formData.message.trim();
+
+    if (!name || !email || !phone) {
+      showToast('Please provide your name, email, and phone.', 'error');
+      return;
+    }
+
+    if (name.length > 100 || email.length > 150 || phone.length > 20 || message.length > 2000) {
+      showToast('Input exceeds maximum allowed length.', 'error');
+      return;
+    }
+
+    const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
+    if (!phoneRegex.test(phone) || phone.length < 8) {
+      showToast('Please enter a valid phone number.', 'error');
       return;
     }
 
@@ -45,6 +62,10 @@ export default function Contact() {
     try {
       await addDoc(collection(db, 'contact'), {
         ...formData,
+        name,
+        email,
+        phone,
+        message,
         status: 'pending',
         source: 'Website Contact Form',
         createdAt: serverTimestamp()
@@ -193,6 +214,7 @@ export default function Contact() {
                   <input 
                     type="text" 
                     required
+                    maxLength={100}
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="Enter your name"
@@ -206,6 +228,7 @@ export default function Contact() {
                     <input 
                       type="email" 
                       required
+                      maxLength={150}
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                       placeholder="Enter your email"
@@ -217,6 +240,7 @@ export default function Contact() {
                     <input 
                       type="tel" 
                       required
+                      maxLength={20}
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       placeholder="e.g. +254..."
@@ -249,6 +273,7 @@ export default function Contact() {
                   <label className="text-[10px] font-black tracking-widest text-charcoal/40 ml-1">Message (Optional)</label>
                   <textarea 
                     rows={4}
+                    maxLength={2000}
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     placeholder="Special requests or occasion details..."
