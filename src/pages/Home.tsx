@@ -194,7 +194,7 @@ export default function Home() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-[10px] text-charcoal/50 tracking-widest">
               <Phone size={12} className="text-gold" />
-              <span>+254 700 000 000</span>
+              <span>+254 794 532 900</span>
             </div>
             <div className="flex items-center gap-2 text-[10px] text-charcoal/50 tracking-widest">
               <MapPin size={12} className="text-gold" />
