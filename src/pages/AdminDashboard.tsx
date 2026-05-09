@@ -192,26 +192,26 @@ export default function AdminDashboard() {
               <Fish className="text-charcoal w-5 h-5 md:w-6 md:h-6 fill-charcoal" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="font-display font-black text-lg md:text-xl tracking-tighter uppercase leading-none">LURAMBI</h1>
-              <p className="text-[8px] md:text-[10px] text-gold font-bold uppercase tracking-widest">Admin Suite</p>
+              <h1 className="font-display font-black text-lg md:text-xl tracking-tighter leading-none">Lurambi</h1>
+              <p className="text-[8px] md:text-[10px] text-gold font-bold tracking-widest">Admin Suite</p>
             </div>
           </div>
 
           <nav className="flex flex-row md:flex-col gap-2 flex-1 md:flex-none justify-end md:justify-start overflow-x-auto no-scrollbar">
-            <button className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 bg-white/10 rounded-2xl text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap">
+            <button className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 bg-white/10 rounded-2xl text-white font-bold text-[10px] md:text-xs tracking-widest transition-all cursor-pointer whitespace-nowrap">
               <LayoutDashboard size={16} className="text-gold" />
               <span className="hidden md:inline">Overview</span>
             </button>
             <button 
               onClick={() => navigate('/admin/menu')}
-              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs tracking-widest transition-all cursor-pointer whitespace-nowrap"
             >
               <UtensilsCrossed size={16} />
               <span className="hidden md:inline">Menu</span>
             </button>
             <button 
               onClick={() => navigate('/admin/reviews')}
-              className="relative flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
+              className="relative flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs tracking-widest transition-all cursor-pointer whitespace-nowrap"
             >
               <MessageSquare size={16} />
               <span className="hidden md:inline">Reviews</span>
@@ -221,7 +221,7 @@ export default function AdminDashboard() {
             </button>
             <button 
               onClick={() => navigate('/admin/reservations')}
-              className="relative flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all cursor-pointer whitespace-nowrap"
+              className="relative flex items-center gap-3 px-3 md:px-4 py-2 md:py-4 hover:bg-white/5 rounded-2xl text-white/50 hover:text-white font-bold text-[10px] md:text-xs tracking-widest transition-all cursor-pointer whitespace-nowrap"
             >
               <Calendar size={16} />
               <span className="hidden md:inline">Bookings</span>
@@ -234,7 +234,7 @@ export default function AdminDashboard() {
 
         <div className="hidden md:flex flex-col gap-6 w-full">
           <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
-            <p className="text-[10px] text-white/30 uppercase font-bold tracking-widest mb-1">Logged in as</p>
+            <p className="text-[10px] text-white/30 font-bold tracking-widest mb-1">Logged in as</p>
             <p className="text-xs font-medium truncate">{user?.email}</p>
           </div>
           <button 
@@ -264,10 +264,10 @@ export default function AdminDashboard() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <p className="text-[10px] text-charcoal/40 font-black uppercase tracking-[0.2em]">System Online • Live</p>
+              <p className="text-[10px] text-charcoal/40 font-black tracking-widest">System Online • Live</p>
             </div>
-            <h2 className="text-5xl font-display font-black tracking-tighter text-charcoal uppercase leading-none">ADMIN DASHBOARD</h2>
-            <p className="text-charcoal/40 text-sm font-bold uppercase tracking-widest">Manage your restaurant and menu</p>
+            <h2 className="text-5xl font-display font-black tracking-tighter text-charcoal leading-none">Admin Dashboard</h2>
+            <p className="text-charcoal/40 text-sm font-bold tracking-widest">Manage your restaurant and menu</p>
           </div>
           
           <div className="flex flex-wrap gap-4">

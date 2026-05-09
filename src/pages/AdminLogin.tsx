@@ -54,17 +54,17 @@ export default function AdminLogin() {
           <div className="w-16 h-16 bg-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <Fish className="text-gold w-8 h-8 fill-gold" />
           </div>
-          <h1 className="text-3xl font-display font-black tracking-tighter uppercase text-charcoal">
-            ADMIN <span className="text-gold text-glow-gold">ACCESS</span>
+          <h1 className="text-3xl font-display font-black tracking-tighter text-charcoal">
+            Admin <span className="text-gold text-glow-gold">Access</span>
           </h1>
-          <p className="text-charcoal/40 text-xs font-bold uppercase tracking-[0.2em]">
+          <p className="text-charcoal/40 text-xs font-bold tracking-widest">
             Enter credentials to manage Lurambi
           </p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div className="space-y-2">
-            <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/60 ml-1">
+            <label className="text-[10px] font-bold tracking-widest text-charcoal/60 ml-1">
               Email Address
             </label>
             <div className="relative group">
@@ -81,7 +81,7 @@ export default function AdminLogin() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] uppercase font-bold tracking-widest text-charcoal/60 ml-1">
+            <label className="text-[10px] font-bold tracking-widest text-charcoal/60 ml-1">
               Secret Password
             </label>
             <div className="relative group">
@@ -117,7 +117,7 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-5 bg-gold text-charcoal font-black uppercase text-xs tracking-[0.2em] rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-gold/20 flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-5 bg-gold text-charcoal font-black text-xs tracking-widest rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-gold/20 flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading ? (
               <div className="w-5 h-5 border-2 border-charcoal/30 border-t-charcoal rounded-full animate-spin" />
@@ -132,7 +132,7 @@ export default function AdminLogin() {
         <div className="mt-10 text-center">
           <button
             onClick={() => navigate('/')}
-            className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40 hover:text-gold transition-colors"
+            className="text-[10px] font-bold tracking-widest text-charcoal/40 hover:text-gold transition-colors"
           >
             Back to Public Site
           </button>
