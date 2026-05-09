@@ -151,7 +151,7 @@ export default function AdminDashboard() {
 
   const stats = [
     { label: 'Revenue (Est.)', value: `KES ${statsData.menuCount * 450}`, icon: TrendingUp, color: 'text-green-500' },
-    { label: 'Total Guests', value: statsData.reviewCount * 12, icon: Users, color: 'text-blue-500' },
+
     { label: 'Pending Reviews', value: reviews.filter(r => r.status === 'pending' || !r.status).length, icon: MessageSquare, color: 'text-orange-500' },
     { label: 'Pending Inquiries', value: activities.filter(a => a.type === 'inquiry' && (!a.status || a.status === 'pending')).length, icon: MessageSquare, color: 'text-gold' },
   ];
@@ -372,7 +372,7 @@ export default function AdminDashboard() {
               </button>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {stats.map((stat) => (
                 <div key={stat.label} className="bg-white p-6 rounded-3xl border border-charcoal/5 shadow-sm">
                   <div className={`w-10 h-10 rounded-xl bg-charcoal/5 flex items-center justify-center mb-4 ${stat.color}`}>
