@@ -15,13 +15,14 @@ interface Review {
 }
 
 export default function Reviews() {
+  const { showToast } = useToast();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [name, setName] = useState('');
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+
 
   useEffect(() => {
     const q = query(
@@ -48,7 +49,7 @@ export default function Reviews() {
     if (!name || !comment || rating < 1) return;
 
     setIsSubmitting(true);
-    setError(null);
+
     try {
       await addDoc(collection(db, 'reviews'), {
         userName: name,
@@ -59,16 +60,16 @@ export default function Reviews() {
         approved: false
       });
       
-      setSubmitted(true);
+
       showToast('Review submitted for moderation!', 'success');
       setName('');
       setRating(5);
       setComment('');
       
-      setTimeout(() => setSubmitted(false), 5000);
+
     } catch (err) {
       showToast('Failed to submit review. Please try again.', 'error');
-      setError('Could not submit your review. Please try again.');
+
       console.error(err);
     } finally {
       setIsSubmitting(false);
@@ -94,27 +95,7 @@ export default function Reviews() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-8 glass p-8 rounded-3xl border-charcoal/5 relative overflow-hidden">
-              <AnimatePresence>
-                {submitted && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="absolute inset-0 z-20 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 space-y-4"
-                  >
-                    <CheckCircle2 className="text-green-500 w-16 h-16" />
-                    <h3 className="text-2xl font-display font-bold text-charcoal">Thank You!</h3>
-                    <p className="text-charcoal/50 text-sm">Your review has been published successfully.</p>
-                    <button 
-                      type="button"
-                      onClick={() => setSubmitted(false)}
-                      className="text-gold text-[10px] font-bold tracking-widest pt-4"
-                    >
-                      Write Another
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+
 
               <div className="space-y-6">
                 <div className="space-y-2">
@@ -160,9 +141,7 @@ export default function Reviews() {
                   />
                 </div>
 
-                {error && (
-                  <p className="text-red-500 text-[10px] font-bold tracking-widest">{error}</p>
-                )}
+
 
                 <button 
                   type="submit"

@@ -6,12 +6,14 @@ import { motion } from 'motion/react';
 import { Lock, Mail, ArrowRight, Fish, Eye, EyeOff } from 'lucide-react';
 import SEO from '../components/SEO';
 import { ADMIN_EMAIL } from '../constants';
+import { useToast } from '../lib/ToastContext';
 
 export default function AdminLogin() {
+  const { showToast } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -19,16 +21,16 @@ export default function AdminLogin() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-      setError('Access denied. This email is not authorized.');
+      showToast('Access denied. This email is not authorized.', 'error');
       return;
     }
-    setError('');
+
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/admin/dashboard');
     } catch (err: any) {
-      setError('Invalid credentials. Please try again.');
+      showToast('Invalid credentials. Please try again.', 'error');
       console.error(err);
     } finally {
       setLoading(false);
@@ -104,15 +106,7 @@ export default function AdminLogin() {
             </div>
           </div>
 
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="p-4 bg-red-50 text-red-500 text-xs font-bold rounded-lg border border-red-100"
-            >
-              {error}
-            </motion.div>
-          )}
+
 
           <button
             type="submit"

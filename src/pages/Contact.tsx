@@ -9,7 +9,7 @@ import SEO from '../components/SEO';
 export default function Contact() {
   const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,12 +37,10 @@ export default function Contact() {
         createdAt: serverTimestamp()
       });
       
-      setSubmitted(true);
+
       showToast('We have received your request!', 'success');
       
-      // Reset form after 5 seconds
       setTimeout(() => {
-        setSubmitted(false);
         setFormData({ 
           name: '', 
           email: '', 
@@ -70,7 +68,7 @@ export default function Contact() {
       />
 
       {/* Cinematic Header Section */}
-      <section className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[75vh] w-full flex items-center justify-center py-24">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -82,7 +80,7 @@ export default function Contact() {
           <div className="absolute inset-0 smoke-overlay opacity-30" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -94,7 +92,7 @@ export default function Contact() {
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-8xl font-display font-black tracking-tighter leading-[0.9] text-white"
+            className="text-5xl md:text-8xl font-display font-black tracking-tighter leading-tight text-white"
           >
             Secure Your <br /> <span className="text-gold text-glow-gold">Lakeside Table</span>
           </motion.h1>
@@ -102,7 +100,7 @@ export default function Contact() {
       </section>
 
       {/* Contact Content Grid */}
-      <section className="relative z-20 -mt-24 pb-32">
+      <section className="relative z-20 -mt-20 pb-32">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Contact Info Sidebar */}
@@ -170,38 +168,9 @@ export default function Contact() {
             transition={{ delay: 0.4 }}
             className="lg:col-span-7 bg-white p-10 md:p-12 rounded-3xl shadow-2xl border border-charcoal/5 relative overflow-hidden"
           >
-            <AnimatePresence>
-              {submitted && (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="absolute inset-0 z-[100] bg-white/90 backdrop-blur-xl flex flex-col items-center justify-center text-center p-8 space-y-6"
-                >
-                  <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="w-24 h-24 bg-green-500 rounded-[2rem] flex items-center justify-center shadow-2xl shadow-green-500/20"
-                  >
-                    <CheckCircle2 className="text-white w-12 h-12" />
-                  </motion.div>
-                  <div className="space-y-3">
-                    <h3 className="text-4xl font-display font-black tracking-tighter text-charcoal">Request <br /> <span className="text-green-500">Received</span></h3>
-                    <p className="text-charcoal/40 text-sm max-w-xs mx-auto font-medium">Our team has been notified. We will contact you shortly to confirm your lakeside experience.</p>
-                  </div>
-                  <button 
-                    type="button"
-                    onClick={() => setSubmitted(false)}
-                    className="px-12 py-4 bg-charcoal text-white text-[10px] font-black tracking-widest rounded-2xl hover:bg-gold hover:text-charcoal transition-all shadow-xl"
-                  >
-                    Close Message
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
 
-            <div className="mb-10 space-y-2">
+
+            <div className="mb-12 space-y-4">
               <h3 className="text-2xl font-display font-black tracking-tighter text-charcoal">Quick Reservation</h3>
               <p className="text-charcoal/40 text-xs font-medium">Please fill in the details below to book your lake-side experience.</p>
             </div>

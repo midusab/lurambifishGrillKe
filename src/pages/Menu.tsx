@@ -6,8 +6,10 @@ import { MenuItem } from '../types';
 import { cn } from '../lib/utils';
 import { Flame, Star, ShoppingBag, Plus } from 'lucide-react';
 import SEO from '../components/SEO';
+import { useToast } from '../lib/ToastContext';
 
 export default function Menu() {
+  const { showToast } = useToast();
   const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All');
@@ -24,6 +26,7 @@ export default function Menu() {
       setLoading(false);
     }, (err) => {
       handleFirestoreError(err, OperationType.LIST, 'menu');
+      showToast('Failed to load menu data. Please try again.', 'error');
       setItems([]); 
       setLoading(false);
     });

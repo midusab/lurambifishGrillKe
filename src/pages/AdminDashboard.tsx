@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'; // Refined Admin Dashboard
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { collection, getDocs, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
-import { db, auth } from '../lib/firebase';
+import { db, auth, handleFirestoreError, OperationType } from '../lib/firebase';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   LayoutDashboard, 
