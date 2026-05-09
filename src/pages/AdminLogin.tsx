@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { motion } from 'motion/react';
-import { Lock, Mail, ArrowRight, Star, Eye, EyeOff } from 'lucide-react';
+import { Lock, Mail, ArrowRight, Fish, Eye, EyeOff } from 'lucide-react';
 import SEO from '../components/SEO';
 import { ADMIN_EMAIL } from '../constants';
 
@@ -52,7 +52,7 @@ export default function AdminLogin() {
       >
         <div className="text-center space-y-4 mb-10">
           <div className="w-16 h-16 bg-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <Star className="text-gold w-8 h-8 fill-gold" />
+            <Fish className="text-gold w-8 h-8 fill-gold" />
           </div>
           <h1 className="text-3xl font-display font-black tracking-tighter uppercase text-charcoal">
             ADMIN <span className="text-gold text-glow-gold">ACCESS</span>

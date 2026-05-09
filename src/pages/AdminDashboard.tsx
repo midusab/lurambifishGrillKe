@@ -11,7 +11,7 @@ import {
   LogOut, 
   TrendingUp, 
   Users, 
-  Star,
+  Fish,
   ExternalLink,
   Settings,
   ChevronRight,
@@ -189,7 +189,7 @@ export default function AdminDashboard() {
         <div className="flex flex-row md:flex-col items-center md:items-stretch gap-6 md:gap-12 w-full">
           <div className="flex items-center gap-3 shrink-0">
             <div className="w-8 h-8 md:w-10 md:h-10 bg-gold rounded-2xl flex items-center justify-center">
-              <Star className="text-charcoal w-5 h-5 md:w-6 md:h-6 fill-charcoal" />
+              <Fish className="text-charcoal w-5 h-5 md:w-6 md:h-6 fill-charcoal" />
             </div>
             <div className="hidden sm:block">
               <h1 className="font-display font-black text-lg md:text-xl tracking-tighter uppercase leading-none">LURAMBI</h1>
@@ -384,23 +384,7 @@ export default function AdminDashboard() {
               ))}
             </div>
 
-            {/* Compact Traffic Pulse */}
-            <div className="bg-white p-8 rounded-3xl border border-charcoal/5 shadow-sm flex items-center gap-12">
-              <div className="shrink-0">
-                <p className="text-[10px] text-charcoal/30 font-black uppercase tracking-[0.2em] mb-2">Popularity</p>
-                <div className="text-3xl font-display font-black text-charcoal">98.2%</div>
-                <div className="text-[8px] text-green-500 font-bold uppercase tracking-widest">Active Status</div>
-              </div>
-              <div className="flex-1 flex items-end gap-1 h-12">
-                {[40, 70, 45, 90, 65, 80, 50, 95, 75, 85, 60, 100, 70, 80, 50, 90].map((h, i) => (
-                  <div
-                    key={i}
-                    style={{ height: `${h}%` }}
-                    className="flex-1 bg-gold/10 hover:bg-gold rounded-full transition-colors cursor-pointer"
-                  />
-                ))}
-              </div>
-            </div>
+
           </div>
 
           <div className="space-y-8">
