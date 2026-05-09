@@ -177,7 +177,7 @@ export default function AdminReservations() {
                   <div className="flex-1 space-y-4 w-full">
                     <div className="flex flex-wrap gap-3">
                       <span className="px-4 py-1.5 bg-charcoal/5 text-charcoal/60 text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-charcoal/5">
-                        {res.type}
+                        {res.subject || res.type}
                       </span>
                       {(res as any).guests && (
                         <span className="px-4 py-1.5 bg-gold/5 text-gold text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-gold/10">
@@ -198,7 +198,7 @@ export default function AdminReservations() {
                       </span>
                     </div>
                     {res.message && (
-                      <div className="bg-charcoal/[0.02] p-6 rounded-2xl border border-charcoal/5">
+                      <div className="bg-charcoal/[0.02] p-6 rounded-2xl border border-charcoal/5 w-full">
                          <p className="text-charcoal/60 text-xs italic leading-relaxed">
                           “{res.message}”
                         </p>

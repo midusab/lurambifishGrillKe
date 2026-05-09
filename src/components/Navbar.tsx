@@ -78,7 +78,7 @@ export default function Navbar() {
             to="/contact"
             className="px-6 py-2 bg-gold text-charcoal font-bold text-xs tracking-widest rounded-lg hover:bg-white transition-colors"
           >
-            Book a Table
+            Coming Soon
           </Link>
         </div>
 
@@ -120,7 +120,7 @@ export default function Navbar() {
                 to="/contact"
                 className="w-full py-4 bg-gold text-charcoal font-bold text-center tracking-widest rounded-lg"
               >
-                Book a Table
+                Coming Soon
               </Link>
             </div>
           </motion.div>
