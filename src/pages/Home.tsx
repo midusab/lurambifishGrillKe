@@ -19,9 +19,9 @@ export default function Home() {
   const [latestReviews, setLatestReviews] = useState<Review[]>([]);
   const [featuredDishes, setFeaturedDishes] = useState<any[]>([]);
   const [liveStats, setLiveStats] = useState<any[]>([
-    { label: 'Happy Customers', value: '2500+', icon: 'Users' },
-    { label: 'Fish Served', value: '1800+', icon: 'Fish' },
-    { label: 'Chef Awards', value: '12', icon: 'Star' }
+    { label: 'Happy Guests', value: '850+', icon: 'Users' },
+    { label: 'Fish Served', value: '1200+', icon: 'Fish' },
+    { label: 'Chef Awards', value: '4', icon: 'Star' }
   ]);
 
   useEffect(() => {
@@ -55,8 +55,8 @@ export default function Home() {
       
       // Update stats based on reviews count + high base dummy values
       setLiveStats(prev => prev.map(s => {
-        if (s.label === 'Happy Customers') return { ...s, value: `${2500 + snapshot.size * 5}+` }; 
-        if (s.label === 'Fish Served') return { ...s, value: `${1800 + snapshot.size * 8}+` };
+        if (s.label === 'Happy Guests') return { ...s, value: `${850 + snapshot.size * 2}+` }; 
+        if (s.label === 'Fish Served') return { ...s, value: `${1200 + snapshot.size * 3}+` };
         return s;
       }));
     }, (err) => {
@@ -66,7 +66,7 @@ export default function Home() {
     // Fetch total menu items for stats
     const unsubStats = onSnapshot(collection(db, 'menu'), (snap) => {
       setLiveStats(prev => prev.map(s => {
-        if (s.label === 'Chef Awards') return { ...s, value: `${Math.floor(snap.size / 2)}` };
+        if (s.label === 'Chef Awards') return { ...s, value: `${Math.max(4, Math.floor(snap.size / 4))}` };
         return s;
       }));
     });
@@ -203,7 +203,7 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="py-24 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-8">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
           {liveStats.map((stat, i) => {
             const Icon = iconMap[stat.icon];
             return (
@@ -213,7 +213,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center space-y-2 p-8 glass rounded-3xl border-charcoal/5 hover:border-gold/20 transition-colors group"
+                className="text-center space-y-2 p-10 glass rounded-3xl border-charcoal/5 hover:border-gold/20 transition-all group flex flex-col items-center justify-center min-h-[220px]"
               >
                 <div className="w-12 h-12 bg-charcoal/5 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 transition-colors">
                   <Icon className="text-gold w-6 h-6" />
