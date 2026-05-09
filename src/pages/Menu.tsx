@@ -7,6 +7,7 @@ import { cn } from '../lib/utils';
 import { Flame, Star, ShoppingBag, Plus } from 'lucide-react';
 import SEO from '../components/SEO';
 import { useToast } from '../lib/ToastContext';
+import { WHATSAPP_LINK } from '../constants';
 
 export default function Menu() {
   const { showToast } = useToast();
@@ -39,6 +40,11 @@ export default function Menu() {
   const filteredItems = items.filter(item => 
     activeCategory === 'All' ? true : item.category === activeCategory
   );
+
+  const handleOrder = (itemName: string) => {
+    const text = encodeURIComponent(`Hello Lurambi Fish Grill, I'd like to order: ${itemName}`);
+    window.open(`https://wa.me/254794532900?text=${text}`, '_blank');
+  };
 
 
   return (
@@ -156,7 +162,10 @@ export default function Menu() {
                   </div>
 
                   {/* Add to Cart Concept */}
-                  <button className="absolute bottom-4 right-4 w-12 h-12 bg-white text-charcoal rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                  <button 
+                    onClick={() => handleOrder(item.name)}
+                    className="absolute bottom-4 right-4 w-12 h-12 bg-white text-charcoal rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 cursor-pointer shadow-lg"
+                  >
                     <Plus size={20} />
                   </button>
                 </div>
@@ -198,7 +207,10 @@ export default function Menu() {
                     <span className="text-[9px] tracking-widest text-charcoal/30 font-bold">
                       Category: {item.category}
                     </span>
-                    <button className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-gold opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button 
+                      onClick={() => handleOrder(item.name)}
+                      className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-gold opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                    >
                       Quick Order <ShoppingBag size={12} />
                     </button>
                   </div>
@@ -238,7 +250,10 @@ export default function Menu() {
             <p className="text-charcoal/70 italic text-lg md:text-xl font-light">
               "Ask your server about our daily off-menu specialties sourced directly from the fishermen at first light."
             </p>
-            <button className="px-10 py-4 border border-gold/30 text-gold text-[10px] font-bold tracking-widest rounded-2xl hover:bg-gold hover:text-charcoal hover:border-gold transition-all">
+            <button 
+              onClick={() => window.open(WHATSAPP_LINK, '_blank')}
+              className="px-10 py-4 border border-gold/30 text-gold text-[10px] font-bold tracking-widest rounded-2xl hover:bg-gold hover:text-charcoal hover:border-gold transition-all cursor-pointer"
+            >
               Request Daily Special
             </button>
           </motion.div>

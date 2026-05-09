@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flame, UtensilsCrossed, Utensils, ShoppingBag, Truck, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { MenuItem } from '../types';
 import { cn } from '../lib/utils';
 import SEO from '../components/SEO';
-import { TESTIMONIALS } from '../constants';
+import { TESTIMONIALS, WHATSAPP_LINK } from '../constants';
 
 interface Review {
   id: string;
@@ -180,19 +180,16 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
           >
-            <Link 
-              to="/menu"
-              className="group relative px-10 py-5 bg-gold text-charcoal font-black text-xs tracking-widest rounded-2xl overflow-hidden transition-all hover:scale-105"
+            <button 
+              onClick={() => window.open(WHATSAPP_LINK, '_blank')}
+              className="group relative px-10 py-5 bg-gold text-charcoal font-black text-xs tracking-widest rounded-2xl overflow-hidden transition-all hover:scale-105 cursor-pointer"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Order Online <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </span>
-            </Link>
+            </button>
             <button 
-              onClick={() => {
-                showToast('Table reservation system coming soon!', 'info');
-                navigate('/contact');
-              }}
+              onClick={() => window.open(WHATSAPP_LINK, '_blank')}
               className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black text-xs tracking-widest rounded-2xl transition-all cursor-pointer"
             >
               Order Now

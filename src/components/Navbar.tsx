@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Fish } from 'lucide-react';
 import { cn } from '../lib/utils';
 import logo from '../assets/logo.png';
+import { WHATSAPP_LINK } from '../constants';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -78,10 +79,7 @@ export default function Navbar() {
             </Link>
           ))}
           <button
-            onClick={() => {
-              showToast('Table reservation system coming soon!', 'info');
-              navigate('/contact');
-            }}
+            onClick={() => window.open(WHATSAPP_LINK, '_blank')}
             className="px-6 py-2 bg-gold text-charcoal font-bold text-xs tracking-widest rounded-lg hover:bg-white transition-colors cursor-pointer"
           >
             Order Now
@@ -123,10 +121,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <button
-                onClick={() => {
-                  showToast('Table reservation system coming soon!', 'info');
-                  navigate('/contact');
-                }}
+                onClick={() => window.open(WHATSAPP_LINK, '_blank')}
                 className="w-full py-4 bg-gold text-charcoal font-bold text-center tracking-widest rounded-lg cursor-pointer"
               >
                 Order Now
