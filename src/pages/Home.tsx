@@ -8,6 +8,7 @@ import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { MenuItem } from '../types';
 import { cn } from '../lib/utils';
 import SEO from '../components/SEO';
+import { TESTIMONIALS } from '../constants';
 
 interface Review {
   id: string;
@@ -46,15 +47,35 @@ export default function Home() {
     const q = query(
       collection(db, 'reviews'), 
       where('status', '==', 'approved'),
-      orderBy('createdAt', 'desc'), 
-      limit(4)
+      limit(10)
     );
     const unsubscribeReviews = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map(doc => ({
+      let data = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       })) as Review[];
-      setLatestReviews(data);
+
+      // Client-side sort to bypass missing composite index requirement
+      data.sort((a: any, b: any) => {
+        const dateA = a.createdAt?.toMillis() || 0;
+        const dateB = b.createdAt?.toMillis() || 0;
+        return dateB - dateA;
+      });
+
+      // Limit to 4 after sorting
+      const finalReviews = data.slice(0, 4);
+      
+      // Fallback to constants if no reviews in DB
+      if (finalReviews.length === 0) {
+        setLatestReviews(TESTIMONIALS.map(t => ({
+          id: t.id,
+          userName: t.name,
+          rating: 5,
+          comment: t.content
+        })));
+      } else {
+        setLatestReviews(finalReviews);
+      }
       
       // Update stats based on reviews count + high base dummy values
       setLiveStats(prev => prev.map(s => {

@@ -70,7 +70,7 @@ export default function AdminDashboard() {
 
     // 2. Real-time Activity Stream
     const qMenu = query(collection(db, 'menu'), orderBy('updatedAt', 'desc'), limit(5));
-    const qReviews = query(collection(db, 'reviews'), orderBy('timestamp', 'desc'), limit(5));
+    const qReviews = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'), limit(5));
 
     const unsubMenu = onSnapshot(qMenu, (snapshot) => {
       const menuActs = snapshot.docs.map(doc => ({

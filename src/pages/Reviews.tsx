@@ -27,8 +27,7 @@ export default function Reviews() {
   useEffect(() => {
     const q = query(
       collection(db, 'reviews'), 
-      where('status', '==', 'approved'),
-      orderBy('createdAt', 'desc')
+      where('status', '==', 'approved')
     );
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -36,6 +35,14 @@ export default function Reviews() {
         id: doc.id,
         ...doc.data()
       })) as Review[];
+
+      // Client-side sort to bypass missing composite index requirement
+      reviewsData.sort((a: any, b: any) => {
+        const dateA = a.createdAt?.toMillis() || 0;
+        const dateB = b.createdAt?.toMillis() || 0;
+        return dateB - dateA;
+      });
+
       setReviews(reviewsData);
     }, (err) => {
       handleFirestoreError(err, OperationType.LIST, 'reviews');
