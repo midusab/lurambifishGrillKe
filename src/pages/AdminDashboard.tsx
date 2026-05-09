@@ -239,7 +239,7 @@ export default function AdminDashboard() {
           </div>
           <button 
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-3 py-4 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-xl font-bold text-xs uppercase tracking-widest transition-all border border-red-500/20 cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 py-4 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-xl font-bold text-xs tracking-widest transition-all border border-red-500/20 cursor-pointer"
           >
             <LogOut size={16} />
             Logout
@@ -273,7 +273,7 @@ export default function AdminDashboard() {
           <div className="flex flex-wrap gap-4">
             <button 
               onClick={() => navigate('/admin/menu')}
-              className="flex items-center gap-3 px-8 py-4 bg-gold text-charcoal rounded-2xl text-xs font-black uppercase tracking-widest transition-all hover:scale-105 shadow-xl shadow-gold/20 cursor-pointer"
+              className="flex items-center gap-3 px-8 py-4 bg-gold text-charcoal rounded-2xl text-xs font-black tracking-widest transition-all hover:scale-105 shadow-xl shadow-gold/20 cursor-pointer"
             >
               <UtensilsCrossed size={18} />
               Quick Add Dish
@@ -281,7 +281,7 @@ export default function AdminDashboard() {
             <a 
               href="/" 
               target="_blank"
-              className="flex items-center gap-3 px-8 py-4 bg-white text-charcoal border border-charcoal/10 rounded-2xl text-xs font-black uppercase tracking-widest transition-all hover:bg-charcoal/5 cursor-pointer"
+              className="flex items-center gap-3 px-8 py-4 bg-white text-charcoal border border-charcoal/10 rounded-2xl text-xs font-black tracking-widest transition-all hover:bg-charcoal/5 cursor-pointer"
             >
               View Site <ExternalLink size={18} />
             </a>
@@ -299,10 +299,10 @@ export default function AdminDashboard() {
                 <UtensilsCrossed size={32} />
               </div>
               <div>
-                <h3 className="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">Manage Menu</h3>
+                <h3 className="text-3xl font-display font-black text-white tracking-tight mb-2">Manage Menu</h3>
                 <p className="text-white/40 text-sm font-medium leading-relaxed max-w-[280px]">Add new dishes, update prices, and change daily specials.</p>
               </div>
-              <div className="flex items-center gap-2 text-gold text-[10px] font-black uppercase tracking-[0.2em]">
+              <div className="flex items-center gap-2 text-gold text-[10px] font-black tracking-widest">
                 Open Menu Manager <ChevronRight size={14} />
               </div>
             </div>
@@ -319,10 +319,10 @@ export default function AdminDashboard() {
                 <MessageSquare size={32} />
               </div>
               <div>
-                <h3 className="text-3xl font-display font-black text-charcoal uppercase tracking-tight mb-2">Customer Reviews</h3>
+                <h3 className="text-3xl font-display font-black text-charcoal tracking-tight mb-2">Customer Reviews</h3>
                 <p className="text-charcoal/40 text-sm font-medium leading-relaxed max-w-[280px]">See what guests are saying and manage your testimonials.</p>
               </div>
-              <div className="flex items-center gap-2 text-blue-500 text-[10px] font-black uppercase tracking-[0.2em]">
+              <div className="flex items-center gap-2 text-blue-500 text-[10px] font-black tracking-widest">
                 View All Reviews <ChevronRight size={14} />
               </div>
             </div>
@@ -339,16 +339,16 @@ export default function AdminDashboard() {
                   <Calendar size={32} />
                 </div>
                 <div>
-                  <h3 className="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">Reservation Hub</h3>
+                  <h3 className="text-3xl font-display font-black text-white tracking-tight mb-2">Reservation Hub</h3>
                   <p className="text-white/40 text-sm font-medium leading-relaxed max-w-[400px]">Manage all incoming table bookings, private events, and guest requests in real-time.</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <div className="text-right hidden md:block">
-                  <p className="text-[10px] text-white/30 uppercase font-black tracking-widest mb-1">Live Status</p>
-                  <p className="text-xl font-display font-black text-gold">ACTIVE SYSTEM</p>
+                  <p className="text-[10px] text-white/30 font-black tracking-widest mb-1">Live Status</p>
+                  <p className="text-xl font-display font-black text-gold">Active System</p>
                 </div>
-                <div className="px-8 py-4 bg-white/10 rounded-2xl text-gold text-[10px] font-black uppercase tracking-widest group-hover:bg-gold group-hover:text-charcoal transition-all">
+                <div className="px-8 py-4 bg-white/10 rounded-2xl text-gold text-[10px] font-black tracking-widest group-hover:bg-gold group-hover:text-charcoal transition-all">
                   Open Hub
                 </div>
               </div>
@@ -361,11 +361,11 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-12">
             <div className="flex justify-between items-center px-2">
-              <h3 className="text-xs font-black text-charcoal/30 uppercase tracking-[0.3em]">Restaurant Stats</h3>
+              <h3 className="text-xs font-black text-charcoal/30 tracking-widest">Restaurant Stats</h3>
               <button 
                 onClick={handleSync}
                 disabled={isSyncing}
-                className="text-[10px] font-black text-gold uppercase tracking-widest flex items-center gap-2 hover:text-charcoal transition-colors cursor-pointer"
+                className="text-[10px] font-black text-gold tracking-widest flex items-center gap-2 hover:text-charcoal transition-colors cursor-pointer"
               >
                 <RefreshCw size={12} className={isSyncing ? 'animate-spin' : ''} />
                 Refresh Data
@@ -378,7 +378,7 @@ export default function AdminDashboard() {
                   <div className={`w-10 h-10 rounded-xl bg-charcoal/5 flex items-center justify-center mb-4 ${stat.color}`}>
                     <stat.icon size={20} />
                   </div>
-                  <p className="text-[9px] text-charcoal/30 uppercase font-black tracking-widest mb-1">{stat.label}</p>
+                  <p className="text-[9px] text-charcoal/30 font-black tracking-widest mb-1">{stat.label}</p>
                   <h4 className="text-xl font-display font-black text-charcoal">{stat.value}</h4>
                 </div>
               ))}
@@ -388,7 +388,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="space-y-8">
-            <h3 className="text-xs font-black text-charcoal/30 uppercase tracking-[0.3em] px-2">Recent Updates</h3>
+            <h3 className="text-xs font-black text-charcoal/30 tracking-widest px-2">Recent Updates</h3>
             <div className="bg-white rounded-3xl border border-charcoal/5 shadow-sm overflow-hidden">
               <div className="p-8 space-y-8">
                 <AnimatePresence mode="popLayout">
@@ -407,7 +407,7 @@ export default function AdminDashboard() {
                         <p className="text-xs font-bold text-charcoal leading-tight">
                           {item.user} <span className="font-medium text-charcoal/40">{item.action}</span>
                         </p>
-                        <p className="text-[9px] text-charcoal/30 uppercase font-black mt-1.5">
+                        <p className="text-[9px] text-charcoal/30 font-black mt-1.5">
                           {new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(
                             Math.ceil((item.time.getTime() - Date.now()) / 60000), 
                             'minute'
@@ -418,7 +418,7 @@ export default function AdminDashboard() {
                   ))}
                 </AnimatePresence>
                 {activities.length === 0 && (
-                  <p className="text-center text-[10px] text-charcoal/30 font-bold uppercase tracking-widest py-4">No recent activity</p>
+                  <p className="text-center text-[10px] text-charcoal/30 font-bold tracking-widest py-4">No recent activity</p>
                 )}
               </div>
             </div>
