@@ -3,27 +3,32 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AnimatePresence, motion } from 'motion/react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Menu from './pages/Menu';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Reviews from './pages/Reviews';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminMenu from './pages/AdminMenu';
-import AdminReviews from './pages/AdminReviews';
-import AdminReservations from './pages/AdminReservations';
-import NotFound from './pages/NotFound';
 import WhatsAppButton from './components/WhatsAppButton';
 import FloatingCallButton from './components/FloatingCallButton';
 import BackToTop from './components/BackToTop';
 import CookieConsent from './components/CookieConsent';
-import { useEffect, ReactNode } from 'react';
+import { useEffect, ReactNode, lazy, Suspense } from 'react';
+import { AuthProvider, useAuth } from './lib/AuthContext';
+import { ToastProvider } from './lib/ToastContext';
+import { ADMIN_EMAIL } from './constants';
+import NotFound from './pages/NotFound';
+
+// Lazy load pages
+const Home = lazy(() => import('./pages/Home'));
+const Menu = lazy(() => import('./pages/Menu'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Reviews = lazy(() => import('./pages/Reviews'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const AdminMenu = lazy(() => import('./pages/AdminMenu'));
+const AdminReviews = lazy(() => import('./pages/AdminReviews'));
+const AdminReservations = lazy(() => import('./pages/AdminReservations'));
 import { AuthProvider, useAuth } from './lib/AuthContext';
 import { ToastProvider } from './lib/ToastContext';
 import { ADMIN_EMAIL } from './constants';
@@ -71,52 +76,58 @@ function AppContent() {
       <ScrollToTop />
       <AnimatePresence mode="wait">
         <div key={location.pathname}>
-          <Routes location={location}>
-            <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-            <Route path="/menu" element={<PageWrapper><Menu /></PageWrapper>} />
-            <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-            <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
-            <Route path="/reviews" element={<PageWrapper><Reviews /></PageWrapper>} />
-            
-            {/* Secret Admin Entry Point */}
-            <Route path="/lurambi-staff-gate" element={<AdminLogin />} />
+          <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-white">
+              <div className="w-12 h-12 border-4 border-gold/20 border-t-gold rounded-full animate-spin" />
+            </div>
+          }>
+            <Routes location={location}>
+              <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+              <Route path="/menu" element={<PageWrapper><Menu /></PageWrapper>} />
+              <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
+              <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+              <Route path="/reviews" element={<PageWrapper><Reviews /></PageWrapper>} />
+              
+              {/* Secret Admin Entry Point */}
+              <Route path="/lurambi-staff-gate" element={<AdminLogin />} />
 
-            <Route 
-              path="/admin/dashboard" 
-              element={
-                <ProtectedRoute>
-                  <PageWrapper><AdminDashboard /></PageWrapper>
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/menu" 
-              element={
-                <ProtectedRoute>
-                  <PageWrapper><AdminMenu /></PageWrapper>
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/reviews" 
-              element={
-                <ProtectedRoute>
-                  <PageWrapper><AdminReviews /></PageWrapper>
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/reservations" 
-              element={
-                <ProtectedRoute>
-                  <PageWrapper><AdminReservations /></PageWrapper>
-                </ProtectedRoute>
-              } 
-            />
+              <Route 
+                path="/admin/dashboard" 
+                element={
+                  <ProtectedRoute>
+                    <PageWrapper><AdminDashboard /></PageWrapper>
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/admin/menu" 
+                element={
+                  <ProtectedRoute>
+                    <PageWrapper><AdminMenu /></PageWrapper>
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/admin/reviews" 
+                element={
+                  <ProtectedRoute>
+                    <PageWrapper><AdminReviews /></PageWrapper>
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/admin/reservations" 
+                element={
+                  <ProtectedRoute>
+                    <PageWrapper><AdminReservations /></PageWrapper>
+                  </ProtectedRoute>
+                } 
+              />
 
-            {/* Catch-all route returns NotFound */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              {/* Catch-all route returns NotFound */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </div>
       </AnimatePresence>
       {!isAdminPage && <Footer />}

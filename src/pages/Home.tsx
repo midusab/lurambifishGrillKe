@@ -130,6 +130,7 @@ export default function Home() {
           <img 
             src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80" 
             alt="Charcoal Grill" 
+            loading="eager"
             className="w-full h-full object-cover object-center animate-subtle-zoom brightness-50"
           />
           {/* Particles/Smoke Effect Overlay */}
@@ -284,6 +285,7 @@ export default function Home() {
                 <img 
                   src={dish.image} 
                   alt={dish.name} 
+                  loading="lazy"
                   className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
                 />
                 
@@ -346,6 +348,7 @@ export default function Home() {
               <img 
                 src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=80" 
                 alt="Ambiance" 
+                loading="lazy"
                 className="w-full h-full object-cover grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
               />
             </div>

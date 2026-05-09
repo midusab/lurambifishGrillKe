@@ -89,7 +89,7 @@ export default function About() {
             className="relative order-1 lg:order-2"
           >
             <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/5">
-              <img src="https://images.unsplash.com/photo-1544124499-58912cbddaad?auto=format&fit=crop&q=80" alt="Chef at work" className="w-full h-full object-cover" />
+              <img src="https://images.unsplash.com/photo-1544124499-58912cbddaad?auto=format&fit=crop&q=80" alt="Chef at work" loading="lazy" className="w-full h-full object-cover" />
             </div>
             <motion.div 
               initial={{ scale: 0, rotate: 0 }}
