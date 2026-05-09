@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flame, UtensilsCrossed, Utensils, ShoppingBag, Truck, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useToast } from '../lib/ToastContext';
 import { collection, query, orderBy, limit, onSnapshot, where } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { MenuItem } from '../types';
@@ -16,6 +17,8 @@ interface Review {
 }
 
 export default function Home() {
+  const navigate = useNavigate();
+  const { showToast } = useToast();
   const [latestReviews, setLatestReviews] = useState<Review[]>([]);
   const [featuredDishes, setFeaturedDishes] = useState<any[]>([]);
   const [liveStats, setLiveStats] = useState<any[]>([
@@ -164,12 +167,15 @@ export default function Home() {
                 Order Online <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
-            <Link 
-              to="/contact"
-              className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black text-xs tracking-widest rounded-2xl transition-all"
+            <button 
+              onClick={() => {
+                showToast('Reservation system coming soon! Please use our inquiry form.', 'info');
+                navigate('/contact');
+              }}
+              className="px-10 py-5 glass hover:bg-charcoal/10 text-charcoal font-black text-xs tracking-widest rounded-2xl transition-all cursor-pointer"
             >
-              Coming Soon
-            </Link>
+              Book a Table
+            </button>
           </motion.div>
         </div>
 
@@ -195,8 +201,14 @@ export default function Home() {
               <span>Webuye Rd, Lurambi</span>
             </div>
           </div>
-          <button className="w-full py-3 bg-charcoal/5 hover:bg-charcoal/10 border border-charcoal/10 rounded-xl text-[10px] font-bold tracking-[0.2em] transition-colors">
-            Coming Soon
+          <button 
+            onClick={() => {
+              showToast('Reservation system coming soon! Please use our inquiry form.', 'info');
+              navigate('/contact');
+            }}
+            className="w-full py-3 bg-charcoal/5 hover:bg-charcoal/10 border border-charcoal/10 rounded-xl text-[10px] font-bold tracking-[0.2em] transition-colors cursor-pointer"
+          >
+            Book a Table
           </button>
         </motion.div>
       </section>
