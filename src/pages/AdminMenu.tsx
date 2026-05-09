@@ -131,10 +131,26 @@ export default function AdminMenu() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const name = formData.name.trim();
+    const description = formData.description.trim();
+
+    if (!name || !description) {
+      showToast('Name and description are required', 'error');
+      return;
+    }
+
+    if (formData.price < 0) {
+      showToast('Price cannot be negative', 'error');
+      return;
+    }
+
     setIsSaving(true);
     try {
       // Create a copy of data without the 'id' field for Firestore
       const { id, ...dataToSave } = formData as any;
+      dataToSave.name = name;
+      dataToSave.description = description;
       dataToSave.updatedAt = serverTimestamp();
       
       if (editingItem) {
@@ -325,6 +341,7 @@ export default function AdminMenu() {
                     <input 
                       type="text"
                       required
+                      maxLength={100}
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                       className="w-full px-4 py-3 bg-charcoal/5 border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 text-sm font-medium"
@@ -349,6 +366,7 @@ export default function AdminMenu() {
                     <input 
                       type="number"
                       required
+                      min={0}
                       value={formData.price}
                       onChange={(e) => setFormData({...formData, price: Number(e.target.value)})}
                       className="w-full px-4 py-3 bg-charcoal/5 border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 text-sm font-medium"
@@ -413,6 +431,7 @@ export default function AdminMenu() {
                   <textarea 
                     rows={3}
                     required
+                    maxLength={500}
                     value={formData.description}
                     onChange={(e) => setFormData({...formData, description: e.target.value})}
                     className="w-full px-4 py-3 bg-charcoal/5 border border-charcoal/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold/20 text-sm font-medium italic"

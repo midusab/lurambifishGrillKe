@@ -115,6 +115,7 @@ export default function Reviews() {
                   <input 
                     type="text"
                     required
+                    maxLength={100}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your name"
