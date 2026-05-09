@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Star, Quote, ChevronRight, MapPin, Phone, Users, Fish, Flame, UtensilsCrossed, Utensils, ShoppingBag, Truck, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -139,7 +139,7 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="text-5xl md:text-8xl font-display font-black leading-[0.9] tracking-tighter"
           >
-            Kakamega’s <br />
+            Kakamegaâ€™s <br />
             <span className="text-gold text-glow-gold">Premium Fish</span> Experience
           </motion.h1>
 
@@ -455,7 +455,7 @@ export default function Home() {
                     {[...Array(t.rating)].map((_, j) => <Star key={j} size={14} fill="currentColor" />)}
                   </div>
                   <p className="text-base md:text-lg font-light italic text-charcoal/90 leading-relaxed relative z-10">
-                    “{t.comment}”
+                    â€œ{t.comment}â€
                   </p>
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-full bg-charcoal/5 border-2 border-gold/20 flex items-center justify-center">
